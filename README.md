@@ -2,6 +2,8 @@
 
 这是我本人Counter-Strike系列游戏的硬件及 ```autoexec.cfg``` 配置参照。
 
+![fastfetch](./screenshot/fastfetch.png)
+
 参考信息:
 
 1. [新闻中心](https://store.steampowered.com/news/app/730)
@@ -87,6 +89,3 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 | 环境遮蔽光 | 高 |
 | 高动态范围 | 品质 |
 | Fidelity FX超级分辨率 | 已禁用(最高品质) |
-
-## 机器配置
-![fastfetch](./screenshot/fastfetch.png)
