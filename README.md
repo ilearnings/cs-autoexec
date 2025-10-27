@@ -54,7 +54,7 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 
 ## 鼠标
 
-![123](.\screenshot\mouse.png)
+![mouse](./screenshot/mouse.png)
 
 | 配置项 | 值 |
 | :--- | :--- |
@@ -89,4 +89,4 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 | Fidelity FX超级分辨率 | 已禁用(最高品质) |
 
 ## 机器配置
-![123](.\screenshot\fastfetch.png)
+![fastfetch](./screenshot/fastfetch.png)
