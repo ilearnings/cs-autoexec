@@ -54,7 +54,7 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 
 ## 鼠标
 
-[ ] 提高指针精确度(E)
+![鼠标](./screenshot/1.png)
 
 [ x ] 提高指针精确度(E)
 
@@ -89,3 +89,6 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 | 环境遮蔽光 | 高 |
 | 高动态范围 | 品质 |
 | Fidelity FX超级分辨率 | 已禁用(最高品质) |
+
+## 机器配置
+![配置](./screenshot/0.png)
