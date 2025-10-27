@@ -55,6 +55,7 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 ## 鼠标
 
 ![鼠标](./screenshot/1.png)
+![鼠标](.\screenshot\1.png)
 
 [ x ] 提高指针精确度(E)
 
