@@ -54,6 +54,8 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 
 ## 鼠标
 
+[ ] 提高指针精确度(E)
+
 | 配置项 | 值 |
 | :--- | :--- |
 | Windows | 5 (Default) |
