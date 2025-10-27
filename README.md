@@ -8,32 +8,32 @@
 
 2. [Valve开发者社区](https://developer.valvesoftware.com/wiki)
 
-3. [参考B站UP : Resound919的CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086)
+3. [参考B站UP : Resound919 的CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086)
 
 ## 食用指南
 
-1. 打开终端并复制命令 ```git clone https://github.com/ilearnings/cs-autoexec.git``` 。
-2. 将 ```cs-autoexec``` 文件夹中的 ```autoexec.cfg``` 文件复制到 ```\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg``` 目录下即可。
+1. 打开终端并复制命令 ```git clone https://github.com/ilearnings/cs-autoexec.git``` 
+2. 将 ```cs-autoexec``` 文件夹中的 ```autoexec.cfg``` 文件复制到 ```\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg``` 目录下即可
 
 ## 已取消配置
 
 ```zsh
 // 向前一步跳投
-alias "+forwardjumpaction" "+forward; +jump"// 向前一步跳投
-alias "-forwardjumpaction" "-jump; -forward"// 向前一步跳投
-alias "+throwaction" "-attack; -attack2" // 向前一步跳投
-bind "f" "+forwardjumpaction; +throwaction" // 向前一步跳投
+alias "+forwardjumpaction" "+forward; +jump"
+alias "-forwardjumpaction" "-jump; -forward"
+alias "+throwaction" "-attack; -attack2"
+bind "f" "+forwardjumpaction; +throwaction"
 
 // 大跳
-alias "+bjump" "+jump; +duck" // 大跳
-alias "-bjump" "-jump; -duck" // 大跳
-bind "SPACE" "+bjump" // 大跳
+alias "+bjump" "+jump; +duck"
+alias "-bjump" "-jump; -duck"
+bind "SPACE" "+bjump"
 
 // 原地跳投
-alias "+jumpaction" "+jump" // 原地跳投
-alias "+throwaction" "-attack; -attack2" // 原地跳投
-alias "-jumpaction" "-jump" // 原地跳投
-bind "MOUSE4" "+jumpaction; +throwaction" // 原地跳投
+alias "+jumpaction" "+jump"
+alias "+throwaction" "-attack; -attack2"
+alias "-jumpaction" "-jump"
+bind "MOUSE4" "+jumpaction; +throwaction"
 ```
 
 ## 启动项
