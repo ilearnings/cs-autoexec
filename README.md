@@ -54,10 +54,7 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 
 ## 鼠标
 
-![鼠标](./screenshot/1.png)
-![鼠标](.\screenshot\1.png)
-
-[ x ] 提高指针精确度(E)
+![123](.\screenshot\mouse.png)
 
 | 配置项 | 值 |
 | :--- | :--- |
@@ -92,4 +89,4 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 | Fidelity FX超级分辨率 | 已禁用(最高品质) |
 
 ## 机器配置
-![配置](./screenshot/0.png)
+![123](.\screenshot\fastfetch.png)
