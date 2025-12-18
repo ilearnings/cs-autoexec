@@ -1,8 +1,8 @@
 # autoexec.cfg
 
-这是我本人Counter-Strike系列游戏的硬件及 ```autoexec.cfg``` 配置参照。
+这是我本人Counter-Strike系列游戏的硬件及 ```autoexec.cfg``` 配置参照
 
-参考信息:
+> 参考信息:
 
 1. [新闻中心](https://store.steampowered.com/news/app/730)
 
