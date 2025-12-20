@@ -59,7 +59,7 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 | 配置项 | 值 |
 | :--- | :--- |
 | Windows | 5 (Default) |
-| DPI | 2000 |
+| DPI | 1600 |
 | Hz | 1000 |
 
 ## 显卡
