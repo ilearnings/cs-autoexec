@@ -4,37 +4,14 @@
 
 > 参考信息:
 
-1. [新闻中心](https://store.steampowered.com/news/app/730)
-
-2. [Valve开发者社区](https://developer.valvesoftware.com/wiki)
-
-3. [参考B站UP : Resound919 的CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086)
+- [新闻中心](https://store.steampowered.com/news/app/730)
+- [Valve开发者社区](https://developer.valvesoftware.com/wiki)
+- [参考B站UP : Resound919 的CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086)
 
 ## 食用指南
 
 1. 打开终端并复制命令 ```git clone https://github.com/ilearnings/cs-autoexec.git``` 
 2. 将 ```cs-autoexec``` 文件夹中的 ```autoexec.cfg``` 文件复制到 ```\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg``` 目录下即可
-
-## 已取消配置
-
-```zsh
-// 向前一步跳投
-alias "+forwardjumpaction" "+forward; +jump"
-alias "-forwardjumpaction" "-jump; -forward"
-alias "+throwaction" "-attack; -attack2"
-bind "f" "+forwardjumpaction; +throwaction"
-
-// 大跳
-alias "+bjump" "+jump; +duck"
-alias "-bjump" "-jump; -duck"
-bind "SPACE" "+bjump"
-
-// 原地跳投
-alias "+jumpaction" "+jump"
-alias "+throwaction" "-attack; -attack2"
-alias "-jumpaction" "-jump"
-bind "MOUSE4" "+jumpaction; +throwaction"
-```
 
 ## 启动项
 
@@ -87,3 +64,24 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 | 环境遮蔽光 | 高 |
 | 高动态范围 | 品质 |
 | Fidelity FX超级分辨率 | 已禁用(最高品质) |
+
+## 已取消配置
+
+```zsh
+// 向前一步跳投
+alias "+forwardjumpaction" "+forward; +jump"
+alias "-forwardjumpaction" "-jump; -forward"
+alias "+throwaction" "-attack; -attack2"
+bind "f" "+forwardjumpaction; +throwaction"
+
+// 大跳
+alias "+bjump" "+jump; +duck"
+alias "-bjump" "-jump; -duck"
+bind "SPACE" "+bjump"
+
+// 原地跳投
+alias "+jumpaction" "+jump"
+alias "+throwaction" "-attack; -attack2"
+alias "-jumpaction" "-jump"
+bind "MOUSE4" "+jumpaction; +throwaction"
+```
