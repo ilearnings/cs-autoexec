@@ -1,12 +1,12 @@
 # autoexec.cfg
 
-这是我本人Counter-Strike系列游戏的硬件及 ```autoexec.cfg``` 配置参照
+这是我本人 Counter-Strike 系列游戏的硬件及 ```autoexec.cfg``` 配置参照
 
 > 参考信息:
 
 - [新闻中心](https://store.steampowered.com/news/app/730)
-- [Valve开发者社区](https://developer.valvesoftware.com/wiki)
-- [参考B站UP : Resound919 的CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086)
+- [Valve 开发者社区](https://developer.valvesoftware.com/wiki)
+- [《CS2指令合集(游戏内基本设置、实用指令)》](https://www.bilibili.com/opus/919897577226240086)
 
 ## 食用指南
 
