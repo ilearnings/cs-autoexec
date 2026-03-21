@@ -6,7 +6,7 @@
 
 - [新闻中心](https://store.steampowered.com/news/app/730)
 - [Valve 开发者社区](https://developer.valvesoftware.com/wiki)
-- [《CS2指令合集(游戏内基本设置、实用指令)》](https://www.bilibili.com/opus/919897577226240086)
+- [B站 Resoundll 的专栏: CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086)
 
 ## 食用指南
 
