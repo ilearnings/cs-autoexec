@@ -84,10 +84,4 @@ alias "+jumpaction" "+jump"
 alias "+throwaction" "-attack; -attack2"
 alias "-jumpaction" "-jump"
 bind "MOUSE4" "+jumpaction; +throwaction"
-
-// 僵尸模式
-bind "F6" "cmd_dm_set; cmd_dm_bot; say 僵尸模式"
-
-alias cmd_dm_set "sv_cheats 1; jointeam t; mp_autoteambalance 0; mp_damage_headshot_only 1; mp_respawn_immunitytime 3; mp_respawnwavetime_ct 0; mp_respawnwavetime_t 0; mp_roundtime 60; mp_teammates_are_enemies 0; sv_alltalk 1; sv_deadtalk 1; sv_infinite_ammo 1; mp_restartgame 1"
-alias cmd_dm_bot "bot_kick; bot_join_team ct; bot_knives_only; bot_quota 14; bot_add"
 ```
