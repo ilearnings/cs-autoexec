@@ -6,11 +6,11 @@
 
 - [新闻中心](https://store.steampowered.com/news/app/730)
 - [Valve 开发者社区](https://developer.valvesoftware.com/wiki)
-- [B站 Resoundll 的专栏: CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086)
+- [B站 ResoundXXXL 的专栏: CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086)
 
 ## 食用指南
 
-1. 打开终端并复制命令 ```git clone https://github.com/ilearnings/cs-autoexec.git``` 
+1. 打开终端并复制命令 ```git clone https://github.com/ilearnings/cs-autoexec.git```
 2. 将 ```cs-autoexec``` 文件夹中的 ```autoexec.cfg``` 文件复制到 ```\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg``` 目录下即可
 
 ## 启动项
