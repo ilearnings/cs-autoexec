@@ -128,7 +128,7 @@ path.combo {
   font-weight: bold;
 }
 rect.key.bound {
-  fill: #4FC3F7;
+  fill: #87CEEB;
 }</style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default</text>
@@ -259,7 +259,7 @@ rect.key.bound {
 </g>
 <g transform="translate(1428, 168)" class="key bound keypos-31">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 86%">麦克风状态切换</tspan></text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 71%">麦克风状态切换</tspan></text>
 </g>
 <g transform="translate(1512, 168)" class="key keypos-32">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -331,11 +331,11 @@ rect.key.bound {
 </g>
 <g transform="translate(1092, 252)" class="key bound keypos-49">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 86%">添加原地BOT</tspan></text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 71%">添加原地BOT</tspan></text>
 </g>
 <g transform="translate(1197, 252)" class="key bound keypos-50">
 <rect rx="6" ry="6" x="-61" y="-40" width="122" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 67%">BOT站蹲切换开关</tspan></text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 62%">BOT站蹲切换…</tspan></text>
 </g>
 <g transform="translate(1344, 252)" class="key keypos-51">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -356,12 +356,12 @@ rect.key.bound {
 <g transform="translate(1722, 252)" class="key bound keypos-55">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-1.2em" style="font-size: 67%">Sawed-Off</tspan><tspan x="0" dy="1.2em" style="font-size: 67%">|</tspan><tspan x="0" dy="1.2em" style="font-size: 67%">MAG-7</tspan>
+<tspan x="0" dy="-1.2em" style="font-size: 62%">Sawed-O…</tspan><tspan x="0" dy="1.2em" style="font-size: 62%">|</tspan><tspan x="0" dy="1.2em" style="font-size: 62%">MAG-7</tspan>
 </text>
 </g>
 <g transform="translate(1806, 252)" class="key bound keypos-56">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">XM1014</text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 83%">XM1014</tspan></text>
 </g>
 <g transform="translate(1890, 294)" class="key bound keypos-57">
 <rect rx="6" ry="6" x="-40" y="-82" width="80" height="164" class="key bound"/>
@@ -393,7 +393,7 @@ rect.key.bound {
 </g>
 <g transform="translate(609, 336)" class="key bound keypos-64">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">据枪切换开关</text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 83%">据枪切换开关</tspan></text>
 </g>
 <g transform="translate(693, 336)" class="key bound keypos-65">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -456,7 +456,7 @@ rect.key.bound {
 <g transform="translate(483, 420)" class="key bound keypos-78">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.6em" style="font-size: 86%">治疗剂/</tspan><tspan x="0" dy="1.2em" style="font-size: 86%">清除烟雾弹效果</tspan>
+<tspan x="0" dy="-0.6em" style="font-size: 71%">治疗剂/</tspan><tspan x="0" dy="1.2em" style="font-size: 71%">清除烟雾弹效果</tspan>
 </text>
 </g>
 <g transform="translate(567, 420)" class="key bound keypos-79">
