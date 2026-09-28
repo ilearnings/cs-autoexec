@@ -127,9 +127,9 @@ path.combo {
 .key .legend {
   font-weight: bold;
 }
-/* 只给已绑定的按键（type=bound）加淡蓝色背景 */
+/* 已绑定按键背景：天青色 */
 rect.key.bound {
-  fill: #e8f2fc;
+  fill: #87CEEB;
 }</style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default</text>
