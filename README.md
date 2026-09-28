@@ -31,7 +31,6 @@
 
 ## 键位绑定
 
-![key-bindings](./images/key-bindings.svg)
 [![key-bindings](./images/key-bindings.svg)](https://raw.githubusercontent.com/ilearnings/cs-autoexec/main/images/key-bindings.svg)
 
 ## 鼠标
