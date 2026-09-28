@@ -29,10 +29,13 @@
 | `-tickrate 128` | 游戏采样速率 `<官匹64,非官匹128>` |
 | `+exec FILE.cfg` | 执行 `<FILE.cfg>` 文件 |
 
+## 键位绑定
+
+![key-bindings](./images/key-bindings.svg)
+
 ## 鼠标
 
-![mouse](./screenshots/mouse.png)
-![keyboard](./screenshots/keyboard.svg)
+![mouse](./images/mouse.png)
 
 | 配置项 | 值 |
 | :--- | :--- |

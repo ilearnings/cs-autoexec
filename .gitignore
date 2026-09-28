@@ -2,5 +2,5 @@
 !.gitignore
 !autoexec.cfg
 !README.md
-!screenshots/
-!screenshots/**
+!images/
+!images/**
