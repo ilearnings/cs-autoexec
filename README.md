@@ -32,6 +32,7 @@
 ## 鼠标
 
 ![mouse](./screenshots/mouse.png)
+![keyboard](./screenshots/keyboard.svg)
 
 | 配置项 | 值 |
 | :--- | :--- |
