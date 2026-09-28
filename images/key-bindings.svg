@@ -151,7 +151,7 @@ rect.key.bound {
 </g>
 <g transform="translate(462, 42)" class="key bound keypos-4">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">撤销全装备</text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 80%">撤销全装备</tspan></text>
 </g>
 <g transform="translate(588, 42)" class="key bound keypos-5">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -239,7 +239,7 @@ rect.key.bound {
 </g>
 <g transform="translate(882, 168)" class="key bound keypos-26">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">10号玩家</text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 80%">10号玩家</tspan></text>
 </g>
 <g transform="translate(966, 168)" class="key keypos-27">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -251,7 +251,7 @@ rect.key.bound {
 </g>
 <g transform="translate(1176, 168)" class="key bound keypos-29">
 <rect rx="6" ry="6" x="-82" y="-40" width="164" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">弹着点开关</text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 80%">弹着点开关</tspan></text>
 </g>
 <g transform="translate(1344, 168)" class="key keypos-30">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -259,7 +259,7 @@ rect.key.bound {
 </g>
 <g transform="translate(1428, 168)" class="key bound keypos-31">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 71%">麦克风状态切换</tspan></text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 67%">麦克风状态…</tspan></text>
 </g>
 <g transform="translate(1512, 168)" class="key keypos-32">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -327,15 +327,15 @@ rect.key.bound {
 </g>
 <g transform="translate(1008, 252)" class="key bound keypos-48">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">踢除BOT</text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 80%">踢除BOT</tspan></text>
 </g>
 <g transform="translate(1092, 252)" class="key bound keypos-49">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 71%">添加原地BOT</tspan></text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 67%">添加原地B…</tspan></text>
 </g>
 <g transform="translate(1197, 252)" class="key bound keypos-50">
 <rect rx="6" ry="6" x="-61" y="-40" width="122" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 62%">BOT站蹲切换…</tspan></text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 67%">BOT站蹲…</tspan></text>
 </g>
 <g transform="translate(1344, 252)" class="key keypos-51">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -356,12 +356,12 @@ rect.key.bound {
 <g transform="translate(1722, 252)" class="key bound keypos-55">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-1.2em" style="font-size: 62%">Sawed-O…</tspan><tspan x="0" dy="1.2em" style="font-size: 62%">|</tspan><tspan x="0" dy="1.2em" style="font-size: 62%">MAG-7</tspan>
+<tspan x="0" dy="-1.2em" style="font-size: 67%">Sawed…</tspan><tspan x="0" dy="1.2em" style="font-size: 67%">|</tspan><tspan x="0" dy="1.2em" style="font-size: 67%">MAG-7</tspan>
 </text>
 </g>
 <g transform="translate(1806, 252)" class="key bound keypos-56">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 83%">XM1014</tspan></text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 67%">XM1014</tspan></text>
 </g>
 <g transform="translate(1890, 294)" class="key bound keypos-57">
 <rect rx="6" ry="6" x="-40" y="-82" width="80" height="164" class="key bound"/>
@@ -393,7 +393,7 @@ rect.key.bound {
 </g>
 <g transform="translate(609, 336)" class="key bound keypos-64">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 83%">据枪切换开关</tspan></text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 67%">据枪切换开关</tspan></text>
 </g>
 <g transform="translate(693, 336)" class="key bound keypos-65">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -428,13 +428,13 @@ rect.key.bound {
 <g transform="translate(1722, 336)" class="key bound keypos-72">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-1.2em">Galil</tspan><tspan x="0" dy="1.2em">|</tspan><tspan x="0" dy="1.2em">FAMAS</tspan>
+<tspan x="0" dy="-1.2em" style="font-size: 80%">Galil</tspan><tspan x="0" dy="1.2em" style="font-size: 80%">|</tspan><tspan x="0" dy="1.2em" style="font-size: 80%">FAMAS</tspan>
 </text>
 </g>
 <g transform="translate(1806, 336)" class="key bound keypos-73">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-1.2em">SG553</tspan><tspan x="0" dy="1.2em">|</tspan><tspan x="0" dy="1.2em">AUG</tspan>
+<tspan x="0" dy="-1.2em" style="font-size: 80%">SG553</tspan><tspan x="0" dy="1.2em" style="font-size: 80%">|</tspan><tspan x="0" dy="1.2em" style="font-size: 80%">AUG</tspan>
 </text>
 </g>
 <g transform="translate(94, 420)" class="key bound keypos-74">
@@ -456,7 +456,7 @@ rect.key.bound {
 <g transform="translate(483, 420)" class="key bound keypos-78">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.6em" style="font-size: 71%">治疗剂/</tspan><tspan x="0" dy="1.2em" style="font-size: 71%">清除烟雾弹效果</tspan>
+<tspan x="0" dy="-0.6em" style="font-size: 67%">治疗剂/</tspan><tspan x="0" dy="1.2em" style="font-size: 67%">清除烟雾弹…</tspan>
 </text>
 </g>
 <g transform="translate(567, 420)" class="key bound keypos-79">
@@ -465,7 +465,7 @@ rect.key.bound {
 </g>
 <g transform="translate(651, 420)" class="key bound keypos-80">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">中性名切换</text>
+<text x="0" y="0" class="key bound tap"><tspan style="font-size: 80%">中性名切换</tspan></text>
 </g>
 <g transform="translate(735, 420)" class="key bound keypos-81">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -504,7 +504,7 @@ rect.key.bound {
 <g transform="translate(1806, 420)" class="key bound keypos-89">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-1.2em">MAC10</tspan><tspan x="0" dy="1.2em">|</tspan><tspan x="0" dy="1.2em">MP9</tspan>
+<tspan x="0" dy="-1.2em" style="font-size: 80%">MAC10</tspan><tspan x="0" dy="1.2em" style="font-size: 80%">|</tspan><tspan x="0" dy="1.2em" style="font-size: 80%">MP9</tspan>
 </text>
 </g>
 <g transform="translate(1890, 462)" class="key bound keypos-90">
