@@ -2,9 +2,7 @@
 
 这是本人 Counter-Strike 系列游戏的硬件及 ```autoexec.cfg``` 配置参照.
 
-[![Counter-Strike 2](https://img.shields.io/badge/Counter--Strike-2-F5A623?style=flat-square&logo=counter-strike&logoColor=white)](https://store.steampowered.com/app/730)
-
-> 参考信息:
+> 参照信息:
 
 - [新闻中心](https://store.steampowered.com/news/app/730)
 - [Valve 开发者社区](https://developer.valvesoftware.com/wiki)
@@ -13,7 +11,7 @@
 ## 食用指南
 
 1. 打开终端并复制命令: ```git clone https://github.com/ilearnings/cs-autoexec.git```
-2. 将 ```cs-autoexec\``` 文件夹中的 ```autoexec.cfg``` 文件复制到 ```\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\``` 目录下即可.
+2. 将 ```cs-autoexec\``` 文件夹中的 ```autoexec.cfg``` 文件复制到 ```\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\``` 目录下即可
 
 ## 启动项
 

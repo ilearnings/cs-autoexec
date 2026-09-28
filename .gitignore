@@ -1,5 +1,6 @@
-*
+/*
 !.gitignore
 !autoexec.cfg
 !README.md
-!screenshots/*
+!screenshots/
+!screenshots/**
