@@ -123,7 +123,10 @@ path.combo {
     visibility: hidden;
 }
 /* End Tabler Icons Cleanup */
-</style>
+
+.key .legend {
+  font-weight: bold;
+}</style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default</text>
 <g transform="translate(0, 56)">
