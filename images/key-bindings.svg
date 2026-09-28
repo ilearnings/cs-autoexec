@@ -129,7 +129,7 @@ path.combo {
 }
 /* 已绑定按键背景：天青色 */
 rect.key.bound {
-  fill: #87CEEB;
+  fill: #4FC3F7;
 }</style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default</text>
