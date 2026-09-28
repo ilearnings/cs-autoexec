@@ -33,7 +33,7 @@
 
 ## 鼠标
 
-![mouse](./screenshot/mouse.png)
+![mouse](./screenshots/mouse.png)
 
 | 配置项 | 值 |
 | :--- | :--- |
