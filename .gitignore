@@ -9,6 +9,3 @@
 !uv.lock
 !.github/
 !.github/**
-
-/keymap.yml
-/images/key-bindings.svg
