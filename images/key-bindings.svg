@@ -129,15 +129,6 @@ path.combo {
 }
 rect.key.bound {
   fill: #87CEEB;
-}
-rect.key.mouse-title {
-  fill: #f5f5f5;
-  stroke: #999;
-  stroke-dasharray: 4 3;
-}
-rect.key.mouse-title .legend {
-  font-size: 11px;
-  fill: #333;
 }</style>
 <g transform="translate(30, 0)" class="layer-https://github.com/ilearnings/cs-autoexec">
 <text x="0" y="28" class="label" id="https:github.comilearningscs-autoexec">https://github.com/ilearnings/cs-autoexec</text>
@@ -572,31 +563,27 @@ rect.key.mouse-title .legend {
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">燃烧弹</text>
 </g>
-<g transform="translate(2289, 84)" class="key mouse-title keypos-104">
-<rect rx="6" ry="6" x="-187" y="-40" width="374" height="80" class="key mouse-title"/>
-<text x="0" y="0" class="key mouse-title tap">鼠标</text>
-</g>
-<g transform="translate(2184, 189)" class="key bound keypos-105">
+<g transform="translate(2184, 189)" class="key bound keypos-104">
 <rect rx="6" ry="6" x="-82" y="-61" width="164" height="122" class="key bound"/>
 <text x="0" y="0" class="key bound tap">开火</text>
 </g>
-<g transform="translate(2394, 189)" class="key bound keypos-106">
+<g transform="translate(2394, 189)" class="key bound keypos-105">
 <rect rx="6" ry="6" x="-82" y="-61" width="164" height="122" class="key bound"/>
 <text x="0" y="0" class="key bound tap">武器模式</text>
 </g>
-<g transform="translate(2184, 332)" class="key bound keypos-107">
-<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
-<text x="0" y="0" class="key bound tap">雷达切换</text>
-</g>
-<g transform="translate(2394, 332)" class="key bound keypos-108">
-<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
-<text x="0" y="0" class="key bound tap">滚轮-跳</text>
-</g>
-<g transform="translate(2184, 466)" class="key bound keypos-109">
+<g transform="translate(2184, 332)" class="key bound keypos-106">
 <rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
 <text x="0" y="0" class="key bound tap">全装备</text>
 </g>
-<g transform="translate(2394, 466)" class="key bound keypos-110">
+<g transform="translate(2394, 332)" class="key bound keypos-107">
+<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
+<text x="0" y="0" class="key bound tap">滚轮-跳</text>
+</g>
+<g transform="translate(2184, 466)" class="key bound keypos-108">
+<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
+<text x="0" y="0" class="key bound tap">雷达切换</text>
+</g>
+<g transform="translate(2394, 466)" class="key bound keypos-109">
 <rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
 <text x="0" y="0" class="key bound tap">滚轮-跳</text>
 </g>
