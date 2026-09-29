@@ -215,7 +215,7 @@ rect.key.mouse {
 </g>
 <g transform="translate(294, 168)" class="key bound keypos-19">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">枪刺1</text>
+<text x="0" y="0" class="key bound tap">枪刺</text>
 </g>
 <g transform="translate(378, 168)" class="key bound keypos-20">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
