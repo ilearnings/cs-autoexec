@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: write
-  actions: read
 
 jobs:
   generate-keymap:
@@ -38,5 +37,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add keymap.yml images/key-bindings.svg
-          git diff --staged --quiet || git commit -m "chore: update key bindings"
-          git push
+          git diff --staged --quiet || git commit -m "chore: update key bindings [skip ci]"
+          git push || (git pull --rebase && git push)
