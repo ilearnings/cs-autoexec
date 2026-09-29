@@ -30,7 +30,9 @@ layers:
       type: bound
     - t: 枪刺
       type: bound
-    - t: 投掷物组
+    - t: '投掷物组
+
+        123'
       type: bound
     - t: C4
       type: bound
