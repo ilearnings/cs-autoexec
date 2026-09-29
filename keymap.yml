@@ -32,7 +32,9 @@ layers:
       type: bound
     - t: 投掷物组
       type: bound
-    - t: C4
+    - t: 'C412
+
+        0128'
       type: bound
     - t: 6号玩家
       type: bound
