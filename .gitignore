@@ -2,5 +2,13 @@
 !.gitignore
 !autoexec.cfg
 !README.md
+!main.py
+!config.yml
+!layout.json
+!pyproject.toml
+!uv.lock
+!keymap.yml
 !images/
 !images/**
+!.github/
+!.github/**

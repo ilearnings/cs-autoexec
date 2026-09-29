@@ -29,7 +29,7 @@
 | `-tickrate 128` | 游戏采样速率 `<官匹64,非官匹128>` |
 | `+exec FILE.cfg` | 执行 `<FILE.cfg>` 文件 |
 
-## 键位绑定
+## 按键绑定
 
 [![key-bindings](./images/key-bindings.svg)](https://raw.githubusercontent.com/ilearnings/cs-autoexec/main/images/key-bindings.svg)
 
