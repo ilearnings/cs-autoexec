@@ -30,11 +30,9 @@ layers:
       type: bound
     - t: 枪刺
       type: bound
-    - t: 投掷物组
+    - t: 投掷物组06
       type: bound
-    - t: 'C412
-
-        0128'
+    - t: C4
       type: bound
     - t: 6号玩家
       type: bound
