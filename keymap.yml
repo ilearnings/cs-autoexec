@@ -13,18 +13,12 @@ layers:
       type: bound
     - t: 僵尸模式
       type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
+    - F7
+    - F8
+    - F9
+    - F10
+    - F11
+    - F12
     - PrtSc
     - ScrLk
     - Pause
@@ -38,7 +32,7 @@ layers:
       type: bound
     - t: 投掷物组
       type: bound
-    - t: C4
+    - t: C4炸弹21
       type: bound
     - t: 6号玩家
       type: bound
@@ -48,7 +42,7 @@ layers:
       type: bound
     - t: 9号玩家
       type: bound
-    - t: 10号玩家
+    - t: 0号玩家
       type: bound
     - '-'
     - '='
@@ -79,14 +73,10 @@ layers:
       type: bound
     - t: 全局消息
       type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
+    - U
+    - I
+    - O
+    - P
     - t: 'BOT
 
         踢出'
@@ -130,12 +120,9 @@ layers:
       type: bound
     - t: 据枪切换开关
       type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
-    - t: 未绑定
-      type: bound
+    - J
+    - K
+    - L
     - t: 暂停
       type: bound
     - t: 解除暂停
@@ -174,8 +161,7 @@ layers:
       type: bound
     - ','
     - .
-    - t: 未绑定
-      type: bound
+    - /
     - R Shift
     - ↑
     - t: P250
@@ -197,8 +183,7 @@ layers:
   - - t: 下蹲
       type: bound
     - Win
-    - t: 未绑定
-      type: bound
+    - Alt
     - t: 跳跃
       type: bound
     - R Alt
