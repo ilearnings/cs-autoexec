@@ -1,4 +1,4 @@
-<svg width="2538" height="658" viewBox="0 0 2538 658" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="2748" height="658" viewBox="0 0 2748 658" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <style>/* inherit to force styles through use tags */
 svg path {
     fill: inherit;
@@ -563,27 +563,31 @@ rect.key.bound {
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">燃烧弹</text>
 </g>
-<g transform="translate(2184, 189)" class="key bound keypos-104">
-<rect rx="6" ry="6" x="-82" y="-61" width="164" height="122" class="key bound"/>
+<g transform="translate(2184, 185)" class="key bound keypos-104">
+<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
 <text x="0" y="0" class="key bound tap">开火</text>
 </g>
-<g transform="translate(2394, 189)" class="key bound keypos-105">
-<rect rx="6" ry="6" x="-82" y="-61" width="164" height="122" class="key bound"/>
-<text x="0" y="0" class="key bound tap">武器模式</text>
-</g>
-<g transform="translate(2184, 332)" class="key bound keypos-106">
-<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
-<text x="0" y="0" class="key bound tap">全装备</text>
-</g>
-<g transform="translate(2394, 332)" class="key bound keypos-107">
+<g transform="translate(2394, 185)" class="key bound keypos-105">
 <rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
 <text x="0" y="0" class="key bound tap">滚轮-跳</text>
 </g>
-<g transform="translate(2184, 466)" class="key bound keypos-108">
+<g transform="translate(2604, 185)" class="key bound keypos-106">
+<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
+<text x="0" y="0" class="key bound tap">武器模式</text>
+</g>
+<g transform="translate(2184, 319)" class="key bound keypos-107">
+<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
+<text x="0" y="0" class="key bound tap">全装备</text>
+</g>
+<g transform="translate(2394, 319)" class="key bound keypos-108">
+<rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
+<text x="0" y="0" class="key bound tap">飞行/标记</text>
+</g>
+<g transform="translate(2184, 454)" class="key bound keypos-109">
 <rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
 <text x="0" y="0" class="key bound tap">雷达切换</text>
 </g>
-<g transform="translate(2394, 466)" class="key bound keypos-109">
+<g transform="translate(2394, 454)" class="key bound keypos-110">
 <rect rx="6" ry="6" x="-82" y="-57" width="164" height="114" class="key bound"/>
 <text x="0" y="0" class="key bound tap">滚轮-跳</text>
 </g>
