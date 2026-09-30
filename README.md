@@ -107,36 +107,42 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 ## 克隆仓库
 
 ```zsh
-git clone <https://github.com/ilearnings/cs-autoexec.git>
+git clone https://github.com/ilearnings/cs-autoexec.git
 cd cs-autoexec
 ```
 
 ## 建立本地环境
 
 ```zsh
-uv sync
+uv sync --project keymap
 ```
 
-这一步会：
+这一步会 :
 
-- 创建 `.venv/` 虚拟环境
-- 根据 `pyproject.toml` 和 `uv.lock` 安装依赖 (pyyaml、types-pyyaml)
+- 在 `keymap/` 下创建虚拟环境
+- 根据 `keymap/pyproject.toml` 和 `keymap/uv.lock` 安装依赖
+- 依赖包括 `pyyaml` 和 `types-pyyaml`
 
-`uv sync` 只在首次或依赖变更后需要执行
+`uv sync --project keymap` 只在首次或依赖变更后需要执行
 
 ## 本地生成
 
-手动跑两步,生成中间文件和图片:
+手动跑两步, 生成中间文件和图片 :
 
 ```zsh
-uv run python main.py
-uv tool run --from keymap-drawer keymap -c config.yml draw keymap.yml -j layout.json -o images/key-bindings.svg
+uv run --project keymap python keymap/main.py
+
+uv tool run --from keymap-drawer keymap \
+  -c keymap/config.yml \
+  draw keymap/keymap.yml \
+  -j keymap/layout.json \
+  -o images/key-bindings.svg
 ```
 
-生成结果：
+生成结果 :
 
-- `keymap.yml` 从 `autoexec.cfg` 提取的标签映射
-- `images/key-bindings.svg` 渲染出的按键图
+- `keymap/keymap.yml` : 从 `autoexec.cfg` 提取的标签映射
+- `images/key-bindings.svg` : 渲染出的按键图
 
 ## 本地预览
 
@@ -144,21 +150,47 @@ uv tool run --from keymap-drawer keymap -c config.yml draw keymap.yml -j layout.
 
 ## 修改内容
 
-主要修改 `autoexec.cfg` 规则:
+主要修改 `autoexec.cfg` 规则 :
 
 - 只处理 `bind` 开头的行
-- 用 `^...^` 标记按键标签，例如:
+- 用 `^...^` 标记按键标签, 例如 :
 
 ```zsh
-bind "w" "+forward" // ^前进^
+bind "a" "+forward" // ^左移^
 ```
 
-- 没有 `^...^` 的键会显示键名(灰色)
-- 特殊换行规则:
-  - 含 ` / ` → 上下两行
-  - 含 `/` → 上下两行
-  - 中文 `-` 连接 → 上下两行
-  - `BOT` 开头 → 前缀单独一行
+- 没有 `^...^` 的键会显示键名 (灰色)
+
+## 标签换行规则
+
+`main.py` 按以下优先级依次尝试拆分标签, 谁先命中谁生效:
+
+| 顺序 | 规则 | 示例 | 结果 |
+| :--- | :--- | :--- | :--- |
+| 1 | 标签已含 `\n` | `A\nB` | 原样返回 |
+| 2 | 含 `/` | `AK47 / M4系列` | `AK47` / `M4系列` 两行 |
+| 3 | 含中文 `-` | `滚轮-跳` | `滚轮` / `跳` 两行 |
+| 4 | `BOT` / `R Shift` 等前缀 | `BOT原地添加` | `BOT` / `原地添加` 两行 |
+| 5 | 纯中文 (含数字) | `中性名切换` | `中性名` / `切换` 两行 |
+| 6 | 长度 > 6 | `ABCDEFG` | `ABCD` / `EFG` 两行 |
+| 7 | 以上都不命中 | `AK47` | 原样返回 |
+
+### 纯中文拆分细则
+
+对纯中文 (含数字) 标签, 按字数拆 :
+
+- 3 字及以下 : 不拆
+- 偶数长度 : 上下均匀 (4 字 → 2/2, 6 字 → 3/3, 8 字 → 4/4)
+- 奇数长度 : 上排最多 3 字 (5 字 → 3/2, 7 字 → 3/4)
+
+### 超长标签警告
+
+纯中文 (含数字) 标签超过 **8 字** 时, `main.py` 会打印警告 :
+
+- 本地运行 : 终端显示 `⚠️  警告: ...`
+- GitHub Actions : 显示在运行页顶部的 **Annotations** 区域
+
+建议拆分或缩短, 避免渲染时被 keymap-drawer 二次折行
 
 ## 提交并推送
 
@@ -170,7 +202,7 @@ git push
 
 推送后 GitHub Actions 会自动:
 
-1. 运行 `main.py` 生成 `keymap.yml`
+1. 运行 `keymap/main.py` 生成 `keymap/keymap.yml`
 2. 运行 keymap-drawer 生成 SVG
 3. 提交回仓库
 
@@ -178,31 +210,35 @@ git push
 
 ## 触发条件
 
-Actions 只在以下情况触发:
+Actions 只在以下情况触发 :
 
 - 推送到 `main` 分支
-- 改动包含 `autoexec.cfg`
+- 改动包含以下任一文件:
+  - `autoexec.cfg`
+  - `keymap/config.yml`
+  - `keymap/layout.json`
 
-改 README、脚本、配置不会触发
+改 README, `main.py` 等其他文件不会触发
 
 ## 手动触发一次
 
-如果想让 Actions 立刻跑一次,在 GitHub 网页上编辑 `autoexec.cfg`,随便改一个 `^...^` 标签并 commit 即可
+如果想让 Actions 立刻跑一次, 在 GitHub 网页上编辑 `autoexec.cfg`, 随便改一个 `^...^` 标签并 commit 即可
 
 ## 目录结构
 
 ```zsh
-    cs-autoexec/
-    ├── .github/workflows/main.yml    # Actions 配置
-    ├── images/key-bindings.svg       # 自动生成的图片
-    ├── autoexec.cfg                  # 源配置（主要修改对象）
-    ├── config.yml                    # keymap-drawer 渲染配置
-    ├── keymap.yml                    # 自动生成的中间文件
-    ├── layout.json                   # 键盘物理布局
-    ├── main.py                       # 解析脚本
-    ├── pyproject.toml                # 项目依赖声明
-    ├── uv.lock                       # 依赖锁定文件
-    └── README.md
+cs-autoexec/
+├── .github/workflows/main.yml    # Actions 配置
+├── images/key-bindings.svg       # 自动生成的图片
+├── autoexec.cfg                  # 源配置 (主要修改对象)
+├── README.md
+└── keymap/
+    ├── main.py                   # 解析脚本
+    ├── config.yml                # keymap-drawer 渲染配置
+    ├── layout.json               # 键盘物理布局
+    ├── pyproject.toml            # 项目依赖声明
+    ├── uv.lock                   # 依赖锁定文件
+    └── keymap.yml                # 自动生成的中间文件
 ```
 
 ## 文件职责
@@ -210,10 +246,10 @@ Actions 只在以下情况触发:
 | 文件 | 说明 | 手动维护 |
 | --- | --- | --- |
 | `autoexec.cfg` | 源配置 | ✅ |
-| `main.py` | 解析脚本 | ✅ |
-| `config.yml` | 渲染配置 | ✅ |
-| `layout.json` | 键盘布局 | ✅ |
-| `pyproject.toml` | 依赖声明 | ✅ |
-| `uv.lock` | 依赖锁定 | 自动 |
-| `keymap.yml` | 中间产物 | 自动 |
+| `keymap/main.py` | 解析脚本 | ✅ |
+| `keymap/config.yml` | 渲染配置 | ✅ |
+| `keymap/layout.json` | 键盘布局 | ✅ |
+| `keymap/pyproject.toml` | 依赖声明 | ✅ |
+| `keymap/uv.lock` | 依赖锁定 | 自动 |
+| `keymap/keymap.yml` | 中间产物 | 自动 |
 | `images/key-bindings.svg` | 最终图片 | 自动 |
