@@ -119,17 +119,14 @@ def is_cjk(ch: str) -> bool:
 
 
 def is_cjk_label_char(ch: str) -> bool:
-    """判断字符是否可参与中文标签排版 (汉字或数字)."""
     return is_cjk(ch) or ch.isdigit()
 
 
 def is_cjk_like(text: str) -> bool:
-    """判断文本是否由汉字和数字组成, 可参与中文标签排版."""
     return bool(text) and all(is_cjk_label_char(ch) for ch in text)
 
 
 def split_cjk_label(label: str) -> str | None:
-    """按中文排版规则拆分标签: 偶数均分, 奇数上排最多 3 字, ≤3 字不拆."""
     if not is_cjk_like(label):
         return None
     n = len(label)
