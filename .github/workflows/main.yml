@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "autoexec.cfg"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -33,6 +34,9 @@ jobs:
         run: |
           mkdir -p images
           uv tool run --from keymap-drawer keymap -c keymap/config.yml draw keymap/keymap.yml -j keymap/layout.json -o images/key-bindings.svg
+
+      - name: Add timestamp to SVG
+        run: uv run --project keymap python keymap/timestamp.py
 
       - name: Commit generated files
         run: |
