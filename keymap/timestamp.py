@@ -15,8 +15,8 @@ TZ: ZoneInfo = ZoneInfo("Asia/Shanghai")
 META_ID: str = "svg-meta"
 FONT_SIZE: int = 12
 LINE_HEIGHT: int = 14
-TOP_Y: int = 20
-MARGIN: int = 10
+TOP_Y: int = 40
+MARGIN: int = 30
 
 META_RE: re.Pattern[str] = re.compile(
     rf'<g id="{META_ID}">.*?</g>', re.DOTALL,
@@ -57,7 +57,7 @@ def build_group(lines: MetadataLines, width: float | None) -> str:
     y = TOP_Y
     for line in lines:
         texts.append(
-            f'<text x="{x}" y="{y}" text-anchor="end" '
+            f'<text x="{x}" y="{y}" style="text-anchor:end" '
             f'font-size="{FONT_SIZE}" font-weight="bold" fill="#000000" '
             f'font-family="monospace">{line}</text>'
         )
