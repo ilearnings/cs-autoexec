@@ -1,6 +1,6 @@
 draw_config:
-  key_w: 90
-  key_h: 84
+  key_w: 108
+  key_h: 100.8
   append_colon_to_layer_header: false
   key_font: "Microsoft YaHei, Noto Sans CJK SC, sans-serif"
   key_font_size: 8
