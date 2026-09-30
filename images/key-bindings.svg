@@ -151,19 +151,27 @@ rect.key.mouse {
 </g>
 <g transform="translate(378, 42)" class="key bound keypos-3">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">绑定说明</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">绑定</tspan><tspan x="0" dy="1.3em">说明</tspan>
+</text>
 </g>
 <g transform="translate(462, 42)" class="key bound keypos-4">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">撤销所有</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">撤销</tspan><tspan x="0" dy="1.3em">所有</tspan>
+</text>
 </g>
 <g transform="translate(588, 42)" class="key bound keypos-5">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">跑图模式</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">跑图</tspan><tspan x="0" dy="1.3em">模式</tspan>
+</text>
 </g>
 <g transform="translate(672, 42)" class="key bound keypos-6">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">僵尸模式</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">僵尸</tspan><tspan x="0" dy="1.3em">模式</tspan>
+</text>
 </g>
 <g transform="translate(756, 42)" class="key keypos-7">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -203,7 +211,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(42, 168)" class="key bound keypos-16">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">命令行窗口</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">命令行</tspan><tspan x="0" dy="1.3em">窗口</tspan>
+</text>
 </g>
 <g transform="translate(126, 168)" class="key bound keypos-17">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -219,7 +229,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(378, 168)" class="key bound keypos-20">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">投掷物组</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">投掷</tspan><tspan x="0" dy="1.3em">物组</tspan>
+</text>
 </g>
 <g transform="translate(462, 168)" class="key bound keypos-21">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -255,7 +267,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(1176, 168)" class="key bound keypos-29">
 <rect rx="6" ry="6" x="-82" y="-40" width="164" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">弹着点切换</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">弹着点</tspan><tspan x="0" dy="1.3em">切换</tspan>
+</text>
 </g>
 <g transform="translate(1344, 168)" class="key keypos-30">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -263,7 +277,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(1428, 168)" class="key bound keypos-31">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">麦克风切换</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">麦克风</tspan><tspan x="0" dy="1.3em">切换</tspan>
+</text>
 </g>
 <g transform="translate(1512, 168)" class="key keypos-32">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -291,7 +307,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(168, 252)" class="key bound keypos-38">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">快速切换</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">快速</tspan><tspan x="0" dy="1.3em">切换</tspan>
+</text>
 </g>
 <g transform="translate(252, 252)" class="key bound keypos-39">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -303,15 +321,21 @@ rect.key.mouse {
 </g>
 <g transform="translate(420, 252)" class="key bound keypos-41">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">弹药装填</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">弹药</tspan><tspan x="0" dy="1.3em">装填</tspan>
+</text>
 </g>
 <g transform="translate(504, 252)" class="key bound keypos-42">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">道具重投</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">道具</tspan><tspan x="0" dy="1.3em">重投</tspan>
+</text>
 </g>
 <g transform="translate(588, 252)" class="key bound keypos-43">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">全局消息</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">全局</tspan><tspan x="0" dy="1.3em">消息</tspan>
+</text>
 </g>
 <g transform="translate(672, 252)" class="key keypos-44">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -366,7 +390,7 @@ rect.key.mouse {
 <g transform="translate(1722, 252)" class="key bound keypos-55">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-1.3em">Sawed</tspan><tspan x="0" dy="1.3em">-Off</tspan><tspan x="0" dy="1.3em">MAG-7</tspan>
+<tspan x="0" dy="-0.65em">截短</tspan><tspan x="0" dy="1.3em">MAG7</tspan>
 </text>
 </g>
 <g transform="translate(1806, 252)" class="key bound keypos-56">
@@ -381,7 +405,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(74, 336)" class="key bound keypos-58">
 <rect rx="6" ry="6" x="-72" y="-40" width="143" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">按键语音</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">按键</tspan><tspan x="0" dy="1.3em">语音</tspan>
+</text>
 </g>
 <g transform="translate(189, 336)" class="key bound keypos-59">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -405,7 +431,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(609, 336)" class="key bound keypos-64">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap"><tspan style="font-size: 83%">据枪切换开关</tspan></text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">据枪切</tspan><tspan x="0" dy="1.3em">换开关</tspan>
+</text>
 </g>
 <g transform="translate(693, 336)" class="key keypos-65">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -425,16 +453,20 @@ rect.key.mouse {
 </g>
 <g transform="translate(1029, 336)" class="key bound keypos-69">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">解除暂停</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">解除</tspan><tspan x="0" dy="1.3em">暂停</tspan>
+</text>
 </g>
 <g transform="translate(1166, 336)" class="key bound keypos-70">
 <rect rx="6" ry="6" x="-92" y="-40" width="185" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">队伍消息</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">队伍</tspan><tspan x="0" dy="1.3em">消息</tspan>
+</text>
 </g>
 <g transform="translate(1638, 336)" class="key bound keypos-71">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">AK47</tspan><tspan x="0" dy="1.3em">M4AX</tspan>
+<tspan x="0" dy="-0.65em">AK47</tspan><tspan x="0" dy="1.3em">M4系列</tspan>
 </text>
 </g>
 <g transform="translate(1722, 336)" class="key bound keypos-72">
@@ -473,15 +505,21 @@ rect.key.mouse {
 </g>
 <g transform="translate(567, 420)" class="key bound keypos-79">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">购买菜单</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">购买</tspan><tspan x="0" dy="1.3em">菜单</tspan>
+</text>
 </g>
 <g transform="translate(651, 420)" class="key bound keypos-80">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">中性名切换</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">中性名</tspan><tspan x="0" dy="1.3em">切换</tspan>
+</text>
 </g>
 <g transform="translate(735, 420)" class="key bound keypos-81">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">队伍菜单</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">队伍</tspan><tspan x="0" dy="1.3em">菜单</tspan>
+</text>
 </g>
 <g transform="translate(819, 420)" class="key keypos-82">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -597,7 +635,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(2310, 168)" class="key mouse keypos-106">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key mouse"/>
-<text x="0" y="0" class="key mouse tap">武器模式</text>
+<text x="0" y="0" class="key mouse tap">
+<tspan x="0" dy="-0.65em">武器</tspan><tspan x="0" dy="1.3em">模式</tspan>
+</text>
 </g>
 <g transform="translate(2142, 252)" class="key mouse keypos-107">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key mouse"/>
@@ -611,7 +651,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(2142, 336)" class="key mouse keypos-109">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key mouse"/>
-<text x="0" y="0" class="key mouse tap">雷达切换</text>
+<text x="0" y="0" class="key mouse tap">
+<tspan x="0" dy="-0.65em">雷达</tspan><tspan x="0" dy="1.3em">切换</tspan>
+</text>
 </g>
 <g transform="translate(2226, 336)" class="key mouse keypos-110">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key mouse"/>
