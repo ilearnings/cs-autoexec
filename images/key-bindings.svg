@@ -239,23 +239,33 @@ rect.key.mouse {
 </g>
 <g transform="translate(546, 168)" class="key bound keypos-22">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">6号玩家</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">6号</tspan><tspan x="0" dy="1.3em">玩家</tspan>
+</text>
 </g>
 <g transform="translate(630, 168)" class="key bound keypos-23">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">7号玩家</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">7号</tspan><tspan x="0" dy="1.3em">玩家</tspan>
+</text>
 </g>
 <g transform="translate(714, 168)" class="key bound keypos-24">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">8号玩家</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">8号</tspan><tspan x="0" dy="1.3em">玩家</tspan>
+</text>
 </g>
 <g transform="translate(798, 168)" class="key bound keypos-25">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">9号玩家</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">9号</tspan><tspan x="0" dy="1.3em">玩家</tspan>
+</text>
 </g>
 <g transform="translate(882, 168)" class="key bound keypos-26">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">0号玩家</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">0号</tspan><tspan x="0" dy="1.3em">玩家</tspan>
+</text>
 </g>
 <g transform="translate(966, 168)" class="key keypos-27">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -432,7 +442,7 @@ rect.key.mouse {
 <g transform="translate(609, 336)" class="key bound keypos-64">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">据枪切</tspan><tspan x="0" dy="1.3em">换开关</tspan>
+<tspan x="0" dy="-0.65em">据枪</tspan><tspan x="0" dy="1.3em">切换</tspan>
 </text>
 </g>
 <g transform="translate(693, 336)" class="key keypos-65">
