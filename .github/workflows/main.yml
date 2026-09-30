@@ -1,4 +1,4 @@
-name: Update Key Bindings
+name: Update key bindings
 
 on:
   push:
