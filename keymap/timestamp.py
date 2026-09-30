@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import re
-import subprocess
 from datetime import datetime
 from pathlib import Path
 from typing import Final
@@ -36,27 +35,10 @@ def warn(message: str) -> None:
         print(f"⚠️  警告: {message}")
 
 
-def get_commit_hash() -> str | None:
-    sha = os.environ.get("GITHUB_SHA")
-    if sha:
-        return sha[:7]
-    try:
-        result = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
-            capture_output=True, text=True, check=True, cwd=_HERE.parent,
-        )
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        warn("未能获取 commit 哈希, 仅写入时间戳.")
-        return None
-    return result.stdout.strip() or None
-
-
 def collect_metadata() -> MetadataLines:
-    lines = [datetime.now(TZ).strftime("%Y-%m-%d %H:%M:%S")]
-    sha = get_commit_hash()
-    if sha:
-        lines.append(f"commit {sha}")
-    return lines
+    now = datetime.now(TZ)
+    stamp = now.strftime("%Y-%m-%d %H:%M:%S")
+    return [f"{stamp} UTC{now.strftime('%z')[:3]}:{now.strftime('%z')[3:]}"]
 
 
 def get_width(svg: str) -> float | None:
@@ -84,7 +66,7 @@ def build_group(lines: MetadataLines, width: float | None) -> str:
     for line in lines:
         texts.append(
             f'<text x="{x}" y="{y}" text-anchor="end" '
-            f'font-size="{FONT_SIZE}" fill="#888" '
+            f'font-size="{FONT_SIZE}" font-weight="bold" fill="#888" '
             f'font-family="monospace">{line}</text>'
         )
         y += LINE_HEIGHT
