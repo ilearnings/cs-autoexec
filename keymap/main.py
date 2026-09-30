@@ -150,7 +150,7 @@ def split_label(
     if "\n" in label:
         return label
     if "/" in label:
-        return label.replace(" / ", "\n").replace("/", "\n")
+        return "/\n".join(part.strip() for part in label.split("/"))
     if "-" in label:
         a, _, b = label.partition("-")
         if a and b and is_cjk(a[-1]) and is_cjk(b[0]):
