@@ -215,8 +215,6 @@ Actions 只在以下情况触发:
 - 推送到 `main` 分支
 - 改动包含以下任一文件:
   - `autoexec.cfg`
-  - `keymap/config.yml`
-  - `keymap/layout.json`
 
 改 README, `main.py` 等其他文件不会触发
 

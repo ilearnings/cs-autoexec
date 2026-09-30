@@ -5,8 +5,6 @@ on:
     branches: [main]
     paths:
       - "autoexec.cfg"
-      - "keymap/config.yml"
-      - "keymap/layout.json"
 
 permissions:
   contents: write
