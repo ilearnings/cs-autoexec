@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 import re
 from datetime import datetime
 from pathlib import Path
@@ -25,20 +24,13 @@ META_RE: re.Pattern[str] = re.compile(
 VIEWBOX_RE: re.Pattern[str] = re.compile(r'viewBox="([^"]+)"')
 WIDTH_RE: re.Pattern[str] = re.compile(r'width="([\d.]+)')
 
-IS_CI: bool = os.environ.get("GITHUB_ACTIONS") == "true"
-
-
-def warn(message: str) -> None:
-    if IS_CI:
-        print(f"::warning::{message}")
-    else:
-        print(f"⚠️  警告: {message}")
-
 
 def collect_metadata() -> MetadataLines:
     now = datetime.now(TZ)
     stamp = now.strftime("%Y-%m-%d %H:%M:%S")
-    return [f"{stamp} UTC{now.strftime('%z')[:3]}:{now.strftime('%z')[3:]}"]
+    offset = now.strftime("%z")
+    tz_str = f"UTC{offset[:3]}:{offset[3:]}"
+    return [f"{stamp} {tz_str}"]
 
 
 def get_width(svg: str) -> float | None:
@@ -66,7 +58,7 @@ def build_group(lines: MetadataLines, width: float | None) -> str:
     for line in lines:
         texts.append(
             f'<text x="{x}" y="{y}" text-anchor="end" '
-            f'font-size="{FONT_SIZE}" font-weight="bold" fill="#888" '
+            f'font-size="{FONT_SIZE}" font-weight="bold" fill="#000000" '
             f'font-family="monospace">{line}</text>'
         )
         y += LINE_HEIGHT
@@ -76,12 +68,9 @@ def build_group(lines: MetadataLines, width: float | None) -> str:
 def add_metadata(svg_path: str | Path = DEFAULT_SVG) -> MetadataLines:
     path = Path(svg_path)
     svg = path.read_text(encoding="utf-8")
-
     svg = META_RE.sub("", svg)
-
     lines = collect_metadata()
     group = build_group(lines, get_width(svg))
-
     svg = svg.replace("</svg>", group + "\n</svg>")
     path.write_text(svg, encoding="utf-8")
     return lines
