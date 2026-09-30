@@ -96,28 +96,28 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 
 ## 开发指南
 
-本地开发环境.
+本地开发环境
 
-## 前置要求
+### 前置要求
 
 - Linux / Windows
 - Git
 - uv
 
-## 克隆仓库
+### 克隆仓库
 
 ```zsh
 git clone https://github.com/ilearnings/cs-autoexec.git
 cd cs-autoexec
 ```
 
-## 建立本地环境
+### 建立本地环境
 
 ```zsh
 uv sync --project keymap
 ```
 
-这一步会 :
+这一步会:
 
 - 在 `keymap/` 下创建虚拟环境
 - 根据 `keymap/pyproject.toml` 和 `keymap/uv.lock` 安装依赖
@@ -125,9 +125,9 @@ uv sync --project keymap
 
 `uv sync --project keymap` 只在首次或依赖变更后需要执行
 
-## 本地生成
+### 本地生成
 
-手动跑两步, 生成中间文件和图片 :
+手动跑两步, 生成中间文件和图片:
 
 ```zsh
 uv run --project keymap python keymap/main.py
@@ -139,21 +139,21 @@ uv tool run --from keymap-drawer keymap \
   -o images/key-bindings.svg
 ```
 
-生成结果 :
+生成结果:
 
-- `keymap/keymap.yml` : 从 `autoexec.cfg` 提取的标签映射
-- `images/key-bindings.svg` : 渲染出的按键图
+- `keymap/keymap.yml`: 从 `autoexec.cfg` 提取的标签映射
+- `images/key-bindings.svg`: 渲染出的按键图
 
-## 本地预览
+### 本地预览
 
 浏览器打开 `images/key-bindings.svg` 查看效果
 
-## 修改内容
+### 修改内容
 
-主要修改 `autoexec.cfg` 规则 :
+主要修改 `autoexec.cfg` 规则:
 
 - 只处理 `bind` 开头的行
-- 用 `^...^` 标记按键标签, 例如 :
+- 用 `^...^` 标记按键标签, 例如:
 
 ```zsh
 bind "a" "+forward" // ^左移^
@@ -161,7 +161,7 @@ bind "a" "+forward" // ^左移^
 
 - 没有 `^...^` 的键会显示键名 (灰色)
 
-## 标签换行规则
+### 标签换行规则
 
 `main.py` 按以下优先级依次尝试拆分标签, 谁先命中谁生效:
 
@@ -175,24 +175,24 @@ bind "a" "+forward" // ^左移^
 | 6 | 长度 > 6 | `ABCDEFG` | `ABCD` / `EFG` 两行 |
 | 7 | 以上都不命中 | `AK47` | 原样返回 |
 
-### 纯中文拆分细则
+#### 纯中文拆分细则
 
-对纯中文 (含数字) 标签, 按字数拆 :
+对纯中文 (含数字) 标签, 按字数拆:
 
-- 3 字及以下 : 不拆
-- 偶数长度 : 上下均匀 (4 字 → 2/2, 6 字 → 3/3, 8 字 → 4/4)
-- 奇数长度 : 上排最多 3 字 (5 字 → 3/2, 7 字 → 3/4)
+- 3 字及以下: 不拆
+- 偶数长度: 上下均匀 (4 字 → 2/2, 6 字 → 3/3, 8 字 → 4/4)
+- 奇数长度: 上排最多 3 字 (5 字 → 3/2, 7 字 → 3/4)
 
-### 超长标签警告
+#### 超长标签警告
 
-纯中文 (含数字) 标签超过 **8 字** 时, `main.py` 会打印警告 :
+纯中文 (含数字) 标签超过 **8 字** 时, `main.py` 会打印警告:
 
-- 本地运行 : 终端显示 `⚠️  警告: ...`
-- GitHub Actions : 显示在运行页顶部的 **Annotations** 区域
+- 本地运行: 终端显示 `⚠️  警告: ...`
+- GitHub Actions: 显示在运行页顶部的 **Annotations** 区域
 
 建议拆分或缩短, 避免渲染时被 keymap-drawer 二次折行
 
-## 提交并推送
+### 提交并推送
 
 ```zsh
 git add .
@@ -206,11 +206,11 @@ git push
 2. 运行 keymap-drawer 生成 SVG
 3. 提交回仓库
 
-不需要在本地再跑生成命令.
+不需要在本地再跑生成命令
 
-## 触发条件
+### 触发条件
 
-Actions 只在以下情况触发 :
+Actions 只在以下情况触发:
 
 - 推送到 `main` 分支
 - 改动包含以下任一文件:
@@ -220,17 +220,17 @@ Actions 只在以下情况触发 :
 
 改 README, `main.py` 等其他文件不会触发
 
-## 手动触发一次
+### 手动触发一次
 
 如果想让 Actions 立刻跑一次, 在 GitHub 网页上编辑 `autoexec.cfg`, 随便改一个 `^...^` 标签并 commit 即可
 
-## 目录结构
+### 目录结构
 
 ```zsh
 cs-autoexec/
 ├── .github/workflows/main.yml    # Actions 配置
 ├── images/key-bindings.svg       # 自动生成的图片
-├── autoexec.cfg                  # 源配置 (主要修改对象)
+├── autoexec.cfg                  # 源配置
 ├── README.md
 └── keymap/
     ├── main.py                   # 解析脚本
@@ -241,7 +241,7 @@ cs-autoexec/
     └── keymap.yml                # 自动生成的中间文件
 ```
 
-## 文件职责
+### 文件职责
 
 | 文件 | 说明 | 手动维护 |
 | --- | --- | --- |
