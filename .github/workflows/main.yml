@@ -24,13 +24,15 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv sync
+        run: uv sync --project keymap
 
       - name: Generate keymap.yml
-        run: uv run python main.py
+        run: uv run --project keymap python keymap/main.py
 
       - name: Render key bindings SVG
-        run: uv tool run --from keymap-drawer keymap -c config.yml draw keymap.yml -j layout.json -o images/key-bindings.svg
+        run: |
+          mkdir -p images
+          uv tool run --from keymap-drawer keymap -c keymap/config.yml draw keymap/keymap.yml -j keymap/layout.json -o images/key-bindings.svg
 
       - name: Commit generated files
         run: |

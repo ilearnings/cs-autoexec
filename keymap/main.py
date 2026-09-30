@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import os
 import re
 from pathlib import Path
-from typing import Any
+from typing import Any, Final
 
 import yaml
 
@@ -11,11 +12,26 @@ KeymapRow = list[Any]
 KeymapLayer = list[KeymapRow]
 Keymap = dict[str, dict[str, KeymapLayer]]
 
+_HERE: Final[Path] = Path(__file__).resolve().parent
+DEFAULT_SOURCE: Final[Path] = _HERE.parent / "autoexec.cfg"
+DEFAULT_OUTPUT: Final[Path] = _HERE / "keymap.yml"
+
 LAYER_NAME: str = "github.com/ilearnings/cs-autoexec"
 
 SPLIT_PREFIXES: tuple[str, ...] = ("BOT", "R Shift", "R Alt", "R Ctrl", "R Win")
 SPLIT_THRESHOLD: int = 6
+MAX_CJK_LABEL_LEN: int = 8
 VERTICAL_KEYS: set[str] = {"KP_PLUS", "KP_ENTER"}
+
+IS_CI: bool = os.environ.get("GITHUB_ACTIONS") == "true"
+
+
+def warn(message: str) -> None:
+    if IS_CI:
+        print(f"::warning::{message}")
+    else:
+        print(f"⚠️  警告: {message}")
+
 
 SYMBOL_NAMES: dict[str, str] = {
     "semicolon": ";", "apostrophe": "'", "comma": ",",
@@ -71,7 +87,7 @@ TAG_RE: re.Pattern[str] = re.compile(r'\^([^\^]+)\^')
 
 
 def parse_binds(
-    path: str | Path = "autoexec.cfg",
+    path: str | Path = DEFAULT_SOURCE,
     symbols: dict[str, str] | None = None,
 ) -> Binds:
     symbols = symbols or SYMBOL_NAMES
@@ -88,12 +104,35 @@ def parse_binds(
             key = symbols.get(key, key)
             tag = TAG_RE.search(m.group(3) or "") or TAG_RE.search(m.group(2) or "")
             if tag:
-                binds[key] = tag.group(1).strip()
+                label = tag.group(1).strip()
+                if len(label) > MAX_CJK_LABEL_LEN and is_cjk_only(label):
+                    warn(
+                        f"标签 '{label}' 长度为 {len(label)}, "
+                        f"超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
+                    )
+                binds[key] = label
     return binds
 
 
 def is_cjk(ch: str) -> bool:
     return "\u4e00" <= ch <= "\u9fff"
+
+
+def is_cjk_only(text: str) -> bool:
+    return bool(text) and all(is_cjk(ch) for ch in text)
+
+
+def split_cjk_label(label: str) -> str | None:
+    if not is_cjk_only(label):
+        return None
+    n = len(label)
+    if n < 4:
+        return None
+    if n % 2 == 0:
+        mid = n // 2
+    else:
+        mid = min((n + 1) // 2, 3)
+    return f"{label[:mid]}\n{label[mid:]}"
 
 
 def split_label(
@@ -103,10 +142,8 @@ def split_label(
 ) -> str:
     if "\n" in label:
         return label
-    if " / " in label:
-        return label.replace(" / ", "\n")
     if "/" in label:
-        return label.replace("/", "\n")
+        return label.replace(" / ", "\n").replace("/", "\n")
     if "-" in label:
         a, _, b = label.partition("-")
         if a and b and is_cjk(a[-1]) and is_cjk(b[0]):
@@ -114,6 +151,9 @@ def split_label(
     for prefix in prefixes:
         if label.startswith(prefix) and len(label) > len(prefix):
             return f"{prefix}\n{label[len(prefix):]}"
+    cjk_split = split_cjk_label(label)
+    if cjk_split:
+        return cjk_split
     if len(label) > threshold:
         mid = (len(label) + 1) // 2
         return f"{label[:mid]}\n{label[mid:]}"
@@ -178,12 +218,15 @@ def build_keymap(
     return {"layers": {layer_name: build_layer(binds, **kwargs)}}
 
 
-def export_yaml(keymap: Keymap, path: str | Path = "keymap.yml") -> None:
+def export_yaml(keymap: Keymap, path: str | Path = DEFAULT_OUTPUT) -> None:
     with Path(path).open("w", encoding="utf-8") as f:
         yaml.dump(keymap, f, allow_unicode=True, sort_keys=False)
 
 
-def main(source: str = "autoexec.cfg", output: str = "keymap.yml") -> None:
+def main(
+    source: str | Path = DEFAULT_SOURCE,
+    output: str | Path = DEFAULT_OUTPUT,
+) -> None:
     binds = parse_binds(source)
     export_yaml(build_keymap(binds), output)
     print(f"已生成 {output} 文件.")

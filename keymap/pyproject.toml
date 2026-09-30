@@ -2,7 +2,6 @@
 name = "update-key-bindings"
 version = "0.1.0"
 description = ""
-readme = "README.md"
 authors = [
     { name = "Andreas Xue", email = "39456468+ilearnings@users.noreply.github.com" },
 ]
