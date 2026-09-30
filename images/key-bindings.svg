@@ -639,9 +639,7 @@ rect.key.mouse {
 </g>
 <g transform="translate(2226, 168)" class="key mouse keypos-105">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key mouse"/>
-<text x="0" y="0" class="key mouse tap">
-<tspan x="0" dy="-0.65em">滚轮</tspan><tspan x="0" dy="1.3em">跳</tspan>
-</text>
+<text x="0" y="0" class="key mouse tap">滚轮跳</text>
 </g>
 <g transform="translate(2310, 168)" class="key mouse keypos-106">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key mouse"/>
@@ -667,9 +665,7 @@ rect.key.mouse {
 </g>
 <g transform="translate(2226, 336)" class="key mouse keypos-110">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key mouse"/>
-<text x="0" y="0" class="key mouse tap">
-<tspan x="0" dy="-0.65em">滚轮</tspan><tspan x="0" dy="1.3em">跳</tspan>
-</text>
+<text x="0" y="0" class="key mouse tap">滚轮跳</text>
 </g>
 </g>
 </g>
