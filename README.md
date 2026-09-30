@@ -127,7 +127,7 @@ uv sync --project keymap
 
 ### 本地生成
 
-手动跑两步, 生成中间文件和图片:
+手动跑三步,生成中间文件、图片和时间戳:
 
 ```zsh
 uv run --project keymap python keymap/main.py
@@ -137,12 +137,16 @@ uv tool run --from keymap-drawer keymap \
   draw keymap/keymap.yml \
   -j keymap/layout.json \
   -o images/key-bindings.svg
+
+uv run --project keymap python keymap/timestamp.py
 ```
 
 生成结果:
 
 - `keymap/keymap.yml`: 从 `autoexec.cfg` 提取的标签映射
-- `images/key-bindings.svg`: 渲染出的按键图
+- `images/key-bindings.svg`: 渲染出的按键图,并写入生成时间戳
+
+`keymap/timestamp.py` 只使用标准库,可重复执行,每次都会覆盖旧时间戳
 
 ### 本地预览
 
@@ -204,7 +208,8 @@ git push
 
 1. 运行 `keymap/main.py` 生成 `keymap/keymap.yml`
 2. 运行 keymap-drawer 生成 SVG
-3. 提交回仓库
+3. 运行 `keymap/timestamp.py` 为 SVG 写入时间戳
+4. 提交回仓库
 
 不需要在本地再跑生成命令
 
@@ -216,7 +221,7 @@ Actions 只在以下情况触发:
 - 改动包含以下任一文件:
   - `autoexec.cfg`
 
-改 README, `main.py` 等其他文件不会触发
+改 `README.md`, `main.py`, `timestamp.py` 等其他文件不会触发
 
 ### 手动触发一次
 
@@ -235,6 +240,7 @@ cs-autoexec/
     ├── config.yml                # keymap-drawer 渲染配置
     ├── layout.json               # 键盘物理布局
     ├── pyproject.toml            # 项目依赖声明
+    ├── timestamp.py              # 为 SVG 写入时间戳
     ├── uv.lock                   # 依赖锁定文件
     └── keymap.yml                # 自动生成的中间文件
 ```
@@ -248,6 +254,7 @@ cs-autoexec/
 | `keymap/config.yml` | 渲染配置 | ✅ |
 | `keymap/layout.json` | 键盘布局 | ✅ |
 | `keymap/pyproject.toml` | 依赖声明 | ✅ |
+| `keymap/timestamp.py` | 为 SVG 写入时间戳 | ✅ |
 | `keymap/uv.lock` | 依赖锁定 | 自动 |
 | `keymap/keymap.yml` | 中间产物 | 自动 |
 | `images/key-bindings.svg` | 最终图片 | 自动 |
