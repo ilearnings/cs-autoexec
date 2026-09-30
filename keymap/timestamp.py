@@ -16,7 +16,7 @@ META_ID: str = "svg-meta"
 FONT_SIZE: int = 12
 LINE_HEIGHT: int = 14
 TOP_Y: int = 40
-MARGIN: int = 30
+MARGIN: int = 60
 
 META_RE: re.Pattern[str] = re.compile(
     rf'<g id="{META_ID}">.*?</g>', re.DOTALL,
