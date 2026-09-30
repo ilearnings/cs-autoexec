@@ -105,7 +105,7 @@ def parse_binds(
             tag = TAG_RE.search(m.group(3) or "") or TAG_RE.search(m.group(2) or "")
             if tag:
                 label = tag.group(1).strip()
-                if len(label) > MAX_CJK_LABEL_LEN and is_cjk_only(label):
+                if len(label) > MAX_CJK_LABEL_LEN and is_cjk_like(label):
                     warn(
                         f"标签 '{label}' 长度为 {len(label)}, "
                         f"超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
@@ -118,12 +118,19 @@ def is_cjk(ch: str) -> bool:
     return "\u4e00" <= ch <= "\u9fff"
 
 
-def is_cjk_only(text: str) -> bool:
-    return bool(text) and all(is_cjk(ch) for ch in text)
+def is_cjk_label_char(ch: str) -> bool:
+    """判断字符是否可参与中文标签排版 (汉字或数字)."""
+    return is_cjk(ch) or ch.isdigit()
+
+
+def is_cjk_like(text: str) -> bool:
+    """判断文本是否由汉字和数字组成, 可参与中文标签排版."""
+    return bool(text) and all(is_cjk_label_char(ch) for ch in text)
 
 
 def split_cjk_label(label: str) -> str | None:
-    if not is_cjk_only(label):
+    """按中文排版规则拆分标签: 偶数均分, 奇数上排最多 3 字, ≤3 字不拆."""
+    if not is_cjk_like(label):
         return None
     n = len(label)
     if n < 4:
