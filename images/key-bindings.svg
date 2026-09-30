@@ -158,7 +158,7 @@ rect.key.mouse {
 <g transform="translate(462, 42)" class="key bound keypos-4">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">撤销</tspan><tspan x="0" dy="1.3em">所有</tspan>
+<tspan x="0" dy="-0.65em">撤销</tspan><tspan x="0" dy="1.3em">购买</tspan>
 </text>
 </g>
 <g transform="translate(588, 42)" class="key bound keypos-5">
@@ -229,9 +229,7 @@ rect.key.mouse {
 </g>
 <g transform="translate(378, 168)" class="key bound keypos-20">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">投掷</tspan><tspan x="0" dy="1.3em">物组</tspan>
-</text>
+<text x="0" y="0" class="key bound tap">投掷物</text>
 </g>
 <g transform="translate(462, 168)" class="key bound keypos-21">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -400,7 +398,7 @@ rect.key.mouse {
 <g transform="translate(1722, 252)" class="key bound keypos-55">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">截短</tspan><tspan x="0" dy="1.3em">MAG7</tspan>
+<tspan x="0" dy="-0.65em">截短/</tspan><tspan x="0" dy="1.3em">MAG7</tspan>
 </text>
 </g>
 <g transform="translate(1806, 252)" class="key bound keypos-56">
@@ -476,19 +474,19 @@ rect.key.mouse {
 <g transform="translate(1638, 336)" class="key bound keypos-71">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">AK47</tspan><tspan x="0" dy="1.3em">M4系列</tspan>
+<tspan x="0" dy="-0.65em">AK47/</tspan><tspan x="0" dy="1.3em">M4系列</tspan>
 </text>
 </g>
 <g transform="translate(1722, 336)" class="key bound keypos-72">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">Galil</tspan><tspan x="0" dy="1.3em">FAMAS</tspan>
+<tspan x="0" dy="-1.3em">Galil</tspan><tspan x="0" dy="1.3em">/</tspan><tspan x="0" dy="1.3em">FAMAS</tspan>
 </text>
 </g>
 <g transform="translate(1806, 336)" class="key bound keypos-73">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">SG553</tspan><tspan x="0" dy="1.3em">AUG</tspan>
+<tspan x="0" dy="-1.3em">SG553</tspan><tspan x="0" dy="1.3em">/</tspan><tspan x="0" dy="1.3em">AUG</tspan>
 </text>
 </g>
 <g transform="translate(94, 420)" class="key bound keypos-74">
@@ -510,7 +508,7 @@ rect.key.mouse {
 <g transform="translate(483, 420)" class="key bound keypos-78">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">治疗剂</tspan><tspan x="0" dy="1.3em">清烟效</tspan>
+<tspan x="0" dy="-0.65em">治疗剂/</tspan><tspan x="0" dy="1.3em">清烟效</tspan>
 </text>
 </g>
 <g transform="translate(567, 420)" class="key bound keypos-79">
@@ -560,13 +558,13 @@ rect.key.mouse {
 <g transform="translate(1722, 420)" class="key bound keypos-88">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">Tec9</tspan><tspan x="0" dy="1.3em">FN57</tspan>
+<tspan x="0" dy="-0.65em">Tec9/</tspan><tspan x="0" dy="1.3em">FN57</tspan>
 </text>
 </g>
 <g transform="translate(1806, 420)" class="key bound keypos-89">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">MAC10</tspan><tspan x="0" dy="1.3em">MP9</tspan>
+<tspan x="0" dy="-1.3em">MAC10</tspan><tspan x="0" dy="1.3em">/</tspan><tspan x="0" dy="1.3em">MP9</tspan>
 </text>
 </g>
 <g transform="translate(1890, 462)" class="key bound keypos-90">
@@ -654,7 +652,7 @@ rect.key.mouse {
 <g transform="translate(2226, 252)" class="key mouse keypos-108">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key mouse"/>
 <text x="0" y="0" class="key mouse tap">
-<tspan x="0" dy="-0.65em">飞行</tspan><tspan x="0" dy="1.3em">标记</tspan>
+<tspan x="0" dy="-0.65em">飞行/</tspan><tspan x="0" dy="1.3em">标记</tspan>
 </text>
 </g>
 <g transform="translate(2142, 336)" class="key mouse keypos-109">
