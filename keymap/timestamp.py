@@ -25,14 +25,6 @@ VIEWBOX_RE: re.Pattern[str] = re.compile(r'viewBox="([^"]+)"')
 WIDTH_RE: re.Pattern[str] = re.compile(r'width="([\d.]+)')
 
 
-def collect_metadata() -> MetadataLines:
-    now = datetime.now(TZ)
-    stamp = now.strftime("%Y-%m-%d %H:%M:%S")
-    offset = now.strftime("%z")
-    tz_str = f"UTC{offset[:3]}:{offset[3:]}"
-    return [f"{stamp} {tz_str}"]
-
-
 def get_width(svg: str) -> float | None:
     m = VIEWBOX_RE.search(svg)
     if m:
@@ -49,6 +41,14 @@ def get_width(svg: str) -> float | None:
         except ValueError:
             pass
     return None
+
+
+def collect_metadata() -> MetadataLines:
+    now = datetime.now(TZ)
+    stamp = now.strftime("%Y-%m-%d %H:%M:%S")
+    offset = now.strftime("%z")
+    tz_str = f"UTC{offset[:3]}:{offset[3:]}"
+    return [f"{stamp} {tz_str}"]
 
 
 def build_group(lines: MetadataLines, width: float | None) -> str:
