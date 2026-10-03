@@ -24,7 +24,7 @@ git clone https://github.com/ilearnings/cs-autoexec.git
 -perfectworld -high -nojoy -novid -refresh 170 -threads 16 -tickrate 128 +rate 786432
 ```
 
-### 启动项(PWA)
+#### 启动项(PWA)
 
 ```cfg
 -perfectworld -high -nojoy -novid -refresh 170 -threads 16 -tickrate 128 +rate 786432 +exec autoexec.cfg
