@@ -10,22 +10,30 @@
 
 ## 食用指南
 
-1. 打开终端并复制命令: 
-```git clone https://github.com/ilearnings/cs-autoexec.git```
-2. 将 `cs-autoexec\` 文件夹中的 `autoexec.cfg` 文件复制到 `\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\` 目录下即可
+打开终端并复制命令:
+
+```zsh
+git clone https://github.com/ilearnings/cs-autoexec.git
+```
+
+将 `cs-autoexec\` 文件夹中的文件复制到 `\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\` 目录下即可
 
 ## 启动项(Steam)
 
-> -perfectworld -high -nojoy -novid -refresh 170 -threads 16 -tickrate 128 +rate 786432
+```cfg
+-perfectworld -high -nojoy -novid -refresh 170 -threads 16 -tickrate 128 +rate 786432
+```
 
 ### 启动项(PWA)
 
-> -perfectworld -high -nojoy -novid -refresh 170 -threads 16 -tickrate 128 +rate 786432 +exec autoexec.cfg
+```cfg
+-perfectworld -high -nojoy -novid -refresh 170 -threads 16 -tickrate 128 +rate 786432 +exec autoexec.cfg
+```
 
 | 参数 | 说明 |
 | :--- | :--- |
-| `-perfectworld` | 开启国服 (二选一) |
-| `-worldwide` | 开启国际服 (二选一) |
+| `-perfectworld` | *开启国服 (二选一) |
+| `-worldwide` | *开启国际服 (二选一) |
 | `-high` | 高优先级 |
 | `-nojoy` | 关闭遥杆 |
 | `-novid` | 关闭开场动画 |
@@ -234,7 +242,7 @@ Actions 只在以下情况触发:
 
 ### 目录结构
 
-```zsh
+```text
 cs-autoexec/
 ├── .github/
 │   ├── dependabot.yml                 # Dependabot 配置
