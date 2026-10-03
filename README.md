@@ -235,18 +235,22 @@ Actions 只在以下情况触发:
 
 ```zsh
 cs-autoexec/
-├── .github/workflows/main.yml    # Actions 配置
-├── autoexec.cfg                  # 源配置
-├── images/key-bindings.svg       # 自动生成的图片
-├── keymap/                       # 配置文件夹
-│   ├── config.yml                # keymap-drawer 渲染配置
-│   ├── keymap.yml                # 自动生成的中间文件
-│   ├── layout.json               # 键盘物理布局
-│   ├── parse.py                  # 解析脚本
-│   ├── pyproject.toml            # 项目依赖声明
-│   ├── stamp.py                  # 为 SVG 写入时间戳
-│   └── uv.lock                   # 依赖锁定文件
-└── README.md                     # 说明文档
+├── .github/
+│   ├── dependabot.yml                 # Dependabot 配置
+│   └── workflows/
+│       ├── dependabot-auto-merge.yml  # Dependabot PR 自动合并
+│       └── update-key-bindings.yml    # 键位图生成 Actions
+├── autoexec.cfg                       # 源配置
+├── images/key-bindings.svg            # 自动生成的图片
+├── keymap/                            # 配置文件夹
+│   ├── config.yml                     # keymap-drawer 渲染配置
+│   ├── keymap.yml                     # 自动生成的中间文件
+│   ├── layout.json                    # 键盘物理布局
+│   ├── parse.py                       # 解析脚本
+│   ├── pyproject.toml                 # 项目依赖声明
+│   ├── stamp.py                       # 为 SVG 写入时间戳
+│   └── uv.lock                        # 依赖锁定文件
+└── README.md                          # 说明文档
 ```
 
 ### 文件职责
