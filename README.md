@@ -10,7 +10,8 @@
 
 ## 食用指南
 
-1. 打开终端并复制命令: `git clone https://github.com/ilearnings/cs-autoexec.git`
+1. 打开终端并复制命令: 
+```git clone https://github.com/ilearnings/cs-autoexec.git```
 2. 将 `cs-autoexec\` 文件夹中的 `autoexec.cfg` 文件复制到 `\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\` 目录下即可
 
 ## 启动项(Steam)
