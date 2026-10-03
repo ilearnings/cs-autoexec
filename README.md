@@ -1,6 +1,6 @@
 # autoexec.cfg
 
-这是本人 Counter-Strike 系列游戏的硬件及 ```autoexec.cfg``` 配置参照.
+这是本人 Counter-Strike 系列游戏的硬件及 `autoexec.cfg` 配置参照.
 
 > 参照信息:
 
@@ -10,8 +10,8 @@
 
 ## 食用指南
 
-1. 打开终端并复制命令: ```git clone https://github.com/ilearnings/cs-autoexec.git```
-2. 将 ```cs-autoexec\``` 文件夹中的 ```autoexec.cfg``` 文件复制到 ```\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\``` 目录下即可
+1. 打开终端并复制命令: `git clone https://github.com/ilearnings/cs-autoexec.git`
+2. 将 `cs-autoexec\` 文件夹中的 `autoexec.cfg` 文件复制到 `\<你的Steam文件夹>\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\` 目录下即可
 
 ## 启动项(Steam)
 
@@ -75,7 +75,7 @@
 
 ## 已取消配置
 
-```zsh
+```cfg
 // 大跳
 alias "+bjump" "+jump; +duck"
 alias "-bjump" "-jump; -duck"
@@ -134,7 +134,7 @@ uv sync --project keymap
 手动跑三步,生成中间文件、图片和时间戳:
 
 ```zsh
-uv run --project keymap python keymap/main.py
+uv run --project keymap python keymap/parse.py
 
 uv tool run --from keymap-drawer keymap \
   -c keymap/config.yml \
@@ -142,7 +142,7 @@ uv tool run --from keymap-drawer keymap \
   -j keymap/layout.json \
   -o images/key-bindings.svg
 
-uv run --project keymap python keymap/timestamp.py
+uv run --project keymap python keymap/stamp.py
 ```
 
 生成结果:
@@ -150,7 +150,7 @@ uv run --project keymap python keymap/timestamp.py
 - `keymap/keymap.yml`: 从 `autoexec.cfg` 提取的标签映射
 - `images/key-bindings.svg`: 渲染出的按键图,并写入生成时间戳
 
-`keymap/timestamp.py` 只使用标准库,可重复执行,每次都会覆盖旧时间戳
+`keymap/stamp.py` 只使用标准库,可重复执行,每次都会覆盖旧时间戳
 
 ### 本地预览
 
@@ -161,9 +161,9 @@ uv run --project keymap python keymap/timestamp.py
 主要修改 `autoexec.cfg` 规则:
 
 - 只处理 `bind` 开头的行
-- 用 `^...^` 标记按键标签, 例如:
+- 用 `^...^` 标记按键标签,例如:
 
-```zsh
+```cfg
 bind "a" "+forward" // ^左移^
 ```
 
@@ -171,7 +171,7 @@ bind "a" "+forward" // ^左移^
 
 ### 标签换行规则
 
-`main.py` 按以下优先级依次尝试拆分标签, 谁先命中谁生效:
+`parse.py` 按以下优先级依次尝试拆分标签, 谁先命中谁生效:
 
 | 顺序 | 规则 | 示例 | 结果 |
 | :--- | :--- | :--- | :--- |
@@ -193,9 +193,9 @@ bind "a" "+forward" // ^左移^
 
 #### 超长标签警告
 
-纯中文 (含数字) 标签超过 **8 字** 时, `main.py` 会打印警告:
+纯中文 (含数字) 标签超过 **8 字** 时, `parse.py` 会打印警告:
 
-- 本地运行: 终端显示 `⚠️  警告: ...`
+- 本地运行: 终端显示 `警告: ...`
 - GitHub Actions: 显示在运行页顶部的 **Annotations** 区域
 
 建议拆分或缩短, 避免渲染时被 keymap-drawer 二次折行
@@ -210,9 +210,9 @@ git push
 
 推送后 GitHub Actions 会自动:
 
-1. 运行 `keymap/main.py` 生成 `keymap/keymap.yml`
+1. 运行 `keymap/parse.py` 生成 `keymap/keymap.yml`
 2. 运行 keymap-drawer 生成 SVG
-3. 运行 `keymap/timestamp.py` 为 SVG 写入时间戳
+3. 运行 `keymap/stamp.py` 为 SVG 写入时间戳
 4. 提交回仓库
 
 不需要在本地再跑生成命令
@@ -225,7 +225,7 @@ Actions 只在以下情况触发:
 - 改动包含以下任一文件:
   - `autoexec.cfg`
 
-改 `README.md`, `main.py`, `timestamp.py` 等其他文件不会触发
+改 `README.md`, `parse.py`, `stamp.py` 等其他文件不会触发
 
 ### 手动触发一次
 
@@ -236,17 +236,17 @@ Actions 只在以下情况触发:
 ```zsh
 cs-autoexec/
 ├── .github/workflows/main.yml    # Actions 配置
-├── images/key-bindings.svg       # 自动生成的图片
 ├── autoexec.cfg                  # 源配置
-├── README.md
-└── keymap/
-    ├── main.py                   # 解析脚本
-    ├── config.yml                # keymap-drawer 渲染配置
-    ├── layout.json               # 键盘物理布局
-    ├── pyproject.toml            # 项目依赖声明
-    ├── timestamp.py              # 为 SVG 写入时间戳
-    ├── uv.lock                   # 依赖锁定文件
-    └── keymap.yml                # 自动生成的中间文件
+├── images/key-bindings.svg       # 自动生成的图片
+├── keymap/                       # 配置文件夹
+│   ├── config.yml                # keymap-drawer 渲染配置
+│   ├── keymap.yml                # 自动生成的中间文件
+│   ├── layout.json               # 键盘物理布局
+│   ├── parse.py                  # 解析脚本
+│   ├── pyproject.toml            # 项目依赖声明
+│   ├── stamp.py                  # 为 SVG 写入时间戳
+│   └── uv.lock                   # 依赖锁定文件
+└── README.md                     # 说明文档
 ```
 
 ### 文件职责
@@ -254,11 +254,11 @@ cs-autoexec/
 | 文件 | 说明 | 手动维护 |
 | --- | --- | --- |
 | `autoexec.cfg` | 源配置 | ✅ |
-| `keymap/main.py` | 解析脚本 | ✅ |
-| `keymap/config.yml` | 渲染配置 | ✅ |
-| `keymap/layout.json` | 键盘布局 | ✅ |
-| `keymap/pyproject.toml` | 依赖声明 | ✅ |
-| `keymap/timestamp.py` | 为 SVG 写入时间戳 | ✅ |
-| `keymap/uv.lock` | 依赖锁定 | 自动 |
-| `keymap/keymap.yml` | 中间产物 | 自动 |
 | `images/key-bindings.svg` | 最终图片 | 自动 |
+| `keymap/config.yml` | 渲染配置 | ✅ |
+| `keymap/keymap.yml` | 中间产物 | 自动 |
+| `keymap/layout.json` | 键盘布局 | ✅ |
+| `keymap/parse.py` | 解析脚本 | ✅ |
+| `keymap/pyproject.toml` | 依赖声明 | ✅ |
+| `keymap/stamp.py` | 为 SVG 写入时间戳 | ✅ |
+| `keymap/uv.lock` | 依赖锁定 | 自动 |
