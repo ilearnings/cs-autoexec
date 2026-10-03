@@ -217,9 +217,7 @@ rect.key.mouse {
 </g>
 <g transform="translate(126, 168)" class="key bound keypos-17">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">主武器10</tspan><tspan x="0" dy="1.3em">03928</tspan>
-</text>
+<text x="0" y="0" class="key bound tap">主武器</text>
 </g>
 <g transform="translate(210, 168)" class="key bound keypos-18">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -669,5 +667,5 @@ rect.key.mouse {
 </g>
 </g>
 </g>
-<g id="svg-meta"><text x="2352" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-03 09:28:41 UTC+08:00</text></g>
+<g id="svg-meta"><text x="2352" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-03 09:33:04 UTC+08:00</text></g>
 </svg>
