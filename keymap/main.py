@@ -26,6 +26,13 @@ BIND_RE: Final[re.Pattern[str]] = re.compile(
     r'bind\s+"([^"]+)"\s+"([^"]+)"(?:\s*//\s*(.*))?',
 )
 TAG_RE: Final[re.Pattern[str]] = re.compile(r"\^([^\^]+)\^")
+META_ID: Final[str] = "svg-meta"
+META_RE: Final[re.Pattern[str]] = re.compile(
+    rf'<g id="{META_ID}">.*?</g>',
+    re.DOTALL,
+)
+VIEWBOX_RE: Final[re.Pattern[str]] = re.compile(r'viewBox="([^"]+)"')
+WIDTH_RE: Final[re.Pattern[str]] = re.compile(r'width="([\d.]+)')
 
 IS_CI: Final[bool] = os.environ.get("GITHUB_ACTIONS") == "true"
 
@@ -35,14 +42,15 @@ MAX_CJK_LABEL_LEN: Final[int] = 8
 MAX_VERTICAL_LABEL_LEN: Final[int] = 3
 SPLIT_THRESHOLD: Final[int] = 6
 
+STAMP_FONT_SIZE: Final[int] = 12
+STAMP_LINE_HEIGHT: Final[int] = 14
+STAMP_MARGIN: Final[int] = 60
+STAMP_TOP_Y: Final[int] = 40
+
+TZ: Final[ZoneInfo] = ZoneInfo("Asia/Shanghai")
+
 VERTICAL_KEYS: Final[frozenset[str]] = frozenset({"KP_PLUS", "KP_ENTER"})
-SPLIT_PREFIXES: Final[tuple[str, ...]] = (
-    "BOT",
-    "R Shift",
-    "R Alt",
-    "R Ctrl",
-    "R Win",
-)
+SPLIT_PREFIXES: Final[tuple[str, ...]] = ("BOT", "R Shift", "R Alt", "R Ctrl", "R Win")
 
 DISPLAY_NAMES: Final[dict[str, str]] = {
     "ALT": "Alt",
@@ -235,82 +243,51 @@ MOUSE_ROW: Final[list[str]] = [
     "MWHEELDOWN",
 ]
 
-META_ID: Final[str] = "svg-meta"
-META_RE: Final[re.Pattern[str]] = re.compile(
-    rf'<g id="{META_ID}">.*?</g>',
-    re.DOTALL,
-)
-VIEWBOX_RE: Final[re.Pattern[str]] = re.compile(r'viewBox="([^"]+)"')
-WIDTH_RE: Final[re.Pattern[str]] = re.compile(r'width="([\d.]+)')
 
-STAMP_FONT_SIZE: Final[int] = 12
-STAMP_LINE_HEIGHT: Final[int] = 14
-STAMP_MARGIN: Final[int] = 60
-STAMP_TOP_Y: Final[int] = 40
-TZ: Final[ZoneInfo] = ZoneInfo("Asia/Shanghai")
-
-
-def parse_binds(path: str | Path = SOURCE_CFG) -> Binds:
+def parse_binds() -> Binds:
     binds: Binds = {}
-    with Path(path).open(encoding="utf-8") as f:
+    with SOURCE_CFG.open(encoding="utf-8") as f:
         for raw in f:
-            line = raw.strip()
-            if not line.startswith("bind"):
+            if not (line := raw.strip()).startswith("bind"):
                 continue
-            match = BIND_RE.match(line)
-            if not match:
+            if not (m := BIND_RE.match(line)):
                 continue
-            key = match.group(1).lower()
-            key = SYMBOL_NAMES.get(key, key)
-            comment = match.group(3) or ""
-            action = match.group(2) or ""
-            tag = TAG_RE.search(comment) or TAG_RE.search(action)
+            tag = TAG_RE.search(m.group(3) or "") or TAG_RE.search(m.group(2) or "")
             if tag:
                 label = tag.group(1).strip()
                 if len(label) > MAX_CJK_LABEL_LEN and is_cjk_like(label):
                     warn(
-                        f"标签 '{label}' 长度为 {len(label)}, "
-                        f"超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
+                        f"标签 '{label}' 长度为 {len(label)}, 超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
                     )
-                binds[key] = label
+                k = m.group(1).lower()
+                binds[SYMBOL_NAMES.get(k, k)] = label
     return binds
 
 
-def build_keymap(binds: Binds, layer_name: str = LAYER_NAME) -> Keymap:
-    return {"layers": {layer_name: build_layer(binds)}}
+def build_keymap(binds: Binds) -> Keymap:
+    return {"layers": {LAYER_NAME: build_layer(binds)}}
 
 
 def build_layer(binds: Binds) -> KeymapLayer:
-    rows: KeymapLayer = [
+    return [
         [render_key(k, binds.get(k.lower()), False) for k in row]
         for row in KEYBOARD_ROWS
-    ]
-    rows.append([render_key(k, binds.get(k.lower()), True) for k in MOUSE_ROW])
-    return rows
+    ] + [[render_key(k, binds.get(k.lower()), True) for k in MOUSE_ROW]]
 
 
 def render_key(key: str, label: str | None, is_mouse: bool = False) -> Key:
     key_type = "mouse" if is_mouse else "bound"
-
     if key in VERTICAL_KEYS:
-        text = label or get_display(key)
-        if label and len(text) <= MAX_VERTICAL_LABEL_LEN:
-            return {"t": "\n".join(text), "type": key_type}
-        return text
-
-    if label:
-        return {"t": split_label(label), "type": key_type}
-
-    return get_display(key)
+        if label and len(label) <= MAX_VERTICAL_LABEL_LEN:
+            return {"t": "\n".join(label), "type": key_type}
+        return label or get_display(key)
+    return {"t": split_label(label), "type": key_type} if label else get_display(key)
 
 
 def get_display(key: str) -> str:
-    upper = key.upper()
-    if upper in DISPLAY_NAMES:
-        return DISPLAY_NAMES[upper]
-    if len(key) == 1 and key.isalpha():
-        return key.upper()
-    return key
+    if (u := key.upper()) in DISPLAY_NAMES:
+        return DISPLAY_NAMES[u]
+    return key.upper() if len(key) == 1 and key.isalpha() else key
 
 
 def split_label(label: str) -> str:
@@ -325,9 +302,8 @@ def split_label(label: str) -> str:
     for prefix in SPLIT_PREFIXES:
         if label.startswith(prefix) and len(label) > len(prefix):
             return f"{prefix}\n{label[len(prefix) :]}"
-    cjk_split = split_cjk_label(label)
-    if cjk_split:
-        return cjk_split
+    if cjk := split_cjk_label(label):
+        return cjk
     if len(label) > SPLIT_THRESHOLD:
         mid = (len(label) + 1) // 2
         return f"{label[:mid]}\n{label[mid:]}"
@@ -335,10 +311,7 @@ def split_label(label: str) -> str:
 
 
 def split_cjk_label(label: str) -> str | None:
-    if not is_cjk_like(label):
-        return None
-    n = len(label)
-    if n < 4:
+    if not is_cjk_like(label) or (n := len(label)) < 4:
         return None
     mid = n // 2 if n % 2 == 0 else min((n + 1) // 2, 3)
     return f"{label[:mid]}\n{label[mid:]}"
@@ -348,16 +321,12 @@ def is_cjk(ch: str) -> bool:
     return "\u4e00" <= ch <= "\u9fff"
 
 
-def is_cjk_label_char(ch: str) -> bool:
-    return is_cjk(ch) or ch.isdigit()
-
-
 def is_cjk_like(text: str) -> bool:
-    return bool(text) and all(is_cjk_label_char(ch) for ch in text)
+    return bool(text) and all(is_cjk(ch) or ch.isdigit() for ch in text)
 
 
-def export_yaml(keymap: Keymap, path: str | Path = KEYMAP_YML) -> None:
-    with Path(path).open("w", encoding="utf-8") as f:
+def export_yaml(keymap: Keymap) -> None:
+    with KEYMAP_YML.open("w", encoding="utf-8") as f:
         yaml.dump(keymap, f, allow_unicode=True, sort_keys=False)
 
 
@@ -387,52 +356,43 @@ def run_drawer() -> None:
     )
 
 
-def add_metadata(svg_path: str | Path = OUTPUT_SVG) -> list[str]:
-    path = Path(svg_path)
-    svg = path.read_text(encoding="utf-8")
-    svg = META_RE.sub("", svg)
+def add_metadata() -> list[str]:
+    svg = META_RE.sub("", OUTPUT_SVG.read_text(encoding="utf-8"))
     lines = collect_metadata()
-    group = build_group(lines, get_width(svg))
-    svg = svg.replace("</svg>", group + "\n</svg>")
-    path.write_text(svg, encoding="utf-8")
+    OUTPUT_SVG.write_text(
+        svg.replace("</svg>", build_group(lines, get_width(svg)) + "\n</svg>"),
+        encoding="utf-8",
+    )
     return lines
 
 
 def build_group(lines: list[str], width: float | None) -> str:
     x = f"{width - STAMP_MARGIN:g}" if width is not None else "99%"
-    texts: list[str] = []
-    y = STAMP_TOP_Y
-    for line in lines:
-        texts.append(
-            f'<text x="{x}" y="{y}" style="text-anchor:end" '
-            f'font-size="{STAMP_FONT_SIZE}" font-weight="bold" fill="#000000" '
-            f'font-family="monospace">{line}</text>'
-        )
-        y += STAMP_LINE_HEIGHT
-    return f'<g id="{META_ID}">' + "".join(texts) + "</g>"
+    texts = "".join(
+        f'<text x="{x}" y="{STAMP_TOP_Y + i * STAMP_LINE_HEIGHT}" '
+        f'style="text-anchor:end" '
+        f'font-size="{STAMP_FONT_SIZE}" font-weight="bold" fill="#000000" '
+        f'font-family="monospace">{line}</text>'
+        for i, line in enumerate(lines)
+    )
+    return f'<g id="{META_ID}">{texts}</g>'
 
 
 def collect_metadata() -> list[str]:
     now = datetime.now(TZ)
-    stamp = now.strftime("%Y-%m-%d %H:%M:%S")
     offset = now.strftime("%z")
-    tz_str = f"UTC{offset[:3]}:{offset[3:]}"
-    return [f"{stamp} {tz_str}"]
+    return [f"{now:%Y-%m-%d %H:%M:%S} UTC{offset[:3]}:{offset[3:]}"]
 
 
 def get_width(svg: str) -> float | None:
-    match = VIEWBOX_RE.search(svg)
-    if match:
-        parts = match.group(1).split()
-        if len(parts) >= 3:
-            try:
-                return float(parts[2])
-            except ValueError:
-                pass
-    match = WIDTH_RE.search(svg)
-    if match:
+    if (m := VIEWBOX_RE.search(svg)) and len(parts := m.group(1).split()) >= 3:
         try:
-            return float(match.group(1))
+            return float(parts[2])
+        except ValueError:
+            pass
+    if m := WIDTH_RE.search(svg):
+        try:
+            return float(m.group(1))
         except ValueError:
             pass
     return None
@@ -440,14 +400,10 @@ def get_width(svg: str) -> float | None:
 
 def main() -> None:
     OUTPUT_SVG.parent.mkdir(parents=True, exist_ok=True)
-
-    binds = parse_binds(SOURCE_CFG)
-    export_yaml(build_keymap(binds), KEYMAP_YML)
+    export_yaml(build_keymap(parse_binds()))
     print(f"已生成 {KEYMAP_YML} 文件.")
-
     run_drawer()
-
-    for line in add_metadata(OUTPUT_SVG):
+    for line in add_metadata():
         print(f"已写入: {line}")
 
 
