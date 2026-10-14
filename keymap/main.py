@@ -1,0 +1,455 @@
+import os
+import re
+import subprocess
+from datetime import datetime
+from pathlib import Path
+from typing import Final
+from zoneinfo import ZoneInfo
+
+import yaml
+
+type Binds = dict[str, str]
+type Key = str | dict[str, str]
+type KeymapLayer = list[list[Key]]
+type Keymap = dict[str, dict[str, KeymapLayer]]
+
+_HERE: Final[Path] = Path(__file__).resolve().parent
+_ROOT: Final[Path] = _HERE.parent
+
+SOURCE_CFG: Final[Path] = _ROOT / "autoexec.cfg"
+KEYMAP_YML: Final[Path] = _HERE / "keymap.yml"
+DRAWER_CONFIG: Final[Path] = _HERE / "config.yml"
+LAYOUT_JSON: Final[Path] = _HERE / "layout.json"
+OUTPUT_SVG: Final[Path] = _ROOT / "images" / "key-bindings.svg"
+
+BIND_RE: Final[re.Pattern[str]] = re.compile(
+    r'bind\s+"([^"]+)"\s+"([^"]+)"(?:\s*//\s*(.*))?',
+)
+TAG_RE: Final[re.Pattern[str]] = re.compile(r"\^([^\^]+)\^")
+
+IS_CI: Final[bool] = os.environ.get("GITHUB_ACTIONS") == "true"
+
+LAYER_NAME: Final[str] = "github.com/ilearnings/cs-autoexec"
+
+MAX_CJK_LABEL_LEN: Final[int] = 8
+MAX_VERTICAL_LABEL_LEN: Final[int] = 3
+SPLIT_THRESHOLD: Final[int] = 6
+
+VERTICAL_KEYS: Final[frozenset[str]] = frozenset({"KP_PLUS", "KP_ENTER"})
+SPLIT_PREFIXES: Final[tuple[str, ...]] = (
+    "BOT",
+    "R Shift",
+    "R Alt",
+    "R Ctrl",
+    "R Win",
+)
+
+DISPLAY_NAMES: Final[dict[str, str]] = {
+    "ALT": "Alt",
+    "BACKSPACE": "Bksp",
+    "CAPSLOCK": "Caps",
+    "CTRL": "Ctrl",
+    "DELETE": "Del",
+    "DOWN": "↓",
+    "END": "End",
+    "ENTER": "Enter",
+    "ESC": "Esc",
+    "HOME": "Home",
+    "INSERT": "Ins",
+    "KP_0": "0",
+    "KP_1": "1",
+    "KP_2": "2",
+    "KP_3": "3",
+    "KP_4": "4",
+    "KP_5": "5",
+    "KP_6": "6",
+    "KP_7": "7",
+    "KP_8": "8",
+    "KP_9": "9",
+    "KP_DEL": ".",
+    "KP_DIVIDE": "/",
+    "KP_ENTER": "Enter",
+    "KP_MINUS": "-",
+    "KP_MULTIPLY": "*",
+    "KP_NUMLOCK": "Num",
+    "KP_PLUS": "+",
+    "LEFT": "←",
+    "MENU": "Fn",
+    "PAUSE": "Pause",
+    "PGDN": "PgDn",
+    "PGUP": "PgUp",
+    "PRTSC": "PrtSc",
+    "RALT": "R Alt",
+    "RCTRL": "R Ctrl",
+    "RIGHT": "→",
+    "RSHIFT": "R Shift",
+    "RWIN": "R Win",
+    "SCRLK": "ScrLk",
+    "SHIFT": "Shift",
+    "SPACE": "Space",
+    "TAB": "Tab",
+    "UP": "↑",
+    "WIN": "Win",
+}
+
+SYMBOL_NAMES: Final[dict[str, str]] = {
+    "apostrophe": "'",
+    "backslash": "\\",
+    "comma": ",",
+    "equal": "=",
+    "grave": "`",
+    "lbracket": "[",
+    "minus": "-",
+    "period": ".",
+    "rbracket": "]",
+    "semicolon": ";",
+    "slash": "/",
+}
+
+KEYBOARD_ROWS: Final[list[list[str]]] = [
+    [
+        "ESC",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "PRTSC",
+        "SCRLK",
+        "PAUSE",
+    ],
+    [
+        "`",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "0",
+        "-",
+        "=",
+        "BACKSPACE",
+        "INSERT",
+        "HOME",
+        "PGUP",
+        "KP_NUMLOCK",
+        "KP_DIVIDE",
+        "KP_MULTIPLY",
+        "KP_MINUS",
+    ],
+    [
+        "TAB",
+        "q",
+        "w",
+        "e",
+        "r",
+        "t",
+        "y",
+        "u",
+        "i",
+        "o",
+        "p",
+        "[",
+        "]",
+        "\\",
+        "DELETE",
+        "END",
+        "PGDN",
+        "KP_7",
+        "KP_8",
+        "KP_9",
+        "KP_PLUS",
+    ],
+    [
+        "CAPSLOCK",
+        "a",
+        "s",
+        "d",
+        "f",
+        "g",
+        "h",
+        "j",
+        "k",
+        "l",
+        ";",
+        "'",
+        "ENTER",
+        "KP_4",
+        "KP_5",
+        "KP_6",
+    ],
+    [
+        "SHIFT",
+        "z",
+        "x",
+        "c",
+        "v",
+        "b",
+        "n",
+        "m",
+        ",",
+        ".",
+        "/",
+        "RSHIFT",
+        "UP",
+        "KP_1",
+        "KP_2",
+        "KP_3",
+        "KP_ENTER",
+    ],
+    [
+        "CTRL",
+        "WIN",
+        "ALT",
+        "SPACE",
+        "RALT",
+        "RWIN",
+        "MENU",
+        "RCTRL",
+        "LEFT",
+        "DOWN",
+        "RIGHT",
+        "KP_0",
+        "KP_DEL",
+    ],
+]
+
+MOUSE_ROW: Final[list[str]] = [
+    "MOUSE1",
+    "MWHEELUP",
+    "MOUSE2",
+    "MOUSE5",
+    "MOUSE3",
+    "MOUSE4",
+    "MWHEELDOWN",
+]
+
+META_ID: Final[str] = "svg-meta"
+META_RE: Final[re.Pattern[str]] = re.compile(
+    rf'<g id="{META_ID}">.*?</g>',
+    re.DOTALL,
+)
+VIEWBOX_RE: Final[re.Pattern[str]] = re.compile(r'viewBox="([^"]+)"')
+WIDTH_RE: Final[re.Pattern[str]] = re.compile(r'width="([\d.]+)')
+
+STAMP_FONT_SIZE: Final[int] = 12
+STAMP_LINE_HEIGHT: Final[int] = 14
+STAMP_MARGIN: Final[int] = 60
+STAMP_TOP_Y: Final[int] = 40
+TZ: Final[ZoneInfo] = ZoneInfo("Asia/Shanghai")
+
+
+def parse_binds(path: str | Path = SOURCE_CFG) -> Binds:
+    binds: Binds = {}
+    with Path(path).open(encoding="utf-8") as f:
+        for raw in f:
+            line = raw.strip()
+            if not line.startswith("bind"):
+                continue
+            match = BIND_RE.match(line)
+            if not match:
+                continue
+            key = match.group(1).lower()
+            key = SYMBOL_NAMES.get(key, key)
+            comment = match.group(3) or ""
+            action = match.group(2) or ""
+            tag = TAG_RE.search(comment) or TAG_RE.search(action)
+            if tag:
+                label = tag.group(1).strip()
+                if len(label) > MAX_CJK_LABEL_LEN and is_cjk_like(label):
+                    warn(
+                        f"标签 '{label}' 长度为 {len(label)}, "
+                        f"超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
+                    )
+                binds[key] = label
+    return binds
+
+
+def build_keymap(binds: Binds, layer_name: str = LAYER_NAME) -> Keymap:
+    return {"layers": {layer_name: build_layer(binds)}}
+
+
+def build_layer(binds: Binds) -> KeymapLayer:
+    rows: KeymapLayer = [
+        [render_key(k, binds.get(k.lower()), False) for k in row]
+        for row in KEYBOARD_ROWS
+    ]
+    rows.append([render_key(k, binds.get(k.lower()), True) for k in MOUSE_ROW])
+    return rows
+
+
+def render_key(key: str, label: str | None, is_mouse: bool = False) -> Key:
+    key_type = "mouse" if is_mouse else "bound"
+
+    if key in VERTICAL_KEYS:
+        text = label or get_display(key)
+        if label and len(text) <= MAX_VERTICAL_LABEL_LEN:
+            return {"t": "\n".join(text), "type": key_type}
+        return text
+
+    if label:
+        return {"t": split_label(label), "type": key_type}
+
+    return get_display(key)
+
+
+def get_display(key: str) -> str:
+    upper = key.upper()
+    if upper in DISPLAY_NAMES:
+        return DISPLAY_NAMES[upper]
+    if len(key) == 1 and key.isalpha():
+        return key.upper()
+    return key
+
+
+def split_label(label: str) -> str:
+    if "\n" in label:
+        return label
+    if "/" in label:
+        return "/\n".join(part.strip() for part in label.split("/"))
+    if "-" in label:
+        a, _, b = label.partition("-")
+        if a and b and is_cjk(a[-1]) and is_cjk(b[0]):
+            return f"{a}\n{b}"
+    for prefix in SPLIT_PREFIXES:
+        if label.startswith(prefix) and len(label) > len(prefix):
+            return f"{prefix}\n{label[len(prefix) :]}"
+    cjk_split = split_cjk_label(label)
+    if cjk_split:
+        return cjk_split
+    if len(label) > SPLIT_THRESHOLD:
+        mid = (len(label) + 1) // 2
+        return f"{label[:mid]}\n{label[mid:]}"
+    return label
+
+
+def split_cjk_label(label: str) -> str | None:
+    if not is_cjk_like(label):
+        return None
+    n = len(label)
+    if n < 4:
+        return None
+    mid = n // 2 if n % 2 == 0 else min((n + 1) // 2, 3)
+    return f"{label[:mid]}\n{label[mid:]}"
+
+
+def is_cjk(ch: str) -> bool:
+    return "\u4e00" <= ch <= "\u9fff"
+
+
+def is_cjk_label_char(ch: str) -> bool:
+    return is_cjk(ch) or ch.isdigit()
+
+
+def is_cjk_like(text: str) -> bool:
+    return bool(text) and all(is_cjk_label_char(ch) for ch in text)
+
+
+def export_yaml(keymap: Keymap, path: str | Path = KEYMAP_YML) -> None:
+    with Path(path).open("w", encoding="utf-8") as f:
+        yaml.dump(keymap, f, allow_unicode=True, sort_keys=False)
+
+
+def warn(message: str) -> None:
+    print(f"::warning::{message}" if IS_CI else f"警告: {message}")
+
+
+def run_drawer() -> None:
+    subprocess.run(
+        [
+            "uv",
+            "tool",
+            "run",
+            "--from",
+            "keymap-drawer",
+            "keymap",
+            "-c",
+            str(DRAWER_CONFIG),
+            "draw",
+            str(KEYMAP_YML),
+            "-j",
+            str(LAYOUT_JSON),
+            "-o",
+            str(OUTPUT_SVG),
+        ],
+        check=True,
+    )
+
+
+def add_metadata(svg_path: str | Path = OUTPUT_SVG) -> list[str]:
+    path = Path(svg_path)
+    svg = path.read_text(encoding="utf-8")
+    svg = META_RE.sub("", svg)
+    lines = collect_metadata()
+    group = build_group(lines, get_width(svg))
+    svg = svg.replace("</svg>", group + "\n</svg>")
+    path.write_text(svg, encoding="utf-8")
+    return lines
+
+
+def build_group(lines: list[str], width: float | None) -> str:
+    x = f"{width - STAMP_MARGIN:g}" if width is not None else "99%"
+    texts: list[str] = []
+    y = STAMP_TOP_Y
+    for line in lines:
+        texts.append(
+            f'<text x="{x}" y="{y}" style="text-anchor:end" '
+            f'font-size="{STAMP_FONT_SIZE}" font-weight="bold" fill="#000000" '
+            f'font-family="monospace">{line}</text>'
+        )
+        y += STAMP_LINE_HEIGHT
+    return f'<g id="{META_ID}">' + "".join(texts) + "</g>"
+
+
+def collect_metadata() -> list[str]:
+    now = datetime.now(TZ)
+    stamp = now.strftime("%Y-%m-%d %H:%M:%S")
+    offset = now.strftime("%z")
+    tz_str = f"UTC{offset[:3]}:{offset[3:]}"
+    return [f"{stamp} {tz_str}"]
+
+
+def get_width(svg: str) -> float | None:
+    match = VIEWBOX_RE.search(svg)
+    if match:
+        parts = match.group(1).split()
+        if len(parts) >= 3:
+            try:
+                return float(parts[2])
+            except ValueError:
+                pass
+    match = WIDTH_RE.search(svg)
+    if match:
+        try:
+            return float(match.group(1))
+        except ValueError:
+            pass
+    return None
+
+
+def main() -> None:
+    OUTPUT_SVG.parent.mkdir(parents=True, exist_ok=True)
+
+    binds = parse_binds(SOURCE_CFG)
+    export_yaml(build_keymap(binds), KEYMAP_YML)
+    print(f"已生成 {KEYMAP_YML} 文件.")
+
+    run_drawer()
+
+    for line in add_metadata(OUTPUT_SVG):
+        print(f"已写入: {line}")
+
+
+if __name__ == "__main__":
+    main()

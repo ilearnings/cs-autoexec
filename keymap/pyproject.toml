@@ -2,11 +2,12 @@
 name = "update-key-bindings"
 version = "0.1.0"
 description = ""
-authors = [
-    { name = "Andreas Xue", email = "39456468+ilearnings@users.noreply.github.com" },
-]
-requires-python = ">=3.13"
+authors = [{ name = "Andreas Xue" }]
+requires-python = ">=3.15"
 dependencies = ["pyyaml>=6.0.3"]
 
 [dependency-groups]
 dev = ["types-pyyaml>=6.0.12.20260906"]
+
+[tool.uv]
+package = false

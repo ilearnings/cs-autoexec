@@ -31,16 +31,8 @@ jobs:
       - name: Install dependencies
         run: uv sync --project keymap
 
-      - name: Generate keymap.yml
-        run: uv run --project keymap python keymap/parse.py
-
-      - name: Render key bindings SVG
-        run: |
-          mkdir -p images
-          uv tool run --from keymap-drawer keymap -c keymap/config.yml draw keymap/keymap.yml -j keymap/layout.json -o images/key-bindings.svg
-
-      - name: Add timestamp to SVG
-        run: uv run --project keymap python keymap/stamp.py
+      - name: Generate keymap, SVG and timestamp
+        run: uv run --project keymap python keymap/main.py
 
       - name: Commit generated files
         run: |
