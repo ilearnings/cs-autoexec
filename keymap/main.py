@@ -13,14 +13,14 @@ type Key = str | dict[str, str]
 type KeymapLayer = list[list[Key]]
 type Keymap = dict[str, dict[str, KeymapLayer]]
 
-_HERE: Final[Path] = Path(__file__).resolve().parent
-_ROOT: Final[Path] = _HERE.parent
+HERE: Final[Path] = Path(__file__).resolve().parent
+ROOT: Final[Path] = HERE.parent
 
-SOURCE_CFG: Final[Path] = _ROOT / "autoexec.cfg"
-KEYMAP_YML: Final[Path] = _HERE / "keymap.yml"
-DRAWER_CONFIG: Final[Path] = _HERE / "config.yml"
-LAYOUT_JSON: Final[Path] = _HERE / "layout.json"
-OUTPUT_SVG: Final[Path] = _ROOT / "images" / "key-bindings.svg"
+SOURCE_CFG: Final[Path] = ROOT / "autoexec.cfg"
+KEYMAP_YML: Final[Path] = HERE / "keymap.yml"
+DRAWER_CONFIG: Final[Path] = HERE / "config.yml"
+LAYOUT_JSON: Final[Path] = HERE / "layout.json"
+OUTPUT_SVG: Final[Path] = ROOT / "images" / "key-bindings.svg"
 
 BIND_RE: Final[re.Pattern[str]] = re.compile(
     r'bind\s+"([^"]+)"\s+"([^"]+)"(?:\s*//\s*(.*))?',
@@ -250,17 +250,19 @@ def parse_binds() -> Binds:
         for raw in f:
             if not (line := raw.strip()).startswith("bind"):
                 continue
-            if not (m := BIND_RE.match(line)):
+            if not (match := BIND_RE.match(line)):
                 continue
-            tag = TAG_RE.search(m.group(3) or "") or TAG_RE.search(m.group(2) or "")
+            tag = TAG_RE.search(match.group(3) or "") or TAG_RE.search(
+                match.group(2) or ""
+            )
             if tag:
                 label = tag.group(1).strip()
                 if len(label) > MAX_CJK_LABEL_LEN and is_cjk_like(label):
                     warn(
                         f"标签 '{label}' 长度为 {len(label)}, 超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
                     )
-                k = m.group(1).lower()
-                binds[SYMBOL_NAMES.get(k, k)] = label
+                key_str = match.group(1).lower()
+                binds[SYMBOL_NAMES.get(key_str, key_str)] = label
     return binds
 
 
@@ -285,8 +287,8 @@ def render_key(key: str, label: str | None, is_mouse: bool = False) -> Key:
 
 
 def get_display(key: str) -> str:
-    if (u := key.upper()) in DISPLAY_NAMES:
-        return DISPLAY_NAMES[u]
+    if (upper := key.upper()) in DISPLAY_NAMES:
+        return DISPLAY_NAMES[upper]
     return key.upper() if len(key) == 1 and key.isalpha() else key
 
 
@@ -385,14 +387,14 @@ def collect_metadata() -> list[str]:
 
 
 def get_width(svg: str) -> float | None:
-    if (m := VIEWBOX_RE.search(svg)) and len(parts := m.group(1).split()) >= 3:
+    if (match := VIEWBOX_RE.search(svg)) and len(parts := match.group(1).split()) >= 3:
         try:
             return float(parts[2])
         except ValueError:
             pass
-    if m := WIDTH_RE.search(svg):
+    if match := WIDTH_RE.search(svg):
         try:
-            return float(m.group(1))
+            return float(match.group(1))
         except ValueError:
             pass
     return None
