@@ -259,7 +259,8 @@ def parse_binds() -> Binds:
                 label = tag.group(1).strip()
                 if len(label) > MAX_CJK_LABEL_LEN and is_cjk_like(label):
                     warn(
-                        f"标签 '{label}' 长度为 {len(label)}, 超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
+                        f"标签 '{label}' 长度为 {len(label)}, "
+                        f"超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
                     )
                 key_str = match.group(1).lower()
                 binds[SYMBOL_NAMES.get(key_str, key_str)] = label
@@ -333,7 +334,8 @@ def export_yaml(keymap: Keymap) -> None:
 
 
 def warn(message: str) -> None:
-    print(f"::warning::{message}" if IS_CI else f"警告: {message}")
+    prefix = "::warning::" if IS_CI else "警告: "
+    print(f"{prefix}{message}")
 
 
 def run_drawer() -> None:

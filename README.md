@@ -104,12 +104,8 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 ```
 
 ---
----
----
 
 ## 开发指南
-
-本地开发环境
 
 ### 前置要求
 
@@ -117,97 +113,62 @@ bind "MOUSE4" "+jumpaction; +throwaction"
 - Git
 - uv
 
-### 克隆仓库
+### 本地环境
 
 ```zsh
 git clone https://github.com/ilearnings/cs-autoexec.git
 cd cs-autoexec
-```
-
-### 建立本地环境
-
-```zsh
 uv sync --project keymap
 ```
 
-这一步会:
-
-- 在 `keymap/` 下创建虚拟环境
-- 根据 `keymap/pyproject.toml` 和 `keymap/uv.lock` 安装依赖
-- 依赖包括 `pyyaml` 和 `types-pyyaml`
-
-`uv sync --project keymap` 只在首次或依赖变更后需要执行
+`uv sync` 只在首次或依赖变更后执行
 
 ### 本地生成
 
-手动跑三步,生成中间文件、图片和时间戳:
-
 ```zsh
-uv run --project keymap python keymap/parse.py
-
-uv tool run --from keymap-drawer keymap \
-  -c keymap/config.yml \
-  draw keymap/keymap.yml \
-  -j keymap/layout.json \
-  -o images/key-bindings.svg
-
-uv run --project keymap python keymap/stamp.py
+uv run --project keymap python keymap/main.py
 ```
 
-生成结果:
+一条命令完成: 解析 `autoexec.cfg` → 生成中间文件 → 渲染 SVG → 写入时间戳
 
-- `keymap/keymap.yml`: 从 `autoexec.cfg` 提取的标签映射
-- `images/key-bindings.svg`: 渲染出的按键图,并写入生成时间戳
+产物:
 
-`keymap/stamp.py` 只使用标准库,可重复执行,每次都会覆盖旧时间戳
+- `keymap/keymap.yml`: 标签映射
+- `images/key-bindings.svg`: 按键图
+
+可重复执行, 每次覆盖旧时间戳
 
 ### 本地预览
 
-浏览器打开 `images/key-bindings.svg` 查看效果
+浏览器打开 `images/key-bindings.svg`
 
 ### 修改内容
 
-主要修改 `autoexec.cfg` 规则:
-
-- 只处理 `bind` 开头的行
-- 用 `^...^` 标记按键标签,例如:
+只处理 `autoexec.cfg` 中 `bind` 开头的行, 用 `^...^` 标记按键标签:
 
 ```cfg
 bind "a" "+forward" // ^左移^
 ```
 
-- 没有 `^...^` 的键会显示键名 (灰色)
+无 `^...^` 的键显示键名 (灰色)
 
 ### 标签换行规则
 
-`parse.py` 按以下优先级依次尝试拆分标签, 谁先命中谁生效:
+`keymap/main.py` 按以下优先级拆分, 先命中先生效:
 
 | 顺序 | 规则 | 示例 | 结果 |
 | :--- | :--- | :--- | :--- |
-| 1 | 标签已含 `\n` | `A\nB` | 原样返回 |
-| 2 | 含 `/` | `AK47 / M4系列` | `AK47` / `M4系列` 两行 |
-| 3 | 含中文 `-` | `滚轮-跳` | `滚轮` / `跳` 两行 |
-| 4 | `BOT` / `R Shift` 等前缀 | `BOT原地添加` | `BOT` / `原地添加` 两行 |
-| 5 | 纯中文 (含数字) | `中性名切换` | `中性名` / `切换` 两行 |
-| 6 | 长度 > 6 | `ABCDEFG` | `ABCD` / `EFG` 两行 |
-| 7 | 以上都不命中 | `AK47` | 原样返回 |
+| 1 | 已含 `\n` | `A\nB` | 原样 |
+| 2 | 含 `/` | `AK47 / M4系列` | 两行 |
+| 3 | 含中文 `-` | `滚轮-跳` | 两行 |
+| 4 | 前缀 (`BOT` / `R Shift` 等) | `BOT原地添加` | 两行 |
+| 5 | 纯中文 (含数字) | `中性名切换` | 两行 |
+| 6 | 长度 > 6 | `ABCDEFG` | 两行 |
+| 7 | 以上都不命中 | `AK47` | 原样 |
 
-#### 纯中文拆分细则
+纯中文拆分: 3 字及以下不拆, 偶数均分, 奇数上排最多 3 字
 
-对纯中文 (含数字) 标签, 按字数拆:
-
-- 3 字及以下: 不拆
-- 偶数长度: 上下均匀 (4 字 → 2/2, 6 字 → 3/3, 8 字 → 4/4)
-- 奇数长度: 上排最多 3 字 (5 字 → 3/2, 7 字 → 3/4)
-
-#### 超长标签警告
-
-纯中文 (含数字) 标签超过 **8 字** 时, `parse.py` 会打印警告:
-
-- 本地运行: 终端显示 `警告: ...`
-- GitHub Actions: 显示在运行页顶部的 **Annotations** 区域
-
-建议拆分或缩短, 避免渲染时被 keymap-drawer 二次折行
+纯中文标签超过 **8 字** 时打印警告 (本地终端 / Actions Annotations), 建议缩短
 
 ### 提交并推送
 
@@ -217,61 +178,35 @@ git commit -m "update bindings"
 git push
 ```
 
-推送后 GitHub Actions 会自动:
-
-1. 运行 `keymap/parse.py` 生成 `keymap/keymap.yml`
-2. 运行 keymap-drawer 生成 SVG
-3. 运行 `keymap/stamp.py` 为 SVG 写入时间戳
-4. 提交回仓库
-
-不需要在本地再跑生成命令
+push 后 Actions 自动运行 `keymap/main.py` 并提交产物
 
 ### 触发条件
 
-Actions 只在以下情况触发:
+仅当 push 到 `main` 且改动含 `autoexec.cfg` 时触发
 
-- 推送到 `main` 分支
-- 改动包含以下任一文件:
-  - `autoexec.cfg`
+改其他文件不触发, 如需手动跑一次, 在 GitHub 网页编辑 `autoexec.cfg` 的任意 `^...^` 标签并 commit
 
-改 `README.md`, `parse.py`, `stamp.py` 等其他文件不会触发
-
-### 手动触发一次
-
-如果想让 Actions 立刻跑一次, 在 GitHub 网页上编辑 `autoexec.cfg`, 随便改一个 `^...^` 标签并 commit 即可
-
-### 目录结构
+### 文件结构
 
 ```text
 cs-autoexec/
 ├── .github/
-│   ├── dependabot.yml                 # Dependabot 配置
+│   ├── dependabot.yml                    ✅ Dependabot 更新配置
 │   └── workflows/
-│       ├── dependabot-auto-merge.yml  # Dependabot PR 自动合并
-│       └── update-key-bindings.yml    # 键位图生成 Actions
-├── autoexec.cfg                       # 源配置
-├── images/key-bindings.svg            # 自动生成的图片
-├── keymap/                            # 配置文件夹
-│   ├── config.yml                     # keymap-drawer 渲染配置
-│   ├── keymap.yml                     # 自动生成的中间文件
-│   ├── layout.json                    # 键盘物理布局
-│   ├── parse.py                       # 解析脚本
-│   ├── pyproject.toml                 # 项目依赖声明
-│   ├── stamp.py                       # 为 SVG 写入时间戳
-│   └── uv.lock                        # 依赖锁定文件
-└── README.md                          # 说明文档
+│       ├── dependabot-auto-merge.yml     ✅ Dependabot PR 自动合并
+│       └── update-key-bindings.yml       ✅ 键位图生成工作流
+├── autoexec.cfg                          ✅ 源配置
+├── images/
+│   ├── key-bindings.svg                  🔄 按键图(自动生成)
+│   └── mouse.png                         ✅ 鼠标配置截图
+├── keymap/
+│   ├── config.yml                        ✅ keymap-drawer 渲染配置
+│   ├── keymap.yml                        🔄 中间产物(自动生成)
+│   ├── layout.json                       ✅ 键盘物理布局
+│   ├── main.py                           ✅ 解析 + 渲染 + 打时间戳
+│   ├── pyproject.toml                    ✅ 依赖声明
+│   └── uv.lock                           🔄 依赖锁定(自动生成)
+└── README.md                             ✅ 说明文档
+
+> [!TIP] ✅ 手动维护 / 🔄 自动生成 (不要手改)
 ```
-
-### 文件职责
-
-| 文件 | 说明 | 手动维护 |
-| --- | --- | --- |
-| `autoexec.cfg` | 源配置 | ✅ |
-| `images/key-bindings.svg` | 最终图片 | 自动 |
-| `keymap/config.yml` | 渲染配置 | ✅ |
-| `keymap/keymap.yml` | 中间产物 | 自动 |
-| `keymap/layout.json` | 键盘布局 | ✅ |
-| `keymap/parse.py` | 解析脚本 | ✅ |
-| `keymap/pyproject.toml` | 依赖声明 | ✅ |
-| `keymap/stamp.py` | 为 SVG 写入时间戳 | ✅ |
-| `keymap/uv.lock` | 依赖锁定 | 自动 |
