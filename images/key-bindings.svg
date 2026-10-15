@@ -311,7 +311,9 @@ rect.key.mouse {
 </g>
 <g transform="translate(63, 252)" class="key bound keypos-37">
 <rect rx="6" ry="6" x="-61" y="-40" width="122" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">计分板</text>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">计分板</tspan><tspan x="0" dy="1.3em">和切换</tspan>
+</text>
 </g>
 <g transform="translate(168, 252)" class="key bound keypos-38">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -519,9 +521,7 @@ rect.key.mouse {
 </g>
 <g transform="translate(651, 420)" class="key bound keypos-80">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">中性名/</tspan><tspan x="0" dy="1.3em">计分板切换</tspan>
-</text>
+<text x="0" y="0" class="key bound tap">中性名</text>
 </g>
 <g transform="translate(735, 420)" class="key bound keypos-81">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -581,9 +581,11 @@ rect.key.mouse {
 <rect rx="6" ry="6" x="-50" y="-40" width="101" height="80" class="key"/>
 <text x="0" y="0" class="key tap">Win</text>
 </g>
-<g transform="translate(262, 504)" class="key keypos-93">
-<rect rx="6" ry="6" x="-50" y="-40" width="101" height="80" class="key"/>
-<text x="0" y="0" class="key tap">Alt</text>
+<g transform="translate(262, 504)" class="key bound keypos-93">
+<rect rx="6" ry="6" x="-50" y="-40" width="101" height="80" class="key bound"/>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">弹药</tspan><tspan x="0" dy="1.3em">装填</tspan>
+</text>
 </g>
 <g transform="translate(578, 504)" class="key bound keypos-94">
 <rect rx="6" ry="6" x="-260" y="-40" width="521" height="80" class="key bound"/>
@@ -667,5 +669,5 @@ rect.key.mouse {
 </g>
 </g>
 </g>
-<g id="svg-meta"><text x="2352" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-15 16:36:42 UTC+08:00</text></g>
+<g id="svg-meta"><text x="2352" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-16 01:27:34 UTC+08:00</text></g>
 </svg>
