@@ -207,8 +207,4 @@ cs-autoexec/
 │   ├── pyproject.toml                    ✅ 依赖声明
 │   └── uv.lock                           🔄 依赖锁定(自动生成)
 └── README.md                             ✅ 说明文档
-
----
-
-✅ 手动维护 / 🔄 自动生成 (不要手改)
 ```
