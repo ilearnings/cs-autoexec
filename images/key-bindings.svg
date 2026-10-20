@@ -173,23 +173,21 @@ rect.key.mouse {
 <tspan x="0" dy="-0.65em">僵尸</tspan><tspan x="0" dy="1.3em">模式</tspan>
 </text>
 </g>
-<g transform="translate(756, 42)" class="key bound keypos-7">
-<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">暂停</text>
+<g transform="translate(756, 42)" class="key keypos-7">
+<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
+<text x="0" y="0" class="key tap">F7</text>
 </g>
-<g transform="translate(840, 42)" class="key bound keypos-8">
-<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
-<text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">解除</tspan><tspan x="0" dy="1.3em">暂停</tspan>
-</text>
+<g transform="translate(840, 42)" class="key keypos-8">
+<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
+<text x="0" y="0" class="key tap">F8</text>
 </g>
-<g transform="translate(966, 42)" class="key bound keypos-9">
+<g transform="translate(966, 42)" class="key keypos-9">
+<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
+<text x="0" y="0" class="key tap">F9</text>
+</g>
+<g transform="translate(1050, 42)" class="key bound keypos-10">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">重连</text>
-</g>
-<g transform="translate(1050, 42)" class="key keypos-10">
-<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
-<text x="0" y="0" class="key tap">F10</text>
 </g>
 <g transform="translate(1134, 42)" class="key bound keypos-11">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
@@ -267,9 +265,11 @@ rect.key.mouse {
 <tspan x="0" dy="-0.65em">0号</tspan><tspan x="0" dy="1.3em">玩家</tspan>
 </text>
 </g>
-<g transform="translate(966, 168)" class="key keypos-27">
-<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
-<text x="0" y="0" class="key tap">-</text>
+<g transform="translate(966, 168)" class="key bound keypos-27">
+<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
+<text x="0" y="0" class="key bound tap">
+<tspan x="0" dy="-0.65em">解除</tspan><tspan x="0" dy="1.3em">暂停</tspan>
+</text>
 </g>
 <g transform="translate(1050, 168)" class="key keypos-28">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
@@ -669,5 +669,5 @@ rect.key.mouse {
 </g>
 </g>
 </g>
-<g id="svg-meta"><text x="2352" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-20 08:34:18 UTC+08:00</text></g>
+<g id="svg-meta"><text x="2352" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-20 08:47:27 UTC+08:00</text></g>
 </svg>
