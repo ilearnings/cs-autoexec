@@ -271,9 +271,9 @@ rect.key.mouse {
 <tspan x="0" dy="-0.65em">解除</tspan><tspan x="0" dy="1.3em">暂停</tspan>
 </text>
 </g>
-<g transform="translate(1050, 168)" class="key keypos-28">
-<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key"/>
-<text x="0" y="0" class="key tap">=</text>
+<g transform="translate(1050, 168)" class="key bound keypos-28">
+<rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
+<text x="0" y="0" class="key bound tap">暂停</text>
 </g>
 <g transform="translate(1176, 168)" class="key bound keypos-29">
 <rect rx="6" ry="6" x="-82" y="-40" width="164" height="80" class="key bound"/>
@@ -669,5 +669,5 @@ rect.key.mouse {
 </g>
 </g>
 </g>
-<g id="svg-meta"><text x="2352" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-20 08:47:27 UTC+08:00</text></g>
+<g id="svg-meta"><text x="2352" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-20 08:55:49 UTC+08:00</text></g>
 </svg>
