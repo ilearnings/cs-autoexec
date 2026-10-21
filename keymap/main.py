@@ -258,8 +258,8 @@ MOUSE_SVG_SHAPES: Final[str] = """
   <g class="key-zone">
     <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 148 112 Q 148 108 148 12 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="1.5" />
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="1.5" />
-    <!-- 滚轮中键：使用实色灰 #999999 -->
-    <rect x="136" y="42" width="28" height="38" rx="6" fill="#999999" stroke="#333333" stroke-width="1.5" />
+    <!-- 滚轮中键：使用 #24292E -->
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="#24292E" stroke="#333333" stroke-width="1.5" />
     <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="1.5"/>
     <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="1.5"/>
   </g>
