@@ -233,12 +233,11 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
     ],
 ]
 
-# 坐标调整：飞行/标记放滚轮中心，滚轮描述放原飞行/标记位置；侧键竖排
 MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE1": (100, 55, "middle"),
     "MOUSE2": (200, 55, "middle"),
-    "MOUSE3": (150, 66, "middle"),
-    "MWHEELUP": (150, 105, "middle"),
+    "MOUSE3": (150, 105, "middle"),  # 移回原位置，承载竖向的飞行/标记
+    "MWHEELUP": (150, 66, "middle"),  # 移到滚轮中心，承载横向的滚轮描述
     "MWHEELDOWN": (150, 135, "middle"),
     "MOUSE4": (76, 145, "end"),
     "MOUSE5": (81, 185, "end"),
@@ -428,26 +427,30 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
             if key == "MWHEELDOWN":
                 continue
             elif key == "MWHEELUP":
-                # 滚轮键描述横向排列
+                # 滚轮键描述横向排列，放到滚轮中心
                 display = text
-                my = 105
+                my = 66
                 mx = 150
                 anchor = "middle"
                 css_class = "mouse-label"
 
-                lines = [display]
-                for i, line in enumerate(lines):
-                    dy = i * 14 - (len(lines) - 1) * 7
-                    elements.append(
-                        f'  <text class="{css_class}" x="{mx}" y="{my + dy}" '
-                        f'text-anchor="{anchor}">{line}</text>'
-                    )
+                elements.append(
+                    f'  <text class="{css_class}" x="{mx}" y="{my}" '
+                    f'text-anchor="{anchor}">{display}</text>'
+                )
                 continue
 
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
 
-        if key in ("MOUSE3", "MOUSE4", "MOUSE5"):
-            # 强制竖向排列
+        if key == "MOUSE3":
+            # 飞行/标记改成竖向排列，位置在 y=105
+            display = "\n".join(list(text)) if is_bound else key
+            mx, my, anchor = 150, 105, "middle"
+        elif key == "MOUSE4":
+            # 雷达切换保持默认排列
+            display = split_label(text) if is_bound else key
+        elif key == "MOUSE5":
+            # 全装备改成竖向排列
             display = "\n".join(list(text)) if is_bound else key
         else:
             display = split_label(text) if is_bound else key
