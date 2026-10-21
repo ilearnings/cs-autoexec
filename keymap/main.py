@@ -2,8 +2,8 @@ import subprocess
 
 import yaml
 
-from .canvas import finalize_svg
-from .constants import (
+from keymap.canvas import finalize_svg
+from keymap.constants import (
     BIND_RE,
     DRAWER_CONFIG,
     IS_CI,
@@ -19,15 +19,17 @@ from .constants import (
     SYMBOL_NAMES,
     TAG_RE,
 )
-from .label import is_cjk_like, render_key, split_label
+from keymap.label import is_cjk_like, render_key, split_label
+
+type Binds = dict[str, str]
 
 
 def warn(message: str) -> None:
     print(f"{'::warning::' if IS_CI else '警告: '}{message}")
 
 
-def parse_binds() -> dict[str, str]:
-    binds: dict[str, str] = {}
+def parse_binds() -> Binds:
+    binds: Binds = {}
     with SOURCE_CFG.open(encoding="utf-8") as f:
         for raw in f:
             if not (line := raw.strip()).startswith("bind") or not (
@@ -46,7 +48,7 @@ def parse_binds() -> dict[str, str]:
     return binds
 
 
-def export_yaml(binds: dict[str, str]) -> None:
+def export_yaml(binds: Binds) -> None:
     layer = [
         [render_key(k, binds.get(k.lower())) for k in row] for row in KEYBOARD_ROWS
     ]
@@ -81,7 +83,7 @@ def generate_base_svg() -> str:
     return svg
 
 
-def render_mouse_svg(binds: dict[str, str]) -> str:
+def render_mouse_svg(binds: Binds) -> str:
     elements = [
         "  <style>",
         "    .key-zone path, .key-zone rect {",

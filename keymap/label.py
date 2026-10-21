@@ -1,4 +1,4 @@
-from .constants import (
+from keymap.constants import (
     DISPLAY_NAMES,
     MAX_VERTICAL_LABEL_LEN,
     SPLIT_PREFIXES,
