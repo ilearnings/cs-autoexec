@@ -37,10 +37,8 @@ TZ: Final[ZoneInfo] = ZoneInfo("Asia/Shanghai")
 VERTICAL_KEYS: Final[frozenset[str]] = frozenset({"KP_PLUS", "KP_ENTER"})
 SPLIT_PREFIXES: Final[tuple[str, ...]] = ("BOT", "R Shift", "R Alt", "R Ctrl", "R Win")
 
-COLOR_MOUSE_BG: Final[str] = "#f0f0f0"
 COLOR_MOUSE_KEY: Final[str] = "#111111"
-COLOR_MOUSE_WHEEL: Final[str] = "#111111"
-COLOR_MOUSE_BORDER: Final[str] = "#333333"
+COLOR_MOUSE_WHEEL: Final[str] = "#333333"
 COLOR_MOUSE_TEXT: Final[str] = "#ffffff"
 
 DISPLAY_NAMES: Final[dict[str, str]] = {
@@ -230,27 +228,33 @@ MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE3": (150, 105, "middle"),
     "MWHEELUP": (150, 66, "middle"),
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (88, 145, "end"),
-    "MOUSE5": (81, 185, "end"),
+    "MOUSE4": (88, 130, "end"),  # 上移
+    "MOUSE5": (81, 200, "end"),  # 下移
 }
 
 MOUSE_CSS_STYLE: Final[str] = f"""
   <style>
     .key-zone path, .key-zone rect {{
-      stroke: {COLOR_MOUSE_BORDER}; stroke-width: 1.5;
+      stroke: #000000; stroke-width: 2;
     }}
-    .mouse-label {{ font: bold 8px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: {COLOR_MOUSE_TEXT}; }}
-    .mouse-label.unbound {{ fill: {COLOR_MOUSE_TEXT}; font-weight: normal; font-size: 8px; }}
+    .mouse-label {{ font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: {COLOR_MOUSE_TEXT}; }}
+    .mouse-label.unbound {{ fill: {COLOR_MOUSE_TEXT}; font-weight: normal; font-size: 12px; }}
   </style>
 """
 
 MOUSE_SVG_SHAPES: Final[str] = f"""
-  <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="{COLOR_MOUSE_BG}" stroke="none"/>
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8f8f8"/>
+      <stop offset="100%" stop-color="#e0e0e0"/>
+    </linearGradient>
+  </defs>
+  <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="none"/>
   <g class="key-zone">
-    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 148 112 Q 148 108 148 12 Z" fill="{COLOR_MOUSE_KEY}" stroke="{COLOR_MOUSE_BORDER}" stroke-width="1.5" />
-    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="{COLOR_MOUSE_KEY}" stroke="{COLOR_MOUSE_BORDER}" stroke-width="1.5" />
-    <rect x="136" y="42" width="28" height="38" rx="6" fill="{COLOR_MOUSE_WHEEL}" stroke="{COLOR_MOUSE_BORDER}" stroke-width="1.5" />
-    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="{COLOR_MOUSE_KEY}" stroke="{COLOR_MOUSE_BORDER}" stroke-width="1.5"/>
-    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="{COLOR_MOUSE_KEY}" stroke="{COLOR_MOUSE_BORDER}" stroke-width="1.5"/>
+    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 148 112 Q 148 108 148 12 Z" fill="{COLOR_MOUSE_KEY}" />
+    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="{COLOR_MOUSE_KEY}" />
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="{COLOR_MOUSE_WHEEL}" />
+    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="{COLOR_MOUSE_KEY}" />
+    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="{COLOR_MOUSE_KEY}" />
   </g>
 """
