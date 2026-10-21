@@ -3,7 +3,7 @@
 [![Docsb](https://img.shields.io/badge/Docs-%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-blue?style=flat)](./docs/DEVELOPMENT.md)
 [![Generated](https://img.shields.io/badge/Generated-%E9%94%AE%E9%BC%A0%E5%9B%BE-green?style=flat)](./images/bindings.svg)
 
-这是本人 Counter-Strike 系列游戏的硬件及 `autoexec.cfg` 配置参照.
+这是个人的 Counter-Strike 系列游戏配置仓库.
 
 > [!TIP]
 > 参照信息.
