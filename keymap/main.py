@@ -451,7 +451,7 @@ def build_group(lines: list[str], width: float | None) -> str:
         f'<text x="{x}" y="{STAMP_TOP_Y + i * STAMP_LINE_HEIGHT}" '
         f'style="text-anchor:end" '
         f'font-size="{STAMP_FONT_SIZE}" font-weight="bold" fill="#000000" '
-        f'font-family="monospace">{line}</text>'
+        f'font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">{line}</text>'
         for i, line in enumerate(lines)
     )
     return f'<g id="{META_ID}">{texts}</g>'

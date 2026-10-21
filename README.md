@@ -44,7 +44,7 @@ git clone https://github.com/ilearnings/cs-autoexec.git
 
 ## 按键绑定
 
-[![key-bindings](./images/key-bindings.svg)](https://raw.githubusercontent.com/ilearnings/cs-autoexec/main/images/key-bindings.svg)
+[![key-bindings](./images/bindings.svg)](https://raw.githubusercontent.com/ilearnings/cs-autoexec/main/images/bindings.svg)
 
 ## 鼠标
 
