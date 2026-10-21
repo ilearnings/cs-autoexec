@@ -1,5 +1,8 @@
 # autoexec.cfg
 
+[![Docs](https://img.shields.io/badge/Docs-开发指南-blue?style=flat-square)](./docs/DEVELOPMENT.md)
+[![Bindings](https://img.shields.io/badge/Bindings-绑定图-orange?style=flat-square)](./images/bindings.svg)
+
 这是本人 Counter-Strike 系列游戏的硬件及 `autoexec.cfg` 配置参照.
 
 > 参照信息:
@@ -102,3 +105,7 @@ alias "+throwaction" "-attack; -attack2"
 alias "-jumpaction" "-jump"
 bind "MOUSE4" "+jumpaction; +throwaction"
 ```
+
+## 开发者文档
+
+📖 **[点击查看完整开发指南](./docs/DEVELOPMENT.md)** (包含代码架构说明、本地运行、排版规则等)
