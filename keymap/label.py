@@ -1,3 +1,5 @@
+from xml.sax.saxutils import escape
+
 from keymap.constants import (
     DISPLAY_NAMES,
     MAX_VERTICAL_LABEL_LEN,
@@ -63,7 +65,8 @@ def build_text_elems(
     elems = []
     for i, line in enumerate(lines):
         dy = i * 14 - (len(lines) - 1) * 7
+        safe_line = escape(line)
         elems.append(
-            f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{line}</text>'
+            f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{safe_line}</text>'
         )
     return elems

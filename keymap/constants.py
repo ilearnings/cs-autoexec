@@ -229,6 +229,15 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
     ],
 ]
 
+MOUSE_LABELS: Final[dict[str, tuple[float, float, str]]] = {
+    "MOUSE1": (MOUSE_WIDTH / 2 - 50, 55, "middle"),
+    "MOUSE2": (MOUSE_WIDTH / 2 + 50, 55, "middle"),
+    "MOUSE3": (MOUSE_WIDTH / 2, 95, "middle"),
+    "MWHEELUP": (MOUSE_WIDTH / 2, 42 + 38 / 2, "middle"),
+    "MOUSE4": (88, 145, "end"),
+    "MOUSE5": (80, 195, "end"),
+}
+
 MOUSE_CSS_STYLE: Final[str] = f"""
   <style>
     .key-zone path, .key-zone rect {{

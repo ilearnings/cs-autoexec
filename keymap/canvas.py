@@ -6,6 +6,7 @@ from keymap.constants import (
     META_RE,
     MOUSE_CSS_STYLE,
     MOUSE_HEIGHT,
+    MOUSE_LABELS,
     MOUSE_OFFSET_X,
     MOUSE_SVG_SHAPES,
     MOUSE_WIDTH,
@@ -30,16 +31,7 @@ def render_mouse_svg(binds: Binds) -> str:
     wheel_down = binds.get("mwheeldown", "")
     is_wheel_same = (wheel_up == wheel_down) and bool(wheel_up)
 
-    positions = {
-        "MOUSE1": (MOUSE_WIDTH / 2 - 50, 55, "middle"),
-        "MOUSE2": (MOUSE_WIDTH / 2 + 50, 55, "middle"),
-        "MOUSE3": (MOUSE_WIDTH / 2, 95, "middle"),
-        "MWHEELUP": (MOUSE_WIDTH / 2, 42 + 38 / 2, "middle"),
-        "MOUSE4": (88, 145, "end"),
-        "MOUSE5": (80, 195, "end"),
-    }
-
-    for key, (mx, my, anchor) in positions.items():
+    for key, (mx, my, anchor) in MOUSE_LABELS.items():
         text = binds.get(key.lower(), "")
 
         if is_wheel_same:
