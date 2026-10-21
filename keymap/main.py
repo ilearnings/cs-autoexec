@@ -236,10 +236,10 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
 MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE1": (100, 55, "middle"),
     "MOUSE2": (200, 55, "middle"),
-    "MOUSE3": (150, 105, "middle"),  # 移回原位置，承载竖向的飞行/标记
-    "MWHEELUP": (150, 66, "middle"),  # 移到滚轮中心，承载横向的滚轮描述
+    "MOUSE3": (150, 105, "middle"),
+    "MWHEELUP": (150, 66, "middle"),
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (76, 145, "end"),
+    "MOUSE4": (82, 145, "end"),  # 往内侧移动
     "MOUSE5": (81, 185, "end"),
 }
 
@@ -259,7 +259,7 @@ MOUSE_SVG_SHAPES: Final[str] = """
     <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
     <rect x="136" y="42" width="28" height="38" rx="6" fill="url(#bodyGrad)" stroke="#333" stroke-width="1.5" />
-    <rect x="144" y="47" width="12" height="28" rx="4" fill="#00d4ff" opacity="0.8"/>
+    <rect x="144" y="47" width="12" height="28" rx="4" fill="url(#bodyGrad)" stroke="#999" stroke-width="1"/>
     <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
     <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
   </g>
@@ -427,7 +427,6 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
             if key == "MWHEELDOWN":
                 continue
             elif key == "MWHEELUP":
-                # 滚轮键描述横向排列，放到滚轮中心
                 display = text
                 my = 66
                 mx = 150
@@ -443,14 +442,11 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
 
         if key == "MOUSE3":
-            # 飞行/标记改成竖向排列，位置在 y=105
             display = "\n".join(list(text)) if is_bound else key
             mx, my, anchor = 150, 105, "middle"
         elif key == "MOUSE4":
-            # 雷达切换保持默认排列
             display = split_label(text) if is_bound else key
         elif key == "MOUSE5":
-            # 全装备改成竖向排列
             display = "\n".join(list(text)) if is_bound else key
         else:
             display = split_label(text) if is_bound else key
