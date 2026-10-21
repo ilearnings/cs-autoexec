@@ -37,12 +37,13 @@ TZ: Final[ZoneInfo] = ZoneInfo("Asia/Shanghai")
 VERTICAL_KEYS: Final[frozenset[str]] = frozenset({"KP_PLUS", "KP_ENTER"})
 SPLIT_PREFIXES: Final[tuple[str, ...]] = ("BOT", "R Shift", "R Alt", "R Ctrl", "R Win")
 
-COLOR_MOUSE_BODY: Final[str] = "#87CEEB"
-COLOR_WHEEL_FILL: Final[str] = "#87CEEB"
+COLOR_MOUSE_BODY: Final[str] = "#f0f0f0"
+COLOR_KEY_FILL: Final[str] = "#111111"
+COLOR_WHEEL_FILL: Final[str] = "#f0f0f0"
 COLOR_KEY_BORDER: Final[str] = "#333333"
 
-COLOR_LABEL_BOUND: Final[str] = "#000000"
-COLOR_LABEL_UNBOUND: Final[str] = "#000000"
+COLOR_LABEL_BOUND: Final[str] = "#ffffff"
+COLOR_LABEL_UNBOUND: Final[str] = "#ffffff"
 
 DISPLAY_NAMES: Final[dict[str, str]] = {
     "ALT": "Alt",
@@ -240,24 +241,18 @@ MOUSE_CSS_STYLE: Final[str] = f"""
     .key-zone path, .key-zone rect {{
       stroke: {COLOR_KEY_BORDER}; stroke-width: 1.5;
     }}
-    .mouse-label {{ font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: {COLOR_LABEL_BOUND}; filter: url(#glow); }}
-    .mouse-label.unbound {{ fill: {COLOR_LABEL_UNBOUND}; font-weight: normal; font-size: 10px; filter: none; }}
+    .mouse-label {{ font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: {COLOR_LABEL_BOUND}; }}
+    .mouse-label.unbound {{ fill: {COLOR_LABEL_UNBOUND}; font-weight: normal; font-size: 10px; }}
   </style>
 """
 
 MOUSE_SVG_SHAPES: Final[str] = f"""
-  <defs>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
   <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="{COLOR_MOUSE_BODY}" stroke="none"/>
   <g class="key-zone">
-    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 148 112 Q 148 108 148 12 Z" fill="{COLOR_MOUSE_BODY}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5" />
-    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="{COLOR_MOUSE_BODY}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5" />
+    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 148 112 Q 148 108 148 12 Z" fill="{COLOR_KEY_FILL}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5" />
+    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="{COLOR_KEY_FILL}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5" />
     <rect x="136" y="42" width="28" height="38" rx="6" fill="{COLOR_WHEEL_FILL}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5" />
-    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="{COLOR_MOUSE_BODY}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5"/>
-    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="{COLOR_MOUSE_BODY}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5"/>
+    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="{COLOR_KEY_FILL}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5"/>
+    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="{COLOR_KEY_FILL}" stroke="{COLOR_KEY_BORDER}" stroke-width="1.5"/>
   </g>
 """
