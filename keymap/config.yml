@@ -13,6 +13,3 @@ draw_config:
     rect.key.bound {
       fill: #87CEEB;
     }
-    rect.key.mouse {
-      fill: #FFE4A0;
-    }

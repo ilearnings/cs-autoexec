@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Standard 104 + Mouse",
+    "keyboard_name": "Standard 104",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -540,41 +540,6 @@
                     "label": ".",
                     "x": 21,
                     "y": 5.5
-                },
-                {
-                    "label": "M1",
-                    "x": 25,
-                    "y": 1.5
-                },
-                {
-                    "label": "WU",
-                    "x": 26,
-                    "y": 1.5
-                },
-                {
-                    "label": "M2",
-                    "x": 27,
-                    "y": 1.5
-                },
-                {
-                    "label": "S1",
-                    "x": 25,
-                    "y": 2.5
-                },
-                {
-                    "label": "M3",
-                    "x": 26,
-                    "y": 2.5
-                },
-                {
-                    "label": "S2",
-                    "x": 25,
-                    "y": 3.5
-                },
-                {
-                    "label": "WD",
-                    "x": 26,
-                    "y": 3.5
                 }
             ]
         }

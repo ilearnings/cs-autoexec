@@ -48,7 +48,7 @@ git clone https://github.com/ilearnings/cs-autoexec.git
 
 ## 鼠标
 
-![mouse](./images/mouse.png)
+![mouse](./images/mouse_properties.png)
 
 | 配置项 | 值 |
 | :--- | :--- |

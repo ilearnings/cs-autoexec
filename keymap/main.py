@@ -20,8 +20,7 @@ SOURCE_CFG: Final[Path] = ROOT / "autoexec.cfg"
 KEYMAP_YML: Final[Path] = HERE / "keymap.yml"
 DRAWER_CONFIG: Final[Path] = HERE / "config.yml"
 LAYOUT_JSON: Final[Path] = HERE / "layout.json"
-OUTPUT_SVG: Final[Path] = ROOT / "images" / "key-bindings.svg"
-OUTPUT_MOUSE_SVG: Final[Path] = ROOT / "images" / "mouse-bindings.svg"
+OUTPUT_SVG: Final[Path] = ROOT / "images" / "bindings.svg"
 
 BIND_RE: Final[re.Pattern[str]] = re.compile(
     r'bind\s+"([^"]+)"\s+"([^"]+)"(?:\s*//\s*(.*))?',
@@ -33,7 +32,7 @@ META_RE: Final[re.Pattern[str]] = re.compile(
     re.DOTALL,
 )
 VIEWBOX_RE: Final[re.Pattern[str]] = re.compile(r'viewBox="([^"]+)"')
-WIDTH_RE: Final[re.Pattern[str]] = re.compile(r'width="([\d.]+)')
+WIDTH_RE: Final[re.Pattern[str]] = re.compile(r'width="([^"]+)"')
 
 IS_CI: Final[bool] = os.environ.get("GITHUB_ACTIONS") == "true"
 
@@ -234,16 +233,6 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
     ],
 ]
 
-MOUSE_ROW: Final[list[str]] = [
-    "MOUSE1",
-    "MWHEELUP",
-    "MOUSE2",
-    "MOUSE5",
-    "MOUSE3",
-    "MOUSE4",
-    "MWHEELDOWN",
-]
-
 MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE1": (100, 85, "middle"),
     "MOUSE2": (200, 85, "middle"),
@@ -308,7 +297,7 @@ def build_layer(binds: Binds) -> KeymapLayer:
     return [
         [render_key(k, binds.get(k.lower()), False) for k in row]
         for row in KEYBOARD_ROWS
-    ] + [[render_key(k, binds.get(k.lower()), True) for k in MOUSE_ROW]]
+    ]
 
 
 def render_key(key: str, label: str | None, is_mouse: bool = False) -> Key:
@@ -371,7 +360,8 @@ def warn(message: str) -> None:
     print(f"{prefix}{message}")
 
 
-def run_drawer() -> None:
+def run_drawer(binds: Binds) -> None:
+    tmp_svg = HERE / "temp.svg"
     subprocess.run(
         [
             "uv",
@@ -387,16 +377,34 @@ def run_drawer() -> None:
             "-j",
             str(LAYOUT_JSON),
             "-o",
-            str(OUTPUT_SVG),
+            str(tmp_svg),
         ],
         check=True,
     )
+    merge_svg(tmp_svg, OUTPUT_SVG, binds)
+    tmp_svg.unlink(missing_ok=True)
 
 
-def generate_mouse_svg(binds: Binds) -> None:
+def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
+    svg = src.read_text(encoding="utf-8")
+    match = VIEWBOX_RE.search(svg)
+    W, H = 1500.0, 500.0
+    if match and len(parts := match.group(1).split()) == 4:
+        W, H = float(parts[2]), float(parts[3])
+
+    mouse_w, mouse_h = 300.0, 370.0
+    new_W = W + mouse_w + 40
+    new_H = max(H, mouse_h + 80)
+
+    svg = VIEWBOX_RE.sub(f'viewBox="0 0 {new_W:g} {new_H:g}"', svg, count=1)
+    svg = re.sub(r'width="[^"]+"', f'width="{new_W:g}"', svg, count=1)
+    svg = re.sub(r'height="[^"]+"', f'height="{new_H:g}"', svg, count=1)
+
+    tx = W + 20
+    ty = (new_H - mouse_h) / 2
+
     elements = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 370" width="300" height="370">',
+        f'<g transform="translate({tx:g}, {ty:g})">',
         "  <style>",
         "    .key-zone path, .key-zone rect {",
         "      stroke: #555; stroke-width: 1;",
@@ -406,7 +414,8 @@ def generate_mouse_svg(binds: Binds) -> None:
         "  </style>",
         MOUSE_SVG_SHAPES,
     ]
-    for key, (x, y, anchor) in MOUSE_LABEL_POSITIONS.items():
+
+    for key, (mx, my, anchor) in MOUSE_LABEL_POSITIONS.items():
         text = binds.get(key.lower(), "")
         is_bound = bool(text)
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
@@ -415,12 +424,15 @@ def generate_mouse_svg(binds: Binds) -> None:
         for i, line in enumerate(lines):
             dy = i * 14 - (len(lines) - 1) * 7
             elements.append(
-                f'  <text class="{css_class}" x="{x}" y="{y + dy}" '
+                f'  <text class="{css_class}" x="{mx}" y="{my + dy}" '
                 f'text-anchor="{anchor}">{line}</text>'
             )
-    elements.append("</svg>")
-    OUTPUT_MOUSE_SVG.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_MOUSE_SVG.write_text("\n".join(elements), encoding="utf-8")
+
+    elements.append("</g>")
+    mouse_block = "\n".join(elements)
+
+    svg = svg.replace("</svg>", f"{mouse_block}\n</svg>")
+    dst.write_text(svg, encoding="utf-8")
 
 
 def add_metadata(target: Path) -> list[str]:
@@ -471,14 +483,10 @@ def main() -> None:
 
     export_yaml(build_keymap(binds))
     print(f"已生成 {KEYMAP_YML} 文件.")
-    run_drawer()
+
+    run_drawer(binds)
     for line in add_metadata(OUTPUT_SVG):
         print(f"已为 {OUTPUT_SVG.name} 写入: {line}")
-
-    generate_mouse_svg(binds)
-    print(f"已生成 {OUTPUT_MOUSE_SVG} 文件.")
-    for line in add_metadata(OUTPUT_MOUSE_SVG):
-        print(f"已为 {OUTPUT_MOUSE_SVG.name} 写入: {line}")
 
 
 if __name__ == "__main__":
