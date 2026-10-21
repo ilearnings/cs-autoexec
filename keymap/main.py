@@ -233,18 +233,18 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
     ],
 ]
 
-# 侧键坐标继续向内侧移动
+# 坐标对调：飞行/标记放到滚轮中心，滚轮描述放到原飞行/标记的位置；侧键继续向内
 MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE1": (100, 55, "middle"),
     "MOUSE2": (200, 55, "middle"),
-    "MOUSE3": (150, 105, "middle"),
-    "MWHEELUP": (150, 25, "middle"),
+    "MOUSE3": (150, 66, "middle"),  # 与滚轮中键重合
+    "MWHEELUP": (150, 105, "middle"),  # 移到原 MOUSE3 的位置
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (68, 145, "end"),  # 继续向内移动
-    "MOUSE5": (73, 185, "end"),  # 继续向内移动
+    "MOUSE4": (76, 145, "end"),  # 往内侧移动
+    "MOUSE5": (81, 185, "end"),  # 往内侧移动
 }
 
-# 浅灰底色，按键填充黑色
+# 滚轮按键改为与鼠标底色一致
 MOUSE_SVG_SHAPES: Final[str] = """
   <defs>
     <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
@@ -260,7 +260,7 @@ MOUSE_SVG_SHAPES: Final[str] = """
   <g class="key-zone">
     <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
-    <rect x="136" y="42" width="28" height="38" rx="6" fill="#111111" stroke="#333" stroke-width="1.5" />
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="url(#bodyGrad)" stroke="#333" stroke-width="1.5" />
     <rect x="144" y="47" width="12" height="28" rx="4" fill="#00d4ff" opacity="0.8"/>
     <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
     <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
@@ -429,11 +429,11 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
             if key == "MWHEELDOWN":
                 continue
             elif key == "MWHEELUP":
-                # 强制垂直排列，并移动到滚轮右侧
+                # 滚轮描述放到原飞行/标记的位置并保持垂直排列
                 display = "\n".join(list(text))
-                my = 48  # 稍微下移到滚轮上半部分平行
-                mx = 175  # 滚轮右侧
-                anchor = "start"
+                my = 105
+                mx = 150
+                anchor = "middle"
                 css_class = "mouse-label"
 
                 lines = display.split("\n")
@@ -447,10 +447,8 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
 
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
 
-        if key == "MOUSE3":
-            display = text.replace("\n", " ") if is_bound else key
-        else:
-            display = split_label(text) if is_bound else key
+        # 移除强制横排，让“飞行/标记”利用默认的换行规则适应滚轮区域
+        display = split_label(text) if is_bound else key
 
         lines = display.split("\n")
         for i, line in enumerate(lines):
