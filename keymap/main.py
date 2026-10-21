@@ -249,10 +249,6 @@ MOUSE_SVG_SHAPES: Final[str] = """
       <stop offset="0%" stop-color="#e5e5e5"/>
       <stop offset="100%" stop-color="#cccccc"/>
     </linearGradient>
-    <linearGradient id="wheelGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e5e5e5"/>
-      <stop offset="100%" stop-color="#cccccc"/>
-    </linearGradient>
     <filter id="glow">
       <feGaussianBlur stdDeviation="2" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -262,8 +258,8 @@ MOUSE_SVG_SHAPES: Final[str] = """
   <g class="key-zone">
     <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 148 112 Q 148 108 148 12 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="1.5" />
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="1.5" />
-    <!-- 滚轮中键：独立使用 wheelGrad (由 #e5e5e5 到 #cccccc) -->
-    <rect x="136" y="42" width="28" height="38" rx="6" fill="url(#wheelGrad)" stroke="#333333" stroke-width="1.5" />
+    <!-- 滚轮中键：使用实色灰 #999999 -->
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="#999999" stroke="#333333" stroke-width="1.5" />
     <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="1.5"/>
     <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="1.5"/>
   </g>
@@ -413,7 +409,7 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
         "    .key-zone path, .key-zone rect {",
         "      stroke: #333333; stroke-width: 1.5;",
         "    }",
-        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #FFE4A0; filter: url(#glow); }',
+        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #FFFF00; filter: url(#glow); }',
         "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }",
         "  </style>",
         MOUSE_SVG_SHAPES,
