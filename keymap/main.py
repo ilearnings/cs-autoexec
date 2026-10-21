@@ -239,7 +239,7 @@ MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE3": (150, 105, "middle"),
     "MWHEELUP": (150, 66, "middle"),
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (88, 145, "end"),  # 雷达切换继续内移
+    "MOUSE4": (95, 145, "end"),  # 继续往内侧移动
     "MOUSE5": (81, 185, "end"),
 }
 
@@ -256,11 +256,16 @@ MOUSE_SVG_SHAPES: Final[str] = """
   </defs>
   <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="#999" stroke-width="2"/>
   <g class="key-zone">
-    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
-    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
-    <rect x="136" y="42" width="28" height="38" rx="6" fill="url(#bodyGrad)" stroke="#333" stroke-width="1.5" />
-    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
-    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
+    <!-- 左右键：统一使用底色渐变，加上白色描边 -->
+    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="url(#bodyGrad)" stroke="#ffffff" stroke-width="1.5" />
+    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="url(#bodyGrad)" stroke="#ffffff" stroke-width="1.5" />
+    
+    <!-- 滚轮：同样使用底色渐变和白色描边 -->
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="url(#bodyGrad)" stroke="#ffffff" stroke-width="1.5" />
+    
+    <!-- 侧键：底色渐变，白色描边 -->
+    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="url(#bodyGrad)" stroke="#ffffff" stroke-width="1.5"/>
+    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="url(#bodyGrad)" stroke="#ffffff" stroke-width="1.5"/>
   </g>
 """
 
