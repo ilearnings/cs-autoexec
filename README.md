@@ -170,6 +170,23 @@ bind "a" "+forward" // ^左移^
 
 纯中文标签超过 **8 字** 时打印警告 (本地终端 / Actions Annotations), 建议缩短
 
+### 鼠标滚轮合并规则
+
+为了让鼠标示意图更加简洁，`keymap/main.py` 对滚轮（`MWHEELUP` / `MWHEELDOWN`）做了特殊处理：
+
+当两者绑定的描述**完全一致**时（例如都绑定为 `^滚轮跳^`），图形上会自动隐藏 `MWHEELDOWN`，并只显示一个居中的竖向排版描述（如“滚\n轮\n跳”）。
+如果两者的描述**不一致**，则会自动分开渲染，各自显示在滚轮的上方和下方。
+
+```cfg
+// 触发合并
+bind "MWHEELUP" "+jump" // ^滚轮跳^
+bind "MWHEELDOWN" "+jump" // ^滚轮跳^
+
+// 触发分开
+bind "MWHEELUP" "+jump" // ^上跳^
+bind "MWHEELDOWN" "+jump" // ^下跳^
+```
+
 ### 提交并推送
 
 ```zsh
