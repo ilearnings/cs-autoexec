@@ -261,6 +261,6 @@ MOUSE_SVG_SHAPES: Final[str] = f"""
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="{COLOR_MOUSE_KEY}" />
     <rect x="136" y="42" width="28" height="38" rx="6" fill="{COLOR_MOUSE_WHEEL}" />
     <path d="M 63,125 C 64,140 65,155 65.5,165 L 73,165 C 72,155 71,140 69,125 Z" fill="{COLOR_MOUSE_KEY}" />
-    <path d="M 64,175 C 64,185 61,205 57,215 Q 63,218 68,215 C 71,205 73,185 72.5,175 Z" fill="{COLOR_MOUSE_KEY}" />
+    <path d="M 64,175 C 64,185 62,205 59,212 Q 64,215 69,212 C 71,205 73,185 72.5,175 Z" fill="{COLOR_MOUSE_KEY}" />
   </g>
 """
