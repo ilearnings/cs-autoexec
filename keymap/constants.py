@@ -33,6 +33,10 @@ STAMP_LINE_HEIGHT: Final[int] = 14
 STAMP_MARGIN: Final[int] = 60
 STAMP_TOP_Y: Final[int] = 40
 
+MOUSE_WIDTH: Final[float] = 300.0
+MOUSE_HEIGHT: Final[float] = 370.0
+MOUSE_OFFSET_X: Final[float] = 40.0
+
 TZ: Final[ZoneInfo] = ZoneInfo("Asia/Shanghai")
 VERTICAL_KEYS: Final[frozenset[str]] = frozenset({"KP_PLUS", "KP_ENTER"})
 SPLIT_PREFIXES: Final[tuple[str, ...]] = ("BOT", "R Shift", "R Alt", "R Ctrl", "R Win")
@@ -247,7 +251,7 @@ MOUSE_SVG_SHAPES: Final[str] = f"""
     <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 148 112 Q 148 108 148 12 Z" fill="{COLOR_MOUSE_KEY}" />
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="{COLOR_MOUSE_KEY}" />
     <rect x="136" y="42" width="28" height="38" rx="6" fill="{COLOR_MOUSE_WHEEL}" />
-    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="{COLOR_MOUSE_KEY}" />
-    <path d="M 64.5,175 C 64.5,185 62,205 58,215 Q 63,218 68,215 C 71,205 73,185 72.5,175 Z" fill="{COLOR_MOUSE_KEY}" />
+    <path d="M 63,125 C 64,140 65,155 65.5,165 L 73,165 C 72,155 71,140 69,125 Z" fill="{COLOR_MOUSE_KEY}" />
+    <path d="M 64,175 C 64,185 61,205 57,215 Q 63,218 68,215 C 71,205 73,185 72.5,175 Z" fill="{COLOR_MOUSE_KEY}" />
   </g>
 """

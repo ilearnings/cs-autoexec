@@ -54,3 +54,16 @@ def render_key(key: str, label: str | None) -> str | dict[str, str]:
             return {"t": "\n".join(label), "type": "bound"}
         return label or get_display(key)
     return {"t": split_label(label), "type": "bound"} if label else get_display(key)
+
+
+def build_text_elems(
+    display: str, mx: int, my: int, anchor: str, css_class: str
+) -> list[str]:
+    lines = display.split("\n")
+    elems = []
+    for i, line in enumerate(lines):
+        dy = i * 14 - (len(lines) - 1) * 7
+        elems.append(
+            f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{line}</text>'
+        )
+    return elems

@@ -7,7 +7,7 @@ import subprocess
 
 import yaml
 
-from keymap.canvas import finalize_svg
+from keymap.canvas import finalize_svg, render_mouse_svg
 from keymap.constants import (
     BIND_RE,
     DRAWER_CONFIG,
@@ -17,14 +17,12 @@ from keymap.constants import (
     LAYER_NAME,
     LAYOUT_JSON,
     MAX_CJK_LABEL_LEN,
-    MOUSE_CSS_STYLE,
-    MOUSE_SVG_SHAPES,
     OUTPUT_SVG,
     SOURCE_CFG,
     SYMBOL_NAMES,
     TAG_RE,
 )
-from keymap.label import is_cjk_like, render_key, split_label
+from keymap.label import is_cjk_like, render_key
 
 type Binds = dict[str, str]
 
@@ -86,68 +84,6 @@ def generate_base_svg() -> str:
     svg = tmp_svg.read_text(encoding="utf-8")
     tmp_svg.unlink(missing_ok=True)
     return svg
-
-
-def build_text_elems(
-    display: str, mx: int, my: int, anchor: str, css_class: str
-) -> list[str]:
-    lines = display.split("\n")
-    elems = []
-    for i, line in enumerate(lines):
-        dy = i * 14 - (len(lines) - 1) * 7
-        elems.append(
-            f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{line}</text>'
-        )
-    return elems
-
-
-def render_mouse_svg(binds: Binds) -> str:
-    elements = [
-        MOUSE_CSS_STYLE,
-        MOUSE_SVG_SHAPES,
-    ]
-
-    wheel_up = binds.get("mwheelup", "")
-    wheel_down = binds.get("mwheeldown", "")
-    is_wheel_same = (wheel_up == wheel_down) and bool(wheel_up)
-
-    positions = {
-        "MOUSE1": (150 - 50, 55, "middle"),
-        "MOUSE2": (150 + 50, 55, "middle"),
-        "MOUSE3": (150, 82, "middle"),
-        "MWHEELUP": (150, 42 + 38 / 2, "middle"),
-        "MOUSE4": (80, 145, "end"),
-        "MOUSE5": (80, 195, "end"),
-    }
-
-    for key, (mx, my, anchor) in positions.items():
-        text = binds.get(key.lower(), "")
-
-        if is_wheel_same:
-            if key == "MWHEELDOWN":
-                continue
-            if key == "MWHEELUP":
-                display = "\n".join(list(text))
-                elements.extend(
-                    build_text_elems(display, mx, my, anchor, "mouse-label")
-                )
-                continue
-
-        is_bound = bool(text)
-        css_class = "mouse-label" if is_bound else "mouse-label unbound"
-
-        if key == "MOUSE3":
-            display = text if is_bound else key
-        elif key == "MOUSE4":
-            display = split_label(text) if is_bound else key
-        elif key == "MOUSE5":
-            display = "\n".join(list(text)) if is_bound else key
-        else:
-            display = split_label(text) if is_bound else key
-
-        elements.extend(build_text_elems(display, mx, my, anchor, css_class))
-
-    return "\n".join(elements)
 
 
 def main() -> None:
