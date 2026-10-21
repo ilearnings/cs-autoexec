@@ -130,6 +130,10 @@ path.combo {
 rect.key.bound {
   fill: #87CEEB;
 }
+.layer-header {
+  font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif !important;
+  font-weight: bold;
+}
 </style>
 <g transform="translate(30, 0)" class="layer-github.com/ilearnings/cs-autoexec">
 <text x="0" y="28" class="label" id="github.comilearningscs-autoexec">github.com/ilearnings/cs-autoexec</text>
@@ -215,7 +219,7 @@ rect.key.bound {
 <g transform="translate(126, 168)" class="key bound keypos-17">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">主武器</tspan><tspan x="0" dy="1.3em">21</tspan>
+<tspan x="0" dy="-0.65em">主武器</tspan><tspan x="0" dy="1.3em">09</tspan>
 </text>
 </g>
 <g transform="translate(210, 168)" class="key bound keypos-18">
@@ -674,5 +678,5 @@ rect.key.bound {
   <text class="mouse-label" x="54" y="152" text-anchor="end">切换</text>
   <text class="mouse-label" x="55" y="188" text-anchor="end">全装备</text>
 </g>
-<g id="svg-meta"><text x="2272" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">2026-10-21 11:06:08 UTC+08:00</text></g>
+<g id="svg-meta"><text x="2272" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">2026-10-21 11:09:23 UTC+08:00</text></g>
 </svg>
