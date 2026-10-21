@@ -239,8 +239,8 @@ MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE3": (150, 105, "middle"),
     "MWHEELUP": (150, 25, "middle"),
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (48, 145, "end"),
-    "MOUSE5": (53, 185, "end"),
+    "MOUSE4": (58, 145, "end"),  # 往内侧移动
+    "MOUSE5": (63, 185, "end"),  # 往内侧移动
 }
 
 MOUSE_SVG_SHAPES: Final[str] = """
@@ -415,9 +415,21 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
         MOUSE_SVG_SHAPES,
     ]
 
+    wheel_up_label = binds.get("mwheelup", "")
+    wheel_down_label = binds.get("mwheeldown", "")
+    is_wheel_same = (wheel_up_label == wheel_down_label) and bool(wheel_up_label)
+
     for key, (mx, my, anchor) in MOUSE_LABEL_POSITIONS.items():
         text = binds.get(key.lower(), "")
         is_bound = bool(text)
+
+        if is_wheel_same:
+            if key == "MWHEELDOWN":
+                continue
+            elif key == "MWHEELUP":
+                my = 66  # 居中对齐到滚轮
+                anchor = "middle"
+
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
 
         if key == "MOUSE3":
