@@ -233,18 +233,16 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
     ],
 ]
 
-# 调整了鼠标标签的绝对坐标
 MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
-    "MOUSE1": (100, 55, "middle"),  # 上移
-    "MOUSE2": (200, 55, "middle"),  # 上移
-    "MOUSE3": (150, 105, "middle"),  # 上移，配合强制横排
-    "MWHEELUP": (150, 25, "middle"),  # 滚轮上方
-    "MWHEELDOWN": (150, 135, "middle"),  # 滚轮下方
-    "MOUSE4": (48, 145, "end"),  # 侧键竖向
+    "MOUSE1": (100, 55, "middle"),
+    "MOUSE2": (200, 55, "middle"),
+    "MOUSE3": (150, 105, "middle"),
+    "MWHEELUP": (150, 25, "middle"),
+    "MWHEELDOWN": (150, 135, "middle"),
+    "MOUSE4": (48, 145, "end"),
     "MOUSE5": (53, 185, "end"),
 }
 
-# 鼠标主体：黑色底色，透明按键，仅保留轮廓
 MOUSE_SVG_SHAPES: Final[str] = """
   <defs>
     <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
@@ -411,8 +409,8 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
         "    .key-zone path, .key-zone rect {",
         "      stroke: #555; stroke-width: 1;",
         "    }",
-        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #FFE4A0; filter: url(#glow); }',
-        "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }",
+        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #FFE4A0; stroke: #000000; stroke-width: 3px; paint-order: stroke; filter: url(#glow); }',
+        "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; stroke: none; filter: none; }",
         "  </style>",
         MOUSE_SVG_SHAPES,
     ]
@@ -454,7 +452,6 @@ def add_metadata(target: Path) -> list[str]:
 
 def build_group(lines: list[str], width: float | None) -> str:
     x = f"{width - STAMP_MARGIN:g}" if width is not None else "99%"
-    # 加入了白色描边（stroke, paint-order）
     texts = "".join(
         f'<text x="{x}" y="{STAMP_TOP_Y + i * STAMP_LINE_HEIGHT}" '
         f'style="text-anchor:end" '
