@@ -40,6 +40,9 @@ SPLIT_PREFIXES: Final[tuple[str, ...]] = ("BOT", "R Shift", "R Alt", "R Ctrl", "
 COLOR_MOUSE_KEY: Final[str] = "#111111"
 COLOR_MOUSE_WHEEL: Final[str] = "#333333"
 COLOR_MOUSE_TEXT: Final[str] = "#ffffff"
+COLOR_BORDER: Final[str] = "#666666"
+COLOR_MOUSE_BG_START: Final[str] = "#f8f8f8"
+COLOR_MOUSE_BG_END: Final[str] = "#e0e0e0"
 
 DISPLAY_NAMES: Final[dict[str, str]] = {
     "ALT": "Alt",
@@ -222,22 +225,12 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
     ],
 ]
 
-MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
-    "MOUSE1": (100, 55, "middle"),
-    "MOUSE2": (200, 55, "middle"),
-    "MOUSE3": (150, 95, "middle"),  # 飞行/标记 整体上移
-    "MWHEELUP": (150, 61, "middle"),  # 滚轮跳 整体上移，对准滚轮中心
-    "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (88, 145, "end"),  # 雷达切换 整体下移
-    "MOUSE5": (81, 195, "end"),  # 全装备 整体上移，对准按钮中心
-}
-
 MOUSE_CSS_STYLE: Final[str] = f"""
   <style>
     .key-zone path, .key-zone rect {{
-      stroke: #666666; stroke-width: 1.5;
+      stroke: {COLOR_BORDER}; stroke-width: 1.5;
     }}
-    .mouse-label {{ font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: {COLOR_MOUSE_TEXT}; }}
+    .mouse-label {{ font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: {COLOR_MOUSE_TEXT}; dominant-baseline: middle; }}
     .mouse-label.unbound {{ fill: {COLOR_MOUSE_TEXT}; font-weight: normal; font-size: 12px; }}
   </style>
 """
@@ -245,8 +238,8 @@ MOUSE_CSS_STYLE: Final[str] = f"""
 MOUSE_SVG_SHAPES: Final[str] = f"""
   <defs>
     <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f8f8f8"/>
-      <stop offset="100%" stop-color="#e0e0e0"/>
+      <stop offset="0%" stop-color="{COLOR_MOUSE_BG_START}"/>
+      <stop offset="100%" stop-color="{COLOR_MOUSE_BG_END}"/>
     </linearGradient>
   </defs>
   <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="none"/>

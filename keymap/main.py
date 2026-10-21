@@ -18,7 +18,6 @@ from keymap.constants import (
     LAYOUT_JSON,
     MAX_CJK_LABEL_LEN,
     MOUSE_CSS_STYLE,
-    MOUSE_LABEL_POSITIONS,
     MOUSE_SVG_SHAPES,
     OUTPUT_SVG,
     SOURCE_CFG,
@@ -112,7 +111,16 @@ def render_mouse_svg(binds: Binds) -> str:
     wheel_down = binds.get("mwheeldown", "")
     is_wheel_same = (wheel_up == wheel_down) and bool(wheel_up)
 
-    for key, (mx, my, anchor) in MOUSE_LABEL_POSITIONS.items():
+    positions = {
+        "MOUSE1": (150 - 50, 55, "middle"),
+        "MOUSE2": (150 + 50, 55, "middle"),
+        "MOUSE3": (150, 82, "middle"),
+        "MWHEELUP": (150, 42 + 38 / 2, "middle"),
+        "MOUSE4": (80, 145, "end"),
+        "MOUSE5": (80, 195, "end"),
+    }
+
+    for key, (mx, my, anchor) in positions.items():
         text = binds.get(key.lower(), "")
 
         if is_wheel_same:
@@ -121,7 +129,7 @@ def render_mouse_svg(binds: Binds) -> str:
             if key == "MWHEELUP":
                 display = "\n".join(list(text))
                 elements.extend(
-                    build_text_elems(display, 150, 66, "middle", "mouse-label")
+                    build_text_elems(display, mx, my, anchor, "mouse-label")
                 )
                 continue
 
@@ -130,7 +138,6 @@ def render_mouse_svg(binds: Binds) -> str:
 
         if key == "MOUSE3":
             display = text if is_bound else key
-            mx, my, anchor = 150, 105, "middle"
         elif key == "MOUSE4":
             display = split_label(text) if is_bound else key
         elif key == "MOUSE5":
