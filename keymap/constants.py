@@ -37,14 +37,14 @@ TZ: Final[ZoneInfo] = ZoneInfo("Asia/Shanghai")
 VERTICAL_KEYS: Final[frozenset[str]] = frozenset({"KP_PLUS", "KP_ENTER"})
 SPLIT_PREFIXES: Final[tuple[str, ...]] = ("BOT", "R Shift", "R Alt", "R Ctrl", "R Win")
 
-COLOR_MOUSE_BODY_START: Final[str] = "#f8f8f8"
-COLOR_MOUSE_BODY_END: Final[str] = "#e6e6e6"
-COLOR_MOUSE_BORDER: Final[str] = "#999999"
+COLOR_MOUSE_BODY_START: Final[str] = "#87CEEB"
+COLOR_MOUSE_BODY_END: Final[str] = "#87CEEB"
+COLOR_MOUSE_BORDER: Final[str] = "none"
 COLOR_KEY_BORDER: Final[str] = "#333333"
 COLOR_WHEEL_FILL: Final[str] = "#24292E"
 
-COLOR_LABEL_BOUND: Final[str] = "#87CEEB"
-COLOR_LABEL_UNBOUND: Final[str] = "#666666"
+COLOR_LABEL_BOUND: Final[str] = "#000000"
+COLOR_LABEL_UNBOUND: Final[str] = "#000000"
 
 DISPLAY_NAMES: Final[dict[str, str]] = {
     "ALT": "Alt",
