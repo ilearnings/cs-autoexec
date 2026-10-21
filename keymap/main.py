@@ -32,10 +32,8 @@ META_RE: Final[re.Pattern[str]] = re.compile(
     re.DOTALL,
 )
 VIEWBOX_RE: Final[re.Pattern[str]] = re.compile(r'viewBox="([^"]+)"')
-WIDTH_RE: Final[re.Pattern[str]] = re.compile(r'width="([^"]+)"')
 
 IS_CI: Final[bool] = os.environ.get("GITHUB_ACTIONS") == "true"
-
 LAYER_NAME: Final[str] = "github.com/ilearnings/cs-autoexec"
 
 MAX_CJK_LABEL_LEN: Final[int] = 8
@@ -48,7 +46,6 @@ STAMP_MARGIN: Final[int] = 60
 STAMP_TOP_Y: Final[int] = 40
 
 TZ: Final[ZoneInfo] = ZoneInfo("Asia/Shanghai")
-
 VERTICAL_KEYS: Final[frozenset[str]] = frozenset({"KP_PLUS", "KP_ENTER"})
 SPLIT_PREFIXES: Final[tuple[str, ...]] = ("BOT", "R Shift", "R Alt", "R Ctrl", "R Win")
 
@@ -265,53 +262,19 @@ MOUSE_SVG_SHAPES: Final[str] = """
 """
 
 
-def parse_binds() -> Binds:
-    binds: Binds = {}
-    with SOURCE_CFG.open(encoding="utf-8") as f:
-        for raw in f:
-            if not (line := raw.strip()).startswith("bind"):
-                continue
-            if not (match := BIND_RE.match(line)):
-                continue
-            tag = TAG_RE.search(match.group(3) or "") or TAG_RE.search(
-                match.group(2) or ""
-            )
-            if tag:
-                label = tag.group(1).strip()
-                if len(label) > MAX_CJK_LABEL_LEN and is_cjk_like(label):
-                    warn(
-                        f"标签 '{label}' 长度为 {len(label)}, "
-                        f"超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
-                    )
-                key_str = match.group(1).lower()
-                binds[SYMBOL_NAMES.get(key_str, key_str)] = label
-    return binds
+def is_cjk(ch: str) -> bool:
+    return "\u4e00" <= ch <= "\u9fff"
 
 
-def build_keymap(binds: Binds) -> Keymap:
-    return {"layers": {LAYER_NAME: build_layer(binds)}}
+def is_cjk_like(text: str) -> bool:
+    return bool(text) and all(is_cjk(ch) or ch.isdigit() for ch in text)
 
 
-def build_layer(binds: Binds) -> KeymapLayer:
-    return [
-        [render_key(k, binds.get(k.lower()), False) for k in row]
-        for row in KEYBOARD_ROWS
-    ]
-
-
-def render_key(key: str, label: str | None, is_mouse: bool = False) -> Key:
-    key_type = "mouse" if is_mouse else "bound"
-    if key in VERTICAL_KEYS:
-        if label and len(label) <= MAX_VERTICAL_LABEL_LEN:
-            return {"t": "\n".join(label), "type": key_type}
-        return label or get_display(key)
-    return {"t": split_label(label), "type": key_type} if label else get_display(key)
-
-
-def get_display(key: str) -> str:
-    if (upper := key.upper()) in DISPLAY_NAMES:
-        return DISPLAY_NAMES[upper]
-    return key.upper() if len(key) == 1 and key.isalpha() else key
+def split_cjk_label(label: str) -> str | None:
+    if not is_cjk_like(label) or (n := len(label)) < 4:
+        return None
+    mid = n // 2 if n % 2 == 0 else min((n + 1) // 2, 3)
+    return f"{label[:mid]}\n{label[mid:]}"
 
 
 def split_label(label: str) -> str:
@@ -334,32 +297,54 @@ def split_label(label: str) -> str:
     return label
 
 
-def split_cjk_label(label: str) -> str | None:
-    if not is_cjk_like(label) or (n := len(label)) < 4:
-        return None
-    mid = n // 2 if n % 2 == 0 else min((n + 1) // 2, 3)
-    return f"{label[:mid]}\n{label[mid:]}"
+def get_display(key: str) -> str:
+    if (upper := key.upper()) in DISPLAY_NAMES:
+        return DISPLAY_NAMES[upper]
+    return key.upper() if len(key) == 1 and key.isalpha() else key
 
 
-def is_cjk(ch: str) -> bool:
-    return "\u4e00" <= ch <= "\u9fff"
+def render_key(key: str, label: str | None) -> Key:
+    if key in VERTICAL_KEYS:
+        if label and len(label) <= MAX_VERTICAL_LABEL_LEN:
+            return {"t": "\n".join(label), "type": "bound"}
+        return label or get_display(key)
+    return {"t": split_label(label), "type": "bound"} if label else get_display(key)
 
 
-def is_cjk_like(text: str) -> bool:
-    return bool(text) and all(is_cjk(ch) or ch.isdigit() for ch in text)
+def warn(message: str) -> None:
+    print(f"{'::warning::' if IS_CI else '警告: '}{message}")
 
 
-def export_yaml(keymap: Keymap) -> None:
+def parse_binds() -> Binds:
+    binds: Binds = {}
+    with SOURCE_CFG.open(encoding="utf-8") as f:
+        for raw in f:
+            if not (line := raw.strip()).startswith("bind") or not (
+                m := BIND_RE.match(line)
+            ):
+                continue
+            tag = TAG_RE.search(m.group(3) or "") or TAG_RE.search(m.group(2) or "")
+            if tag:
+                label = tag.group(1).strip()
+                if len(label) > MAX_CJK_LABEL_LEN and is_cjk_like(label):
+                    warn(
+                        f"标签 '{label}' 长度为 {len(label)}, 超过 {MAX_CJK_LABEL_LEN} 字, 建议拆分或缩短."
+                    )
+                key_str = m.group(1).lower()
+                binds[SYMBOL_NAMES.get(key_str, key_str)] = label
+    return binds
+
+
+def export_yaml(binds: Binds) -> None:
+    layer = [
+        [render_key(k, binds.get(k.lower())) for k in row] for row in KEYBOARD_ROWS
+    ]
+    keymap: Keymap = {"layers": {LAYER_NAME: layer}}
     with KEYMAP_YML.open("w", encoding="utf-8") as f:
         yaml.dump(keymap, f, allow_unicode=True, sort_keys=False)
 
 
-def warn(message: str) -> None:
-    prefix = "::warning::" if IS_CI else "警告: "
-    print(f"{prefix}{message}")
-
-
-def run_drawer(binds: Binds) -> None:
+def generate_base_svg() -> str:
     tmp_svg = HERE / "temp.svg"
     subprocess.run(
         [
@@ -380,15 +365,72 @@ def run_drawer(binds: Binds) -> None:
         ],
         check=True,
     )
-    merge_svg(tmp_svg, OUTPUT_SVG, binds)
+    svg = tmp_svg.read_text(encoding="utf-8")
     tmp_svg.unlink(missing_ok=True)
+    return svg
 
 
-def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
-    svg = src.read_text(encoding="utf-8")
-    match = VIEWBOX_RE.search(svg)
+def render_mouse_svg(binds: Binds) -> str:
+    elements = [
+        "  <style>",
+        "    .key-zone path, .key-zone rect {",
+        "      stroke: #333333; stroke-width: 1.5;",
+        "    }",
+        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #87CEEB; filter: url(#glow); }',
+        "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }",
+        "  </style>",
+        MOUSE_SVG_SHAPES,
+    ]
+
+    wheel_up = binds.get("mwheelup", "")
+    wheel_down = binds.get("mwheeldown", "")
+    is_wheel_same = (wheel_up == wheel_down) and bool(wheel_up)
+
+    for key, (mx, my, anchor) in MOUSE_LABEL_POSITIONS.items():
+        text = binds.get(key.lower(), "")
+        is_bound = bool(text)
+
+        if is_wheel_same:
+            if key == "MWHEELDOWN":
+                continue
+            if key == "MWHEELUP":
+                display = "\n".join(list(text))
+                my, mx, anchor = 66, 150, "middle"
+                css_class = "mouse-label"
+                lines = display.split("\n")
+                for i, line in enumerate(lines):
+                    dy = i * 14 - (len(lines) - 1) * 7
+                    elements.append(
+                        f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{line}</text>'
+                    )
+                continue
+
+        css_class = "mouse-label" if is_bound else "mouse-label unbound"
+        if key == "MOUSE3":
+            display = text if is_bound else key
+            mx, my, anchor = 150, 105, "middle"
+        elif key == "MOUSE4":
+            display = split_label(text) if is_bound else key
+        elif key == "MOUSE5":
+            display = "\n".join(list(text)) if is_bound else key
+        else:
+            display = split_label(text) if is_bound else key
+
+        for i, line in enumerate(display.split("\n")):
+            dy = i * 14 - (len(display.split("\n")) - 1) * 7
+            elements.append(
+                f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{line}</text>'
+            )
+
+    return "\n".join(elements)
+
+
+def finalize_svg(svg: str, mouse_block: str) -> str:
+    if not (match := VIEWBOX_RE.search(svg)):
+        return svg
+
     W, H = 1500.0, 500.0
-    if match and len(parts := match.group(1).split()) == 4:
+    if len(parts := match.group(1).split()) == 4:
         W, H = float(parts[2]), float(parts[3])
 
     mouse_w, mouse_h = 300.0, 370.0
@@ -402,125 +444,34 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
     tx = W + 20
     ty = (new_H - mouse_h) / 2
 
-    elements = [
-        f'<g transform="translate({tx:g}, {ty:g})">',
-        "  <style>",
-        "    .key-zone path, .key-zone rect {",
-        "      stroke: #333333; stroke-width: 1.5;",
-        "    }",
-        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #87CEEB; filter: url(#glow); }',
-        "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }",
-        "  </style>",
-        MOUSE_SVG_SHAPES,
-    ]
+    mouse_group = f'<g transform="translate({tx:g}, {ty:g})">\n{mouse_block}\n</g>'
+    svg = svg.replace("</svg>", f"{mouse_group}\n</svg>")
 
-    wheel_up_label = binds.get("mwheelup", "")
-    wheel_down_label = binds.get("mwheeldown", "")
-    is_wheel_same = (wheel_up_label == wheel_down_label) and bool(wheel_up_label)
-
-    for key, (mx, my, anchor) in MOUSE_LABEL_POSITIONS.items():
-        text = binds.get(key.lower(), "")
-        is_bound = bool(text)
-
-        if is_wheel_same:
-            if key == "MWHEELDOWN":
-                continue
-            elif key == "MWHEELUP":
-                display = "\n".join(list(text))
-                my = 66
-                mx = 150
-                anchor = "middle"
-                css_class = "mouse-label"
-
-                lines = display.split("\n")
-                for i, line in enumerate(lines):
-                    dy = i * 14 - (len(lines) - 1) * 7
-                    elements.append(
-                        f'  <text class="{css_class}" x="{mx}" y="{my + dy}" '
-                        f'text-anchor="{anchor}">{line}</text>'
-                    )
-                continue
-
-        css_class = "mouse-label" if is_bound else "mouse-label unbound"
-
-        if key == "MOUSE3":
-            display = text if is_bound else key
-            mx, my, anchor = 150, 105, "middle"
-        elif key == "MOUSE4":
-            display = split_label(text) if is_bound else key
-        elif key == "MOUSE5":
-            display = "\n".join(list(text)) if is_bound else key
-        else:
-            display = split_label(text) if is_bound else key
-
-        lines = display.split("\n")
-        for i, line in enumerate(lines):
-            dy = i * 14 - (len(lines) - 1) * 7
-            elements.append(
-                f'  <text class="{css_class}" x="{mx}" y="{my + dy}" '
-                f'text-anchor="{anchor}">{line}</text>'
-            )
-
-    elements.append("</g>")
-    mouse_block = "\n".join(elements)
-
-    svg = svg.replace("</svg>", f"{mouse_block}\n</svg>")
-    dst.write_text(svg, encoding="utf-8")
-
-
-def add_metadata(target: Path) -> list[str]:
-    svg = META_RE.sub("", target.read_text(encoding="utf-8"))
-    lines = collect_metadata()
-    target.write_text(
-        svg.replace("</svg>", build_group(lines, get_width(svg)) + "\n</svg>"),
-        encoding="utf-8",
-    )
-    return lines
-
-
-def build_group(lines: list[str], width: float | None) -> str:
-    x = f"{width - STAMP_MARGIN:g}" if width is not None else "99%"
-    texts = "".join(
-        f'<text x="{x}" y="{STAMP_TOP_Y + i * STAMP_LINE_HEIGHT}" '
-        f'style="text-anchor:end" '
-        f'font-size="{STAMP_FONT_SIZE}" font-weight="bold" fill="#000000" '
-        f'stroke="#ffffff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" '
-        f'font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">{line}</text>'
-        for i, line in enumerate(lines)
-    )
-    return f'<g id="{META_ID}">{texts}</g>'
-
-
-def collect_metadata() -> list[str]:
     now = datetime.now(TZ)
     offset = now.strftime("%z")
-    return [f"{now:%Y-%m-%d %H:%M:%S} UTC{offset[:3]}:{offset[3:]}"]
-
-
-def get_width(svg: str) -> float | None:
-    if (match := VIEWBOX_RE.search(svg)) and len(parts := match.group(1).split()) >= 3:
-        try:
-            return float(parts[2])
-        except ValueError:
-            pass
-    if match := WIDTH_RE.search(svg):
-        try:
-            return float(match.group(1))
-        except ValueError:
-            pass
-    return None
+    stamp_text = f"{now:%Y-%m-%d %H:%M:%S} UTC{offset[:3]}:{offset[3:]}"
+    x = new_W - STAMP_MARGIN
+    stamp_group = (
+        f'<g id="{META_ID}"><text x="{x:g}" y="{STAMP_TOP_Y}" '
+        f'style="text-anchor:end" font-size="{STAMP_FONT_SIZE}" font-weight="bold" '
+        f'fill="#000000" stroke="#ffffff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" '
+        f'font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">{stamp_text}</text></g>'
+    )
+    return META_RE.sub("", svg).replace("</svg>", f"{stamp_group}\n</svg>")
 
 
 def main() -> None:
     OUTPUT_SVG.parent.mkdir(parents=True, exist_ok=True)
     binds = parse_binds()
-
-    export_yaml(build_keymap(binds))
+    export_yaml(binds)
     print(f"已生成 {KEYMAP_YML} 文件.")
 
-    run_drawer(binds)
-    for line in add_metadata(OUTPUT_SVG):
-        print(f"已为 {OUTPUT_SVG.name} 写入: {line}")
+    base_svg = generate_base_svg()
+    mouse_svg = render_mouse_svg(binds)
+    final_svg = finalize_svg(base_svg, mouse_svg)
+
+    OUTPUT_SVG.write_text(final_svg, encoding="utf-8")
+    print(f"已为 {OUTPUT_SVG.name} 写入并合并完成.")
 
 
 if __name__ == "__main__":

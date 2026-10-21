@@ -1,4 +1,4 @@
-name: Update key bindings
+name: Update
 
 on:
   push:
@@ -15,12 +15,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  generate-keymap:
-    name: Generate keymap and SVG
+  update:
+    name: Build bindings
     runs-on: ubuntu-24.04
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v7
 
       - name: Install uv
@@ -31,17 +30,24 @@ jobs:
       - name: Install dependencies
         run: uv sync --project keymap
 
-      - name: Generate keymap, SVG and timestamp
+      - name: Generate SVG
         run: uv run --project keymap python keymap/main.py
 
-      - name: Commit generated files
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
           if git check-ignore -q images/bindings.svg; then
-            echo "::warning::检测到 images/bindings.svg 被 .gitignore 忽略, 已用 -f 强制提交. 触发规则如下:"
+            echo "::warning::images/bindings.svg 被 .gitignore 忽略, 已使用 -f 强制提交."
             git check-ignore -v images/bindings.svg
           fi
+
           git add -f images/bindings.svg
-          git diff --staged --quiet || git commit -m "chore: update key bindings [skip ci]"
-          git push || (git pull --rebase && git push)
+
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update bindings [skip ci]"
+            git push || (git pull --rebase && git push)
+          else
+            echo "没有文件变更，跳过提交。"
+          fi

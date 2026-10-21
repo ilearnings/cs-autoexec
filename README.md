@@ -134,13 +134,13 @@ uv run --project keymap python keymap/main.py
 产物:
 
 - `keymap/keymap.yml`: 标签映射
-- `images/key-bindings.svg`: 按键图
+- `images/bindings.svg`: 绑定图
 
 可重复执行, 每次覆盖旧时间戳
 
 ### 本地预览
 
-浏览器打开 `images/key-bindings.svg`
+浏览器打开 `images/bindings.svg`
 
 ### 修改内容
 
@@ -193,11 +193,11 @@ cs-autoexec/
 ├── .github/
 │   ├── dependabot.yml                    ✅ Dependabot 更新配置
 │   └── workflows/
-│       ├── dependabot-auto-merge.yml     ✅ Dependabot PR 自动合并
-│       └── update-key-bindings.yml       ✅ 键位图生成工作流
+│       ├── automerge.yml                 ✅ Dependabot PR 自动合并
+│       └── update.yml                    ✅ 键位图生成工作流
 ├── autoexec.cfg                          ✅ 源配置
 ├── images/
-│   ├── key-bindings.svg                  🔄 按键图(自动生成)
+│   ├── bindings.svg                      🔄 绑定图(自动生成)
 │   └── mouse.png                         ✅ 鼠标配置截图
 ├── keymap/
 │   ├── config.yml                        ✅ keymap-drawer 渲染配置
