@@ -233,35 +233,37 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
     ],
 ]
 
+# 侧键坐标继续向内侧移动
 MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE1": (100, 55, "middle"),
     "MOUSE2": (200, 55, "middle"),
     "MOUSE3": (150, 105, "middle"),
     "MWHEELUP": (150, 25, "middle"),
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (58, 145, "end"),  # 往内侧移动
-    "MOUSE5": (63, 185, "end"),  # 往内侧移动
+    "MOUSE4": (68, 145, "end"),  # 继续向内移动
+    "MOUSE5": (73, 185, "end"),  # 继续向内移动
 }
 
+# 浅灰底色，按键填充黑色
 MOUSE_SVG_SHAPES: Final[str] = """
   <defs>
     <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1a1a1a"/>
-      <stop offset="100%" stop-color="#000000"/>
+      <stop offset="0%" stop-color="#e5e5e5"/>
+      <stop offset="100%" stop-color="#cccccc"/>
     </linearGradient>
     <filter id="glow">
       <feGaussianBlur stdDeviation="2" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="#444" stroke-width="2"/>
+  <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="#999" stroke-width="2"/>
   <g class="key-zone">
-    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="none" stroke="#555" stroke-width="1.5" />
-    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="none" stroke="#555" stroke-width="1.5" />
-    <rect x="136" y="42" width="28" height="38" rx="6" fill="none" stroke="#555" stroke-width="1.5" />
-    <rect x="144" y="47" width="12" height="28" rx="4" fill="none" stroke="#00d4ff" opacity="0.6"/>
-    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="none" stroke="#555" stroke-width="1.5"/>
-    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="none" stroke="#555" stroke-width="1.5"/>
+    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
+    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="#111111" stroke="#333" stroke-width="1.5" />
+    <rect x="144" y="47" width="12" height="28" rx="4" fill="#00d4ff" opacity="0.8"/>
+    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
+    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
   </g>
 """
 
@@ -427,8 +429,21 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
             if key == "MWHEELDOWN":
                 continue
             elif key == "MWHEELUP":
-                my = 66  # 居中对齐到滚轮
-                anchor = "middle"
+                # 强制垂直排列，并移动到滚轮右侧
+                display = "\n".join(list(text))
+                my = 48  # 稍微下移到滚轮上半部分平行
+                mx = 175  # 滚轮右侧
+                anchor = "start"
+                css_class = "mouse-label"
+
+                lines = display.split("\n")
+                for i, line in enumerate(lines):
+                    dy = i * 14 - (len(lines) - 1) * 7
+                    elements.append(
+                        f'  <text class="{css_class}" x="{mx}" y="{my + dy}" '
+                        f'text-anchor="{anchor}">{line}</text>'
+                    )
+                continue
 
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
 
