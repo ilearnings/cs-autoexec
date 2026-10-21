@@ -5,7 +5,7 @@
 
 这是本人 Counter-Strike 系列游戏的硬件及 `autoexec.cfg` 配置参照.
 
-> [!NOTE]
+> [!NOTE] 参照信息.
 > 参照信息.
 
 - [新闻中心](https://store.steampowered.com/news/app/730)
