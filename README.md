@@ -1,15 +1,22 @@
 # autoexec.cfg
 
-[![Docs](https://img.shields.io/badge/Docs-开发指南-blue?style=flat-square)](./docs/DEVELOPMENT.md)
-[![Bindings](https://img.shields.io/badge/Bindings-绑定图-orange?style=flat-square)](./images/bindings.svg)
+[![Docsb](https://img.shields.io/badge/Docs-%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-blue?style=flat)](./docs/DEVELOPMENT.md)
+[![Generated](https://img.shields.io/badge/Generated-%E9%94%AE%E9%BC%A0%E5%9B%BE-brightgreen?style=flat)](./images/bindings.svg)
 
 这是本人 Counter-Strike 系列游戏的硬件及 `autoexec.cfg` 配置参照.
 
+> [!NOTE]
+>
 > 参照信息:
 
 - [新闻中心](https://store.steampowered.com/news/app/730)
 - [Valve 开发者社区](https://developer.valvesoftware.com/wiki)
 - [CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086) by ResoundXXXL on Bilibili
+
+> [!TIP]
+>
+> 开发文档:
+📖 **[点击查看完整开发指南](./docs/DEVELOPMENT.md)** (包含代码架构说明、本地运行、排版规则等)
 
 ## 食用指南
 
@@ -105,7 +112,3 @@ alias "+throwaction" "-attack; -attack2"
 alias "-jumpaction" "-jump"
 bind "MOUSE4" "+jumpaction; +throwaction"
 ```
-
-## 开发者文档
-
-📖 **[点击查看完整开发指南](./docs/DEVELOPMENT.md)** (包含代码架构说明、本地运行、排版规则等)
