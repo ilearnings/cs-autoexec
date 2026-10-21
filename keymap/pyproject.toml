@@ -1,5 +1,5 @@
 [project]
-name = "update-key-bindings"
+name = "keymap"
 version = "0.1.0"
 description = ""
 authors = [{ name = "Andreas Xue" }]

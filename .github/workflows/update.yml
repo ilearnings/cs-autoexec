@@ -49,5 +49,5 @@ jobs:
             git commit -m "chore: update bindings [skip ci]"
             git push || (git pull --rebase && git push)
           else
-            echo "没有文件变更，跳过提交。"
+            echo "没有文件变更, 跳过提交."
           fi
