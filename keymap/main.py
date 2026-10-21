@@ -239,7 +239,7 @@ MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE3": (150, 105, "middle"),
     "MWHEELUP": (150, 66, "middle"),
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (88, 145, "end"),  # 雷达切换继续内移
+    "MOUSE4": (88, 145, "end"),
     "MOUSE5": (81, 185, "end"),
 }
 
@@ -256,11 +256,11 @@ MOUSE_SVG_SHAPES: Final[str] = """
   </defs>
   <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="#999" stroke-width="2"/>
   <g class="key-zone">
-    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
-    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
-    <rect x="136" y="42" width="28" height="38" rx="6" fill="url(#bodyGrad)" stroke="#333" stroke-width="1.5" />
-    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
-    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
+    <path d="M 150 12 C 110 12 75 20 60 70 C 65 95 90 112 150 112 Q 150 108 150 12 Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" />
+    <path d="M 150 12 C 190 12 225 20 240 70 C 235 95 210 112 150 112 Q 150 108 150 12 Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" />
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="#000000" stroke="#ffffff" stroke-width="1.5" />
+    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
   </g>
 """
 
@@ -426,22 +426,25 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
             if key == "MWHEELDOWN":
                 continue
             elif key == "MWHEELUP":
-                display = text
+                display = "\n".join(list(text))
                 my = 66
                 mx = 150
                 anchor = "middle"
                 css_class = "mouse-label"
 
-                elements.append(
-                    f'  <text class="{css_class}" x="{mx}" y="{my}" '
-                    f'text-anchor="{anchor}">{display}</text>'
-                )
+                lines = display.split("\n")
+                for i, line in enumerate(lines):
+                    dy = i * 14 - (len(lines) - 1) * 7
+                    elements.append(
+                        f'  <text class="{css_class}" x="{mx}" y="{my + dy}" '
+                        f'text-anchor="{anchor}">{line}</text>'
+                    )
                 continue
 
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
 
         if key == "MOUSE3":
-            display = "\n".join(list(text)) if is_bound else key
+            display = text if is_bound else key
             mx, my, anchor = 150, 105, "middle"
         elif key == "MOUSE4":
             display = split_label(text) if is_bound else key
