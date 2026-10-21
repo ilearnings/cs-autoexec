@@ -219,7 +219,7 @@ rect.key.bound {
 <g transform="translate(126, 168)" class="key bound keypos-17">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">主武器</tspan><tspan x="0" dy="1.3em">55</tspan>
+<tspan x="0" dy="-0.65em">主武器</tspan><tspan x="0" dy="1.3em">51</tspan>
 </text>
 </g>
 <g transform="translate(210, 168)" class="key bound keypos-18">
@@ -662,7 +662,6 @@ rect.key.bound {
     <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="#111111" stroke="#333" stroke-width="1.5" />
     <rect x="136" y="42" width="28" height="38" rx="6" fill="url(#bodyGrad)" stroke="#333" stroke-width="1.5" />
-    <rect x="144" y="47" width="12" height="28" rx="4" fill="url(#bodyGrad)" stroke="#999" stroke-width="1"/>
     <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
     <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#111111" stroke="#333" stroke-width="1.5"/>
   </g>
@@ -676,11 +675,11 @@ rect.key.bound {
   <text class="mouse-label" x="150" y="119" text-anchor="middle">标</text>
   <text class="mouse-label" x="150" y="133" text-anchor="middle">记</text>
   <text class="mouse-label" x="150" y="66" text-anchor="middle">滚轮跳</text>
-  <text class="mouse-label" x="82" y="138" text-anchor="end">雷达</text>
-  <text class="mouse-label" x="82" y="152" text-anchor="end">切换</text>
+  <text class="mouse-label" x="88" y="138" text-anchor="end">雷达</text>
+  <text class="mouse-label" x="88" y="152" text-anchor="end">切换</text>
   <text class="mouse-label" x="81" y="171" text-anchor="end">全</text>
   <text class="mouse-label" x="81" y="185" text-anchor="end">装</text>
   <text class="mouse-label" x="81" y="199" text-anchor="end">备</text>
 </g>
-<g id="svg-meta"><text x="2272" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" stroke="#ffffff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">2026-10-21 11:49:06 UTC+08:00</text></g>
+<g id="svg-meta"><text x="2272" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" stroke="#ffffff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">2026-10-21 11:51:24 UTC+08:00</text></g>
 </svg>
