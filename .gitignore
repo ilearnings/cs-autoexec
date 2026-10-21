@@ -1,10 +1,11 @@
 /*
 !.gitignore
 !autoexec.cfg
-!CONTRIBUTING.md
 !README.md
 !.github/
 !.github/**
+!docs/
+!docs/**
 !images/
 !images/**
 !keymap/
