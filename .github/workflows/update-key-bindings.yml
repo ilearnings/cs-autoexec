@@ -42,6 +42,11 @@ jobs:
             echo "::warning::检测到 images/key-bindings.svg 被 .gitignore 忽略, 已用 -f 强制提交. 触发规则如下:"
             git check-ignore -v images/key-bindings.svg
           fi
+          if git check-ignore -q images/mouse-bindings.svg; then
+            echo "::warning::检测到 images/mouse-bindings.svg 被 .gitignore 忽略, 已用 -f 强制提交. 触发规则如下:"
+            git check-ignore -v images/mouse-bindings.svg
+          fi
           git add -f images/key-bindings.svg
+          git add -f images/mouse-bindings.svg
           git diff --staged --quiet || git commit -m "chore: update key bindings [skip ci]"
           git push || (git pull --rebase && git push)

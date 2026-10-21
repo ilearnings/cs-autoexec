@@ -21,6 +21,7 @@ KEYMAP_YML: Final[Path] = HERE / "keymap.yml"
 DRAWER_CONFIG: Final[Path] = HERE / "config.yml"
 LAYOUT_JSON: Final[Path] = HERE / "layout.json"
 OUTPUT_SVG: Final[Path] = ROOT / "images" / "key-bindings.svg"
+OUTPUT_MOUSE_SVG: Final[Path] = ROOT / "images" / "mouse-bindings.svg"
 
 BIND_RE: Final[re.Pattern[str]] = re.compile(
     r'bind\s+"([^"]+)"\s+"([^"]+)"(?:\s*//\s*(.*))?',
@@ -243,6 +244,38 @@ MOUSE_ROW: Final[list[str]] = [
     "MWHEELDOWN",
 ]
 
+MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
+    "MOUSE1": (100, 85, "middle"),
+    "MOUSE2": (200, 85, "middle"),
+    "MOUSE3": (150, 65, "middle"),
+    "MWHEELUP": (172, 100, "start"),
+    "MWHEELDOWN": (172, 128, "start"),
+    "MOUSE4": (54, 145, "end"),
+    "MOUSE5": (55, 188, "end"),
+}
+
+MOUSE_SVG_SHAPES: Final[str] = """
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a2a3e"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="#444" stroke-width="2"/>
+  <g class="key-zone">
+    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="rgba(255,255,255,0.04)" />
+    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="rgba(255,255,255,0.04)" />
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="rgba(255,255,255,0.04)" />
+    <rect x="144" y="47" width="12" height="28" rx="4" fill="#00d4ff" opacity="0.6"/>
+    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="rgba(255,255,255,0.08)" stroke="#666" stroke-width="1"/>
+    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="rgba(255,255,255,0.08)" stroke="#666" stroke-width="1"/>
+  </g>
+"""
+
 
 def parse_binds() -> Binds:
     binds: Binds = {}
@@ -360,10 +393,40 @@ def run_drawer() -> None:
     )
 
 
-def add_metadata() -> list[str]:
-    svg = META_RE.sub("", OUTPUT_SVG.read_text(encoding="utf-8"))
+def generate_mouse_svg(binds: Binds) -> None:
+    elements = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 370" width="300" height="370">',
+        "  <style>",
+        "    .key-zone path, .key-zone rect {",
+        "      stroke: #555; stroke-width: 1;",
+        "    }",
+        '    .mouse-label { font: bold 12px "Consolas", monospace; fill: #00d4ff; filter: url(#glow); }',
+        "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }",
+        "  </style>",
+        MOUSE_SVG_SHAPES,
+    ]
+    for key, (x, y, anchor) in MOUSE_LABEL_POSITIONS.items():
+        text = binds.get(key.lower(), "")
+        is_bound = bool(text)
+        css_class = "mouse-label" if is_bound else "mouse-label unbound"
+        display = split_label(text) if is_bound else key
+        lines = display.split("\n")
+        for i, line in enumerate(lines):
+            dy = i * 14 - (len(lines) - 1) * 7
+            elements.append(
+                f'  <text class="{css_class}" x="{x}" y="{y + dy}" '
+                f'text-anchor="{anchor}">{line}</text>'
+            )
+    elements.append("</svg>")
+    OUTPUT_MOUSE_SVG.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_MOUSE_SVG.write_text("\n".join(elements), encoding="utf-8")
+
+
+def add_metadata(target: Path) -> list[str]:
+    svg = META_RE.sub("", target.read_text(encoding="utf-8"))
     lines = collect_metadata()
-    OUTPUT_SVG.write_text(
+    target.write_text(
         svg.replace("</svg>", build_group(lines, get_width(svg)) + "\n</svg>"),
         encoding="utf-8",
     )
@@ -404,11 +467,18 @@ def get_width(svg: str) -> float | None:
 
 def main() -> None:
     OUTPUT_SVG.parent.mkdir(parents=True, exist_ok=True)
-    export_yaml(build_keymap(parse_binds()))
+    binds = parse_binds()
+
+    export_yaml(build_keymap(binds))
     print(f"已生成 {KEYMAP_YML} 文件.")
     run_drawer()
-    for line in add_metadata():
-        print(f"已写入: {line}")
+    for line in add_metadata(OUTPUT_SVG):
+        print(f"已为 {OUTPUT_SVG.name} 写入: {line}")
+
+    generate_mouse_svg(binds)
+    print(f"已生成 {OUTPUT_MOUSE_SVG} 文件.")
+    for line in add_metadata(OUTPUT_MOUSE_SVG):
+        print(f"已为 {OUTPUT_MOUSE_SVG.name} 写入: {line}")
 
 
 if __name__ == "__main__":
