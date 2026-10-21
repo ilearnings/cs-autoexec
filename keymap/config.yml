@@ -13,3 +13,7 @@ draw_config:
     rect.key.bound {
       fill: #87CEEB;
     }
+    .layer-header {
+      font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif !important;
+      font-weight: bold;
+    }
