@@ -225,17 +225,17 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
 MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE1": (100, 55, "middle"),
     "MOUSE2": (200, 55, "middle"),
-    "MOUSE3": (150, 105, "middle"),
-    "MWHEELUP": (150, 66, "middle"),
+    "MOUSE3": (150, 95, "middle"),  # 飞行/标记 整体上移
+    "MWHEELUP": (150, 61, "middle"),  # 滚轮跳 整体上移，对准滚轮中心
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (88, 130, "end"),  # 上移
-    "MOUSE5": (81, 200, "end"),  # 下移
+    "MOUSE4": (88, 145, "end"),  # 雷达切换 整体下移
+    "MOUSE5": (81, 195, "end"),  # 全装备 整体上移，对准按钮中心
 }
 
 MOUSE_CSS_STYLE: Final[str] = f"""
   <style>
     .key-zone path, .key-zone rect {{
-      stroke: #000000; stroke-width: 2;
+      stroke: #666666; stroke-width: 1.5;
     }}
     .mouse-label {{ font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: {COLOR_MOUSE_TEXT}; }}
     .mouse-label.unbound {{ fill: {COLOR_MOUSE_TEXT}; font-weight: normal; font-size: 12px; }}
@@ -255,6 +255,6 @@ MOUSE_SVG_SHAPES: Final[str] = f"""
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="{COLOR_MOUSE_KEY}" />
     <rect x="136" y="42" width="28" height="38" rx="6" fill="{COLOR_MOUSE_WHEEL}" />
     <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="{COLOR_MOUSE_KEY}" />
-    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="{COLOR_MOUSE_KEY}" />
+    <path d="M 64.5,175 C 64.5,185 62,205 58,215 Q 63,218 68,215 C 71,205 73,185 72.5,175 Z" fill="{COLOR_MOUSE_KEY}" />
   </g>
 """
