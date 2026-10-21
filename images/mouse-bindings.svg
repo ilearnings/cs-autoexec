@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 370" width="300" height="370">
+  <style>
+    .key-zone path, .key-zone rect {
+      stroke: #555; stroke-width: 1;
+    }
+    .mouse-label { font: bold 12px "Consolas", monospace; fill: #00d4ff; filter: url(#glow); }
+    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }
+  </style>
+
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a2a3e"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="#444" stroke-width="2"/>
+  <g class="key-zone">
+    <path d="M 148 12 C 110 12 75 20 60 70 C 65 95 90 112 146 112 Q 148 108 148 12 Z" fill="rgba(255,255,255,0.04)" />
+    <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 154 112 Q 152 108 152 12 Z" fill="rgba(255,255,255,0.04)" />
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="rgba(255,255,255,0.04)" />
+    <rect x="144" y="47" width="12" height="28" rx="4" fill="#00d4ff" opacity="0.6"/>
+    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="rgba(255,255,255,0.08)" stroke="#666" stroke-width="1"/>
+    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="rgba(255,255,255,0.08)" stroke="#666" stroke-width="1"/>
+  </g>
+
+  <text class="mouse-label" x="100" y="85" text-anchor="middle">开火</text>
+  <text class="mouse-label" x="200" y="78" text-anchor="middle">武器</text>
+  <text class="mouse-label" x="200" y="92" text-anchor="middle">模式</text>
+  <text class="mouse-label" x="150" y="58" text-anchor="middle">飞行/</text>
+  <text class="mouse-label" x="150" y="72" text-anchor="middle">标记</text>
+  <text class="mouse-label" x="172" y="100" text-anchor="start">滚轮跳</text>
+  <text class="mouse-label" x="172" y="128" text-anchor="start">滚轮跳</text>
+  <text class="mouse-label" x="54" y="138" text-anchor="end">雷达</text>
+  <text class="mouse-label" x="54" y="152" text-anchor="end">切换</text>
+  <text class="mouse-label" x="55" y="188" text-anchor="end">全装备</text>
+<g id="svg-meta"><text x="240" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" font-family="monospace">2026-10-21 10:46:05 UTC+08:00</text></g>
+</svg>
