@@ -1,7 +1,7 @@
 # autoexec.cfg
 
 [![Docsb](https://img.shields.io/badge/Docs-%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-blue?style=flat)](./docs/DEVELOPMENT.md)
-[![Generated](https://img.shields.io/badge/Generated-%E9%94%AE%E9%BC%A0%E5%9B%BE-brightgreen?style=flat)](./images/bindings.svg)
+[![Generated](https://img.shields.io/badge/Generated-%E9%94%AE%E9%BC%A0%E5%9B%BE-green?style=flat)](./images/bindings.svg)
 
 这是本人 Counter-Strike 系列游戏的硬件及 `autoexec.cfg` 配置参照.
 
@@ -12,7 +12,7 @@
 - [Valve 开发者社区](https://developer.valvesoftware.com/wiki)
 - [CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086) by ResoundXXXL on Bilibili
 
-关于 cs-autoexec 的详细说明,详见 [DEVELOPMENT.md](./docs/DEVELOPMENT.md).
+~~**关于 cs-autoexec 的开发文档,详见 [DEVELOPMENT.md](./docs/DEVELOPMENT.md).**~~
 
 ## 食用指南
 
