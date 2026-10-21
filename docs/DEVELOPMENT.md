@@ -102,6 +102,8 @@ cs-autoexec/
 │       ├── automerge.yml                 ✅ Dependabot PR 自动合并
 │       └── update.yml                    ✅ 键位图生成工作流
 ├── autoexec.cfg                          ✅ 源配置
+├── docs/
+│   └── DEVELOPMENT.md                    ✅ 开发文档
 ├── images/
 │   ├── bindings.svg                      🔄 绑定图(自动生成)
 │   └── mouse.png                         ✅ 鼠标配置截图

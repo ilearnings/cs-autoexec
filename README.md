@@ -6,14 +6,15 @@
 这是本人 Counter-Strike 系列游戏的硬件及 `autoexec.cfg` 配置参照.
 
 > [!NOTE]
-> 参照信息
+> 参照信息:
 
 - [新闻中心](https://store.steampowered.com/news/app/730)
 - [Valve 开发者社区](https://developer.valvesoftware.com/wiki)
 - [CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086) by ResoundXXXL on Bilibili
 
 > [!TIP]
-**[开发文档](./docs/DEVELOPMENT.md)**
+
+- [开发文档](./docs/DEVELOPMENT.md)
 
 ## 食用指南
 
