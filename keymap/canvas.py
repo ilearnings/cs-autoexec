@@ -33,7 +33,7 @@ def render_mouse_svg(binds: Binds) -> str:
     positions = {
         "MOUSE1": (MOUSE_WIDTH / 2 - 50, 55, "middle"),
         "MOUSE2": (MOUSE_WIDTH / 2 + 50, 55, "middle"),
-        "MOUSE3": (MOUSE_WIDTH / 2, 88, "middle"),
+        "MOUSE3": (MOUSE_WIDTH / 2, 95, "middle"),
         "MWHEELUP": (MOUSE_WIDTH / 2, 42 + 38 / 2, "middle"),
         "MOUSE4": (88, 145, "end"),
         "MOUSE5": (80, 195, "end"),
