@@ -11,7 +11,8 @@
 - [新闻中心](https://store.steampowered.com/news/app/730)
 - [Valve 开发者社区](https://developer.valvesoftware.com/wiki)
 - [CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086) by ResoundXXXL on Bilibili
-- [开发文档](./docs/DEVELOPMENT.md)
+
+关于 cs-autoexec 的详细说明,详见 [DEVELOPMENT.md](./docs/DEVELOPMENT.md).
 
 ## 食用指南
 
