@@ -44,11 +44,11 @@ git clone https://github.com/ilearnings/cs-autoexec.git
 
 ## 按键绑定
 
-[![key-bindings](./images/bindings.svg)](https://raw.githubusercontent.com/ilearnings/cs-autoexec/main/images/bindings.svg)
+[![bindings](./images/bindings.svg)](https://raw.githubusercontent.com/ilearnings/cs-autoexec/main/images/bindings.svg)
 
 ## 鼠标
 
-![mouse](./images/mouse_properties.png)
+![mouse](./images/mouse.png)
 
 | 配置项 | 值 |
 | :--- | :--- |
