@@ -233,18 +233,17 @@ KEYBOARD_ROWS: Final[list[list[str]]] = [
     ],
 ]
 
-# 坐标对调：飞行/标记放到滚轮中心，滚轮描述放到原飞行/标记的位置；侧键继续向内
+# 坐标调整：飞行/标记放滚轮中心，滚轮描述放原飞行/标记位置；侧键竖排
 MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE1": (100, 55, "middle"),
     "MOUSE2": (200, 55, "middle"),
-    "MOUSE3": (150, 66, "middle"),  # 与滚轮中键重合
-    "MWHEELUP": (150, 105, "middle"),  # 移到原 MOUSE3 的位置
+    "MOUSE3": (150, 66, "middle"),
+    "MWHEELUP": (150, 105, "middle"),
     "MWHEELDOWN": (150, 135, "middle"),
-    "MOUSE4": (76, 145, "end"),  # 往内侧移动
-    "MOUSE5": (81, 185, "end"),  # 往内侧移动
+    "MOUSE4": (76, 145, "end"),
+    "MOUSE5": (81, 185, "end"),
 }
 
-# 滚轮按键改为与鼠标底色一致
 MOUSE_SVG_SHAPES: Final[str] = """
   <defs>
     <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
@@ -411,8 +410,8 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
         "    .key-zone path, .key-zone rect {",
         "      stroke: #555; stroke-width: 1;",
         "    }",
-        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #FFE4A0; stroke: #000000; stroke-width: 3px; paint-order: stroke; filter: url(#glow); }',
-        "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; stroke: none; filter: none; }",
+        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #FFE4A0; filter: url(#glow); }',
+        "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }",
         "  </style>",
         MOUSE_SVG_SHAPES,
     ]
@@ -429,14 +428,14 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
             if key == "MWHEELDOWN":
                 continue
             elif key == "MWHEELUP":
-                # 滚轮描述放到原飞行/标记的位置并保持垂直排列
-                display = "\n".join(list(text))
+                # 滚轮键描述横向排列
+                display = text
                 my = 105
                 mx = 150
                 anchor = "middle"
                 css_class = "mouse-label"
 
-                lines = display.split("\n")
+                lines = [display]
                 for i, line in enumerate(lines):
                     dy = i * 14 - (len(lines) - 1) * 7
                     elements.append(
@@ -447,8 +446,11 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
 
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
 
-        # 移除强制横排，让“飞行/标记”利用默认的换行规则适应滚轮区域
-        display = split_label(text) if is_bound else key
+        if key in ("MOUSE3", "MOUSE4", "MOUSE5"):
+            # 强制竖向排列
+            display = "\n".join(list(text)) if is_bound else key
+        else:
+            display = split_label(text) if is_bound else key
 
         lines = display.split("\n")
         for i, line in enumerate(lines):
