@@ -254,13 +254,20 @@ MOUSE_SVG_SHAPES: Final[str] = """
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="#999" stroke-width="2"/>
+  <!-- 外轮廓：加粗的深灰色边框 -->
+  <path d="M150,12 C 110,12 75,20 60,70 C 55,90 58,120 63,140 C 65,155 65,175 64,190 C 62,210 55,230 52,250 C 48,285 70,330 110,350 C 130,365 170,365 190,350 C 230,330 252,285 248,250 C 245,230 238,210 236,190 C 235,175 235,155 237,140 C 242,120 245,90 240,70 C 225,20 190,12 150,12 Z" fill="url(#bodyGrad)" stroke="#888888" stroke-width="3"/>
+  
   <g class="key-zone">
-    <path d="M 150 12 C 110 12 75 20 60 70 C 65 95 90 112 150 112 Q 150 108 150 12 Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" />
-    <path d="M 150 12 C 190 12 225 20 240 70 C 235 95 210 112 150 112 Q 150 108 150 12 Z" fill="#000000" stroke="#ffffff" stroke-width="1.5" />
-    <rect x="136" y="42" width="28" height="38" rx="6" fill="#000000" stroke="#ffffff" stroke-width="1.5" />
-    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+    <!-- 左右键：底色和本体融合，加粗深色边缘 -->
+    <path d="M 150 12 C 110 12 75 20 60 70 C 65 95 90 112 150 112 Q 150 108 150 12 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="2" />
+    <path d="M 150 12 C 190 12 225 20 240 70 C 235 95 210 112 150 112 Q 150 108 150 12 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="2" />
+    
+    <!-- 滚轮：底色融合，深色边缘 -->
+    <rect x="136" y="42" width="28" height="38" rx="6" fill="url(#bodyGrad)" stroke="#333333" stroke-width="2" />
+    
+    <!-- 侧键：底色融合，深色边缘 -->
+    <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="2"/>
+    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="url(#bodyGrad)" stroke="#333333" stroke-width="2"/>
   </g>
 """
 
@@ -406,7 +413,7 @@ def merge_svg(src: Path, dst: Path, binds: Binds) -> None:
         f'<g transform="translate({tx:g}, {ty:g})">',
         "  <style>",
         "    .key-zone path, .key-zone rect {",
-        "      stroke: #555; stroke-width: 1;",
+        "      stroke: #333333; stroke-width: 2;",
         "    }",
         '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #FFE4A0; filter: url(#glow); }',
         "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }",
