@@ -13,6 +13,7 @@
 - [CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086) by ResoundXXXL on Bilibili
 
 > [!TIP]
+> 参照信息:
 
 - [开发文档](./docs/DEVELOPMENT.md)
 
