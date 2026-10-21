@@ -17,6 +17,7 @@ from keymap.constants import (
     LAYER_NAME,
     LAYOUT_JSON,
     MAX_CJK_LABEL_LEN,
+    MOUSE_CSS_STYLE,
     MOUSE_LABEL_POSITIONS,
     MOUSE_SVG_SHAPES,
     OUTPUT_SVG,
@@ -88,15 +89,22 @@ def generate_base_svg() -> str:
     return svg
 
 
+def build_text_elems(
+    display: str, mx: int, my: int, anchor: str, css_class: str
+) -> list[str]:
+    lines = display.split("\n")
+    elems = []
+    for i, line in enumerate(lines):
+        dy = i * 14 - (len(lines) - 1) * 7
+        elems.append(
+            f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{line}</text>'
+        )
+    return elems
+
+
 def render_mouse_svg(binds: Binds) -> str:
     elements = [
-        "  <style>",
-        "    .key-zone path, .key-zone rect {",
-        "      stroke: #333333; stroke-width: 1.5;",
-        "    }",
-        '    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #87CEEB; filter: url(#glow); }',
-        "    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }",
-        "  </style>",
+        MOUSE_CSS_STYLE,
         MOUSE_SVG_SHAPES,
     ]
 
@@ -106,24 +114,20 @@ def render_mouse_svg(binds: Binds) -> str:
 
     for key, (mx, my, anchor) in MOUSE_LABEL_POSITIONS.items():
         text = binds.get(key.lower(), "")
-        is_bound = bool(text)
 
         if is_wheel_same:
             if key == "MWHEELDOWN":
                 continue
             if key == "MWHEELUP":
                 display = "\n".join(list(text))
-                my, mx, anchor = 66, 150, "middle"
-                css_class = "mouse-label"
-                lines = display.split("\n")
-                for i, line in enumerate(lines):
-                    dy = i * 14 - (len(lines) - 1) * 7
-                    elements.append(
-                        f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{line}</text>'
-                    )
+                elements.extend(
+                    build_text_elems(display, 150, 66, "middle", "mouse-label")
+                )
                 continue
 
+        is_bound = bool(text)
         css_class = "mouse-label" if is_bound else "mouse-label unbound"
+
         if key == "MOUSE3":
             display = text if is_bound else key
             mx, my, anchor = 150, 105, "middle"
@@ -134,11 +138,7 @@ def render_mouse_svg(binds: Binds) -> str:
         else:
             display = split_label(text) if is_bound else key
 
-        for i, line in enumerate(display.split("\n")):
-            dy = i * 14 - (len(display.split("\n")) - 1) * 7
-            elements.append(
-                f'  <text class="{css_class}" x="{mx}" y="{my + dy}" text-anchor="{anchor}">{line}</text>'
-            )
+        elements.extend(build_text_elems(display, mx, my, anchor, css_class))
 
     return "\n".join(elements)
 

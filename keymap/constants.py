@@ -228,6 +228,16 @@ MOUSE_LABEL_POSITIONS: Final[dict[str, tuple[int, int, str]]] = {
     "MOUSE5": (81, 185, "end"),
 }
 
+MOUSE_CSS_STYLE: Final[str] = """
+  <style>
+    .key-zone path, .key-zone rect {
+      stroke: #333333; stroke-width: 1.5;
+    }
+    .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #87CEEB; filter: url(#glow); }
+    .mouse-label.unbound { fill: #666; font-weight: normal; font-size: 10px; filter: none; }
+  </style>
+"""
+
 MOUSE_SVG_SHAPES: Final[str] = """
   <defs>
     <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
