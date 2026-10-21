@@ -219,7 +219,7 @@ rect.key.bound {
 <g transform="translate(126, 168)" class="key bound keypos-17">
 <rect rx="6" ry="6" x="-40" y="-40" width="80" height="80" class="key bound"/>
 <text x="0" y="0" class="key bound tap">
-<tspan x="0" dy="-0.65em">主武器</tspan><tspan x="0" dy="1.3em">43</tspan>
+<tspan x="0" dy="-0.65em">主武器</tspan><tspan x="0" dy="1.3em">49</tspan>
 </text>
 </g>
 <g transform="translate(210, 168)" class="key bound keypos-18">
@@ -640,7 +640,7 @@ rect.key.bound {
 
   <style>
     .key-zone path, .key-zone rect {
-      stroke: #000000; stroke-width: 2;
+      stroke: #666666; stroke-width: 1.5;
     }
     .mouse-label { font: bold 12px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #ffffff; }
     .mouse-label.unbound { fill: #ffffff; font-weight: normal; font-size: 12px; }
@@ -659,7 +659,7 @@ rect.key.bound {
     <path d="M 152 12 C 190 12 225 20 240 70 C 235 95 210 112 152 112 Q 152 108 152 12 Z" fill="#111111" />
     <rect x="136" y="42" width="28" height="38" rx="6" fill="#333333" />
     <path d="M 61,125 C 63,140 64,155 65,165 L 73,165 C 72,155 71,140 69,125 Z" fill="#111111" />
-    <path d="M 64.5,175 C 64.5,185 64,195 63,203 Q 68,206 72,203 C 73,195 73,185 72.5,175 Z" fill="#111111" />
+    <path d="M 64.5,175 C 64.5,185 62,205 58,215 Q 63,218 68,215 C 71,205 73,185 72.5,175 Z" fill="#111111" />
   </g>
 
   <text class="mouse-label" x="100" y="55" text-anchor="middle">开火</text>
@@ -669,11 +669,11 @@ rect.key.bound {
   <text class="mouse-label" x="150" y="52" text-anchor="middle">滚</text>
   <text class="mouse-label" x="150" y="66" text-anchor="middle">轮</text>
   <text class="mouse-label" x="150" y="80" text-anchor="middle">跳</text>
-  <text class="mouse-label" x="88" y="123" text-anchor="end">雷达</text>
-  <text class="mouse-label" x="88" y="137" text-anchor="end">切换</text>
-  <text class="mouse-label" x="81" y="186" text-anchor="end">全</text>
-  <text class="mouse-label" x="81" y="200" text-anchor="end">装</text>
-  <text class="mouse-label" x="81" y="214" text-anchor="end">备</text>
+  <text class="mouse-label" x="88" y="138" text-anchor="end">雷达</text>
+  <text class="mouse-label" x="88" y="152" text-anchor="end">切换</text>
+  <text class="mouse-label" x="81" y="181" text-anchor="end">全</text>
+  <text class="mouse-label" x="81" y="195" text-anchor="end">装</text>
+  <text class="mouse-label" x="81" y="209" text-anchor="end">备</text>
 </g>
-<g id="svg-meta"><text x="2272" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" stroke="#ffffff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">2026-10-22 03:44:06 UTC+08:00</text></g>
+<g id="svg-meta"><text x="2272" y="40" style="text-anchor:end" font-size="12" font-weight="bold" fill="#000000" stroke="#ffffff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">2026-10-22 03:50:13 UTC+08:00</text></g>
 </svg>
