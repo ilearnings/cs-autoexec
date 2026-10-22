@@ -1,20 +1,14 @@
 # autoexec.cfg
 
+[![Bilibili](https://img.shields.io/badge/Bilibili-ResoundXXXL-pink?style=flat&logo=bilibili)](https://www.bilibili.com/opus/919897577226240086)
 [![Docsb](https://img.shields.io/badge/Docs-%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-blue?style=flat)](./docs/DEVELOPMENT.md)
 [![Generated](https://img.shields.io/badge/Generated-%E9%94%AE%E9%BC%A0%E5%9B%BE-green?style=flat)](./images/bindings.svg)
 [![Steam](https://img.shields.io/badge/Steam-CS2-black?style=flat)](https://store.steampowered.com/news/app/730)
 [![Valve](https://img.shields.io/badge/Valve-%E5%BC%80%E5%8F%91%E8%80%85%E7%A4%BE%E5%8C%BA-white?style=flat)](https://developer.valvesoftware.com/wiki/Main_Page)
 
-[![Bilibili](https://img.shields.io/badge/Bilibili-CS2指令合集-pink?style=flat-square&logo=bilibili)](https://www.bilibili.com/opus/919897577226240086)
-
 这是我的 Counter-Strike 系列游戏配置仓库.
 
-> [!TIP]
-> 参照信息.
-
-[CS2指令合集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086) by ResoundXXXL on Bilibili
-
-**_关于该的开发文档,详见 [DEVELOPMENT.md](./docs/DEVELOPMENT.md)._**
+[CS2指令集(游戏内基本设置、实用指令)](https://www.bilibili.com/opus/919897577226240086) by ResoundXXXL on Bilibili
 
 ## 食用指南
 
