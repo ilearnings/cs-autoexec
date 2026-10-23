@@ -51,3 +51,7 @@ jobs:
           else
             echo "没有文件变更, 跳过提交."
           fi
+
+      - name: Purge jsDelivr cache
+        run: |
+          curl -s "https://purge.jsdelivr.net/gh/ilearnings/cs-autoexec/images/bindings.svg"
